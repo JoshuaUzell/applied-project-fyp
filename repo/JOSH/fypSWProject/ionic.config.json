@@ -1,0 +1,7 @@
+{
+  "name": "fypSWProject",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
