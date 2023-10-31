@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  
+
+    
+  <ion-card class="login-card">
+    <ion-card-content>
+    <div class="login-container">
+      <img src="assets/images/ShareWay_Logo.jpg" alt="App Logo" class="app-logo">
+      
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" (click)="login()">Log In</ion-button>
+      <p class="register-link">Don't have an account? <a (click)="register()">Register</a></p>
+    </div>
+  </ion-card-content>
+</ion-card>
+</ion-content>
