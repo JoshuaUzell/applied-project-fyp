@@ -1,0 +1,16 @@
+# Front-end specific files to ignore for container
+
+node_modules/
+
+# Angular build directory
+dist/
+
+# Development config
+.angular/
+.vscode/
+
+# Logs
+*.log
+
+# Markdown files
+*.md
