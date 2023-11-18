@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>driverDetails</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card class="driverDetails-card">
+    <ion-card-content>
+      <div class="driverDetails-container">
+        <ion-buttons slot="start">
+          <ion-back-button class="back-button" defaultHref="/login"></ion-back-button>
+        </ion-buttons>
+        <img src="assets/images/ShareWay_Logo.jpg" alt="App Logo" class="app-logo">
+        <!-- Input boxes -->
+        <ion-item>
+          <ion-label position="floating">License Number</ion-label>
+          <ion-input type="text" [(ngModel)]="licenseNumber"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">License Expiry Date</ion-label>
+          <ion-input type="text" [(ngModel)]="licenseExpiryDate"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Vehicle Information</ion-label>
+          <ion-input type="text" [(ngModel)]="vehicleInfo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Proof of Insurance</ion-label>
+          <ion-input type="text" [(ngModel)]="proofOfInsurance"></ion-input>
+        </ion-item>
+
+        <!-- ApplyForDriver button -->
+        <ion-button expand="full" (click)="applyForDriver()">ApplyForDriver</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

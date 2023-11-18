@@ -1,0 +1,29 @@
+.driverDetails-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+  
+  .app-logo {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 5px;
+  }
+  
+  .driverDetails-card {
+    width: 40%;  
+    height: -3px; 
+    margin: auto;
+  }
+
+  .back-button {
+    position: absolute;
+    margin-top: 30px;
+    margin-bottom: -220px;
+    margin-left: -140px;
+  }
+
+
+  
