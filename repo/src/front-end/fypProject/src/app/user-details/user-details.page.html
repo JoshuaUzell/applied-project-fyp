@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>User Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card class="userDetail-card">
+    <ion-card-content>
+      <div class="userDetail-container">
+        <ion-buttons slot="start">
+          <ion-back-button class="back-button" defaultHref="/register"></ion-back-button>
+        </ion-buttons>
+        <img src="assets/images/ShareWay_Logo.jpg" alt="App Logo" class="app-logo">
+        <!-- Input boxes -->
+        <ion-item>
+          <ion-label position="floating">Please enter details</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Age</ion-label>
+          <ion-input type="text" [(ngModel)]="age"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Gender</ion-label>
+          <ion-input type="text" [(ngModel)]="gender"></ion-input>
+        </ion-item> 
+        <ion-item>
+          <ion-label position="floating">Birthday</ion-label>
+          <ion-input type="text" [(ngModel)]="birthday"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Phone Number</ion-label>
+          <ion-input type="text" [(ngModel)]="phoneNumber"></ion-input>
+        </ion-item>
+        <!--Container for bottom buttons -->
+        <div class="button-container">
+          <ion-button expand="full" (click)="goToApplyForDriverPage()">Apply for Driver</ion-button>
+          <ion-button expand="full" (click)="goToHomePage()">Finish</ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

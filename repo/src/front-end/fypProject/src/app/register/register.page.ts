@@ -22,8 +22,8 @@ export class RegisterPage implements OnInit {
       // If credentials are valid, navigate to your dashboard or main page
       if (this.password === this.confirmPassword) {
         // If credentials are valid, navigate to your dashboard or main page
-        // this.router.navigate(['/profile-details']);
         alert('Success!');
+        this.router.navigate(['/user-details']);
       } else {
         alert('Passwords do not match.');
       }
