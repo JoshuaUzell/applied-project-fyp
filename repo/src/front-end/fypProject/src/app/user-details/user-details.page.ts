@@ -26,12 +26,15 @@ export class UserDetailsPage implements OnInit {
   }
 
   goToHomePage() {
-    alert('Success!');
-    //Insert home page here
+    if(this.name && this.age && this.gender && this.birthday 
+      && this.phoneNumber) {
+        alert('Success!');
+      }else{
+        alert('Please enter valid credentials.');
+      }
   }
 
   goToApplyForDriverPage() {
-    alert('Success!');
     this.router.navigate(['/driver-details']);
   }
 

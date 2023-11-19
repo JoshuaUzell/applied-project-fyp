@@ -9,7 +9,7 @@ import { ApplyBtnService } from '../apply-btn.service';
 })
 export class DriverDetailsPage implements OnInit {
   actualApplyForDriverBtn: string = 'Apply';
-  unapplyVisible: boolean;
+  unapplyVisible: boolean = false;
   licenseNumber:string = "";
   licenseExpiryDate:string = "";
   vehicleInfo:string = "";
