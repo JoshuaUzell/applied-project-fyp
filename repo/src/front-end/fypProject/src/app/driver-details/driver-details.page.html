@@ -10,7 +10,7 @@
     <ion-card-content>
       <div class="driverDetails-container">
         <ion-buttons slot="start">
-          <ion-back-button class="back-button" defaultHref="/login"></ion-back-button>
+          <ion-back-button class="back-button" defaultHref="/user-details"></ion-back-button>
         </ion-buttons>
         <img src="assets/images/ShareWay_Logo.jpg" alt="App Logo" class="app-logo">
         <!-- Input boxes -->
@@ -32,7 +32,8 @@
         </ion-item>
 
         <!-- ApplyForDriver button -->
-        <ion-button expand="full" (click)="applyForDriver()">ApplyForDriver</ion-button>
+        <ion-button class="applyDriverBtn" expand="full" (click)="applyForDriver()">{{actualApplyForDriverBtn}}</ion-button>
+        <ion-button *ngIf="unapplyVisible" (click)="unApplyForDriver()">Unapply For Driver</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

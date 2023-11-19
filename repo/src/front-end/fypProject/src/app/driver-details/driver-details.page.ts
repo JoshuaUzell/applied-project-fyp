@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApplyBtnService } from '../apply-btn.service';
 
 @Component({
   selector: 'app-driver-details',
@@ -7,12 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./driver-details.page.scss'],
 })
 export class DriverDetailsPage implements OnInit {
+  actualApplyForDriverBtn: string = 'Apply';
+  unapplyVisible: boolean;
   licenseNumber:string = "";
   licenseExpiryDate:string = "";
   vehicleInfo:string = "";
   proofOfInsurance:string = "";
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private applyBtnService: ApplyBtnService) { 
+    this.applyBtnService.currentUnapplyVisible.subscribe(visible => this.unapplyVisible = visible);
+  }
 
   ngOnInit() {
   }
@@ -20,13 +25,25 @@ export class DriverDetailsPage implements OnInit {
   applyForDriver(){
     if(this.licenseNumber && this.licenseExpiryDate 
       && this.vehicleInfo && this.proofOfInsurance) {
-      alert("Applied for Driver");
-      //Need a page similar to user-details but a second version where the 
-      //applyForDriver button is now EditDriverDetails
+      alert("Applied for Driver!");
+      //this.actualApplyForDriverBtn = 'Cancel Driver Application';
+      this.applyBtnService.changeButtonText('Edit Driver Application');
+      this.applyBtnService.adjustUnapplyBtnVisibility(true);
+      this.router.navigate(['/user-details']);
     } else {
       alert('Please enter valid credentials.');
     }
-    
+  }
+
+  unApplyForDriver() {
+    // Reset the button text
+    this.applyBtnService.changeButtonText('Apply for Driver');
+    // Hide the "Unapply" button
+    this.applyBtnService.adjustUnapplyBtnVisibility(false);
+    alert("You have unapplied from being a driver!");
+    this.router.navigate(['/user-details']);
   }
 
 }
+
+

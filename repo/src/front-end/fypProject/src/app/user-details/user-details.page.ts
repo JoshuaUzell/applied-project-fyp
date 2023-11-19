@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
+import { ApplyBtnService } from '../apply-btn.service';
 
 @Component({
   selector: 'app-user-details',
@@ -7,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-details.page.scss'],
 })
 export class UserDetailsPage implements OnInit {
+  applyForDriverText: string = 'Apply for Driver';
+
   name:string = '';
   age: string = '';
   gender: string = '';
@@ -14,9 +18,11 @@ export class UserDetailsPage implements OnInit {
   phoneNumber: string = '';
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private applyBtnService: ApplyBtnService) { 
+  }
 
   ngOnInit() {
+    this.applyBtnService.currentButtonText.subscribe(text => this.applyForDriverText = text);  
   }
 
   goToHomePage() {
@@ -26,7 +32,7 @@ export class UserDetailsPage implements OnInit {
 
   goToApplyForDriverPage() {
     alert('Success!');
-    //Insert applyForDriver here
+    this.router.navigate(['/driver-details']);
   }
 
 }
