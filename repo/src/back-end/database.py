@@ -1,8 +1,10 @@
 from pymongo import MongoClient # Database services
 from user import User # User model
-
+from dotenv import load_dotenv # Loading environment variables
+import os
+load_dotenv()
 # String connection and database name
-URI = "mongodb+srv://shareWay:AljXh5f9XHmQ4Uwn@cluster0.hb85ql7.mongodb.net/?retryWrites=true&w=majority"
+URI = os.getenv("MONGO_URI")
 MONGO_DATABASE = "ShareWay"
 
 # Create a new client and connect to the server
