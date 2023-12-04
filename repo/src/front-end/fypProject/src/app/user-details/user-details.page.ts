@@ -29,6 +29,7 @@ export class UserDetailsPage implements OnInit {
     if(this.name && this.age && this.gender && this.birthday 
       && this.phoneNumber) {
         alert('Success!');
+        this.router.navigate(['/home']);
       }else{
         alert('Please enter valid credentials.');
       }
