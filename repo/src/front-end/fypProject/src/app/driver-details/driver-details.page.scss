@@ -12,10 +12,17 @@
     margin-bottom: -100px;
   }
   
+  .button-class{
+    --background: #3bc794; 
+    width: 100%; // Make the button wider
+    padding: 10px 20px; // Add some padding
+    --border-radius: 100px; // Add rounded corners
+  }
+
   .driverDetails-card {
-    width: 40%;  
-    height: -3px; 
-    margin: auto;
+    width: 70%;  
+    height: auto;
+    margin: auto; 
   }
 
   .back-button {

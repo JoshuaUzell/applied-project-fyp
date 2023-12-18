@@ -6,6 +6,13 @@
     height: auto;
   }
   
+  .button-class{
+    --color: #ffffff; 
+    width: 100%; // Make the button wider
+    padding: 10px 20px; // Add some padding
+    --border-radius: 100px; // Add rounded corners
+  }
+
   .app-logo {
     width: 250px;
     height: 250px;
@@ -13,9 +20,9 @@
   }
   
   .register-card {
-    width: 40%;  
-    height: -3px; 
-    margin: auto;
+    width: 70%;  
+    height: auto; 
+    margin: auto; 
   }
 
   .back-button {

@@ -1,7 +1,7 @@
 <!--Hamburger Menu-->
 <ion-menu side="start" contentId="hamburger-content">
   <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="success">
     </ion-toolbar>
   </ion-header>
 
@@ -13,30 +13,17 @@
   </ion-content>
 </ion-menu>
 
-<!--Mini-profile Menu-->
-<ion-menu side="end" contentId="mini-profile-content">
-  <ion-header>
-    <ion-toolbar color="primary">
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <ion-item>My Profile</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
 
 <ion-router-outlet id="hamburger-content"></ion-router-outlet>
 <ion-router-outlet id="mini-profile-content"></ion-router-outlet>
 
-<div  class="intro-header-section">
-  <ion-header collapse="primary">
+<div class="intro-header-section">
+  <ion-header>
     <ion-toolbar>
-      <ion-menu-button menu="end" class="hamburger-class">
+      <ion-menu-button class="hamburger-class">
         <ion-icon name="person"></ion-icon>
       </ion-menu-button>
-      <ion-menu-button menu="start" class="mini-profile-class"></ion-menu-button>
+      <ion-menu-button class="mini-profile-class"></ion-menu-button>
       <h1 class="intro-class">Welcome to Shareway</h1>
     </ion-toolbar>
   </ion-header>
@@ -73,7 +60,7 @@
       <ion-col><img [src]="inwardRide.image" alt="Ride image" class="ride-image"></ion-col>
       <ion-col>{{ inwardRide.name }}</ion-col>
       <ion-col>{{ inwardRide.from }}</ion-col>
-      <ion-col>{{ inwardRide.availableSpace }}</ion-col>
+      <ion-col><ion-icon name="person"></ion-icon> {{ inwardRide.availableSpace }}</ion-col>
     </ion-row>
   </ion-grid>
 </div>
@@ -85,14 +72,14 @@
     <ion-row class="header-row">
       <ion-col></ion-col>
       <ion-col>Names</ion-col>
-      <ion-col>Coming From</ion-col>
+      <ion-col>Going to</ion-col>
       <ion-col>Available Space</ion-col>
     </ion-row>
     <ion-row *ngFor="let outwardRide of outwardRides" class="underline-ride-class">
       <ion-col><img [src]="outwardRide.image" alt="Ride image" class="ride-image"></ion-col>
       <ion-col>{{ outwardRide.name }}</ion-col>
       <ion-col>{{ outwardRide.from }}</ion-col>
-      <ion-col>{{ outwardRide.availableSpace }}</ion-col>
+      <ion-col><ion-icon name="person"></ion-icon> {{ outwardRide.availableSpace }}</ion-col>
     </ion-row>
   </ion-grid>
 </div>

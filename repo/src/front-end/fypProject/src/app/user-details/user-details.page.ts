@@ -12,10 +12,10 @@ export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
 
   name:string = '';
-  age: string = '';
+  email: string = '';
   gender: string = '';
   birthday: string = '';
-  phoneNumber: string = '';
+  courseDepartment: string = '';
 
 
   constructor(private router: Router, private applyBtnService: ApplyBtnService) { 
@@ -26,8 +26,7 @@ export class UserDetailsPage implements OnInit {
   }
 
   goToHomePage() {
-    if(this.name && this.age && this.gender && this.birthday 
-      && this.phoneNumber) {
+    if(this.name && this.email && this.gender && this.courseDepartment) {
         alert('Success!');
         this.router.navigate(['/home']);
       }else{

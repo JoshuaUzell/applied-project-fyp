@@ -24,6 +24,7 @@
   text-align: center;
 }
 
+
 .button-container{
   position: fixed;
   bottom: 0;
@@ -31,6 +32,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  --color: #ffffff; 
+  --background: #3bc794; 
+  width: 100%; // Make the button wider
+  padding: 10px 20px; // Add some padding
+  --border-radius: 100px; // Add rounded corners
 }
 
 .rides-container {

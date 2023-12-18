@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
   <ion-card class="login-card">
     <ion-card-content>
@@ -20,7 +14,7 @@
         <ion-input type="password" [(ngModel)]="password"></ion-input>
       </ion-item>
 
-      <ion-button expand="full" (click)="login()">Log In</ion-button>
+      <ion-button expand="full" (click)="login()" class="button-class">Log In</ion-button>
       <p class="register-link">Don't have an account? <a (click)="register()">Register</a></p>
     </div>
   </ion-card-content>

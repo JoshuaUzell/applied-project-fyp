@@ -13,10 +13,18 @@
   }
   
   .login-card {
-    width: 40%;  /* adjust as needed */
-    height: -3px; /* adjust as needed */
+    width: 70%;  /* adjust as needed */
+    height: auto; /* adjust as needed */
     margin: auto; /* centers the card */
   }
+
+  .button-class{
+    --color: #ffffff; 
+    width: 100%; // Make the button wider
+    padding: 10px 20px; // Add some padding
+    --border-radius: 100px; // Add rounded corners
+  }
+
 
   .register-link {
     margin-top: 15px;

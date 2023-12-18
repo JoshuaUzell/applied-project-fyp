@@ -13,7 +13,6 @@ export class DriverDetailsPage implements OnInit {
   licenseNumber:string = "";
   licenseExpiryDate:string = "";
   vehicleInfo:string = "";
-  proofOfInsurance:string = "";
 
   constructor(private router: Router, private applyBtnService: ApplyBtnService) { 
     this.applyBtnService.currentUnapplyVisible.subscribe(visible => this.unapplyVisible = visible);
@@ -23,8 +22,7 @@ export class DriverDetailsPage implements OnInit {
   }
 
   applyForDriver(){
-    if(this.licenseNumber && this.licenseExpiryDate 
-      && this.vehicleInfo && this.proofOfInsurance) {
+    if(this.licenseNumber && this.licenseExpiryDate && this.vehicleInfo) {
       alert("Applied for Driver!");
       //this.actualApplyForDriverBtn = 'Cancel Driver Application';
       this.applyBtnService.changeButtonText('Edit Driver Application');

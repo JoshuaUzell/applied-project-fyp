@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>User Details</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
   <ion-card class="userDetail-card">
     <ion-card-content>
@@ -19,20 +13,16 @@
           <ion-input type="text" [(ngModel)]="name"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Age</ion-label>
-          <ion-input type="text" [(ngModel)]="age"></ion-input>
-        </ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="text" [(ngModel)]="email"></ion-input>
+        </ion-item> 
         <ion-item>
           <ion-label position="floating">Gender</ion-label>
           <ion-input type="text" [(ngModel)]="gender"></ion-input>
-        </ion-item> 
-        <ion-item>
-          <ion-label position="floating">Birthday</ion-label>
-          <ion-input type="text" [(ngModel)]="birthday"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Phone Number</ion-label>
-          <ion-input type="text" [(ngModel)]="phoneNumber"></ion-input>
+          <ion-label position="floating">Course Department</ion-label>
+          <ion-input type="text" [(ngModel)]="courseDepartment"></ion-input>
         </ion-item>
         <!--Container for bottom buttons -->
         <div class="button-container">
