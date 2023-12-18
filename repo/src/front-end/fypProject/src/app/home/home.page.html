@@ -42,7 +42,7 @@
   </ion-header>
 </div>
 
-<ion-content [fullscreen]="true" *ngIf="!showInwardRides"  class="intro-section">
+<ion-content [fullscreen]="true" *ngIf="!showInwardRides || !showOutwardRides" class="intro-section">
 
   <p class="intro-paragraph">Take a ride with another student from or to college. <br> Save money and meet new people!</p>
   <div class="image-container">
@@ -56,11 +56,11 @@
 
 <!--Buttons to show rides-->
 <div class="button-container">
-  <ion-button (click)="showInwardRides = !showInwardRides">Inward</ion-button>
-  <ion-button>Outward</ion-button>
+  <ion-button (click)="showInwardRides = true; showOutwardRides = false;">Inward</ion-button>
+  <ion-button (click)="showOutwardRides = true; showInwardRides = false;">Outward</ion-button>
 </div>
 
-<!--List of rides-->
+<!--List of inward rides-->
 <div *ngIf="showInwardRides" class="rides-container">
   <ion-grid>
     <ion-row class="header-row">
@@ -69,11 +69,30 @@
       <ion-col>Coming From</ion-col>
       <ion-col>Available Space</ion-col>
     </ion-row>
-    <ion-row *ngFor="let inwardRide of inwardRides" class="inward-ride-class">
+    <ion-row *ngFor="let inwardRide of inwardRides" class="underline-ride-class">
       <ion-col><img [src]="inwardRide.image" alt="Ride image" class="ride-image"></ion-col>
       <ion-col>{{ inwardRide.name }}</ion-col>
       <ion-col>{{ inwardRide.from }}</ion-col>
       <ion-col>{{ inwardRide.availableSpace }}</ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+
+<!--List of outward rides-->
+<div *ngIf="showOutwardRides" class="rides-container">
+  <ion-grid>
+    <ion-row class="header-row">
+      <ion-col></ion-col>
+      <ion-col>Names</ion-col>
+      <ion-col>Coming From</ion-col>
+      <ion-col>Available Space</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let outwardRide of outwardRides" class="underline-ride-class">
+      <ion-col><img [src]="outwardRide.image" alt="Ride image" class="ride-image"></ion-col>
+      <ion-col>{{ outwardRide.name }}</ion-col>
+      <ion-col>{{ outwardRide.from }}</ion-col>
+      <ion-col>{{ outwardRide.availableSpace }}</ion-col>
     </ion-row>
   </ion-grid>
 </div>
