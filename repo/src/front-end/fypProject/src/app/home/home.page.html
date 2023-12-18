@@ -8,8 +8,6 @@
   <ion-content>
     <ion-list>
       <ion-item>Home</ion-item>
-      <ion-item>History</ion-item>
-      <ion-item>Settings</ion-item>
       <ion-item>Log Out</ion-item>
     </ion-list>
   </ion-content>
@@ -25,8 +23,6 @@
   <ion-content>
     <ion-list>
       <ion-item>My Profile</ion-item>
-      <ion-item>My Wallet</ion-item>
-      <ion-item>Invite Friends</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -34,15 +30,7 @@
 <ion-router-outlet id="hamburger-content"></ion-router-outlet>
 <ion-router-outlet id="mini-profile-content"></ion-router-outlet>
 
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-      Homepage
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<div  class="intro-header-section">
   <ion-header collapse="primary">
     <ion-toolbar>
       <ion-menu-button menu="end" class="hamburger-class">
@@ -51,18 +39,41 @@
       <ion-menu-button menu="start" class="mini-profile-class"></ion-menu-button>
       <h1 class="intro-class">Welcome to Shareway</h1>
     </ion-toolbar>
-  </ion-header> 
+  </ion-header>
+</div>
 
-  <p class="intro-paragraph">Take a ride with another student from or to college. <br> Save money and meet new people!</p> 
+<ion-content [fullscreen]="true" *ngIf="!showInwardRides"  class="intro-section">
+
+  <p class="intro-paragraph">Take a ride with another student from or to college. <br> Save money and meet new people!</p>
   <div class="image-container">
     <img src="assets/images/Home_Icon.png">
   </div>
   <footer class="footer-text">
     <a href="https://www.flaticon.com/free-icons/hail" title="hail icons">Hail icons created by Leremy - Flaticon</a>
   </footer>
-  <div class="button-container">
-    <ion-button>Inward</ion-button>
-    <ion-button>Outward</ion-button>
-  </div>
-
+  <p class="intro-paragraph-2">Use one of the buttons below <br> to find rides to your desired destination.</p>
 </ion-content>
+
+<!--Buttons to show rides-->
+<div class="button-container">
+  <ion-button (click)="showInwardRides = !showInwardRides">Inward</ion-button>
+  <ion-button>Outward</ion-button>
+</div>
+
+<!--List of rides-->
+<div *ngIf="showInwardRides" class="rides-container">
+  <ion-grid>
+    <ion-row class="header-row">
+      <ion-col></ion-col>
+      <ion-col>Names</ion-col>
+      <ion-col>Coming From</ion-col>
+      <ion-col>Available Space</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let inwardRide of inwardRides" class="inward-ride-class">
+      <ion-col><img [src]="inwardRide.image" alt="Ride image" class="ride-image"></ion-col>
+      <ion-col>{{ inwardRide.name }}</ion-col>
+      <ion-col>{{ inwardRide.from }}</ion-col>
+      <ion-col>{{ inwardRide.availableSpace }}</ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
