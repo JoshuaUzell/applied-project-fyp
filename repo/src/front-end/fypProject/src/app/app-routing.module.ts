@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'driver-details',
     loadChildren: () => import('./driver-details/driver-details.module').then( m => m.DriverDetailsPageModule)
   },
+  {
+    path: 'booking',
+    loadChildren: () => import('./booking/booking.module').then( m => m.BookingPageModule)
+  },
 ];
 
 @NgModule({
