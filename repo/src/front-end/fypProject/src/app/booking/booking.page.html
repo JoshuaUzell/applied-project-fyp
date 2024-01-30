@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content  class="ion-padding">
   <!-- Profile image and name in one row -->
   <ion-grid>
     <ion-row>
@@ -6,11 +6,6 @@
         <ion-avatar>
           <img src="assets/images/man-glasses.jpg" />
         </ion-avatar>
-      </ion-col>
-      <ion-col>
-        <ion-label>
-          <h2>Johnny Ramsy</h2>
-        </ion-label>
       </ion-col>
     </ion-row>
 
@@ -28,4 +23,54 @@
   <ion-button expand="block" color="primary">
     Apply for Booking
   </ion-button>
+
+  <ion-list  class="ion-margin">
+    <!-- Name Field -->
+    <ion-item lines="none">
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input value="Johnny Ramsy" readonly></ion-input>
+    </ion-item>
+
+    <!-- DOB Field -->
+    <ion-item lines="none">
+      <ion-label position="stacked">DOB</ion-label>
+      <ion-input value="October 13th 2000" readonly></ion-input>
+    </ion-item>
+
+    <!-- Email Field -->
+    <ion-item lines="none">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input value="johnnyramsy@gmail.com" readonly></ion-input>
+    </ion-item>
+
+    <!-- Gender Field -->
+    <ion-item lines="none">
+      <ion-label position="stacked">Gender</ion-label>
+      <ion-input value="Male" readonly></ion-input>
+    </ion-item>
+
+    <!-- Course Department Field -->
+    <ion-item lines="none">
+      <ion-label position="stacked">Course Department</ion-label>
+      <ion-input value="Biology" readonly></ion-input>
+    </ion-item>
+
+    <!-- Personal Traits Field -->
+    <ion-item lines="none" class="custom-item-divider">
+      <ion-label position="stacked">Personal Traits</ion-label>
+      <ion-input value="Empathetic, Sociable, Witty" readonly></ion-input>
+    </ion-item>
+
+    <!-- Hobbies Field -->
+    <ion-item lines="none" class="custom-item-divider">
+      <ion-label position="stacked">Hobbies</ion-label>
+      <ion-input value="Cooking, Meditation, Playing Games" readonly></ion-input>
+    </ion-item>
+
+    <!-- Driver Details Placeholder -->
+    <ion-item lines="none" class="custom-item-divider">
+      <ion-label position="stacked">Driver Details</ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
