@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   
-  
+
 
 
   ////////////////////////
@@ -30,6 +31,8 @@ export class HomePage {
   //   { name: 'Sarah W.', from: 'Loughrea, G', availableSpace: '3/3', image: 'assets/images/woman-4.jpg'},
   //   { name: 'Rose W.', from: 'Oranmore, G', availableSpace: '2/4', image: 'assets/images/woman-5.jpg'},
   // ];
-  constructor() {}
+  constructor(private router: Router) {}
+
+  
 
 }
