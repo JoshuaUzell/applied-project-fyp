@@ -1,85 +1,41 @@
-<!--Hamburger Menu-->
-<ion-menu side="start" contentId="hamburger-content">
+<div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar color="success">
+    <!--Imports for Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Micro+5&display=swap"
+      rel="stylesheet">
+      <ion-button class="profile-icon" aria-label="Profile">
+        <ion-icon name="person"></ion-icon>
+      </ion-button>
+    <ion-toolbar>
+      <ion-label class="shareway-title">
+        Welcome to ShareWay
+      </ion-label>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <ion-item>Home</ion-item>
-      <ion-item>Log Out</ion-item>
-    </ion-list>
+    <div class="welcome-text">
+      Take a ride with another student from or to college. Save money and meet new people!
+    </div>
+
+    <div class="image-container">
+      <img src="assets/images/Home_Icon.png" />
+    </div>
+
+    <div class="instructions-text">
+      Use one of the buttons below to find rides to your desired destination.
+    </div>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" color="primary">Inwards</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" color="secondary">Outwards</ion-button>
+      </ion-col>
+    </ion-row>
   </ion-content>
-</ion-menu>
-
-
-<ion-router-outlet id="hamburger-content"></ion-router-outlet>
-<ion-router-outlet id="mini-profile-content"></ion-router-outlet>
-
-<div class="intro-header-section">
-  <ion-header>
-    <ion-toolbar>
-      <ion-menu-button class="hamburger-class">
-        <ion-icon name="person"></ion-icon>
-      </ion-menu-button>
-      <ion-menu-button class="mini-profile-class"></ion-menu-button>
-      <h1 class="intro-class">Welcome to Shareway</h1>
-    </ion-toolbar>
-  </ion-header>
-</div>
-
-<ion-content [fullscreen]="true" *ngIf="!showInwardRides || !showOutwardRides" class="intro-section">
-
-  <p class="intro-paragraph">Take a ride with another student from or to college. <br> Save money and meet new people!</p>
-  <div class="image-container">
-    <img src="assets/images/Home_Icon.png">
-  </div>
-  <footer class="footer-text">
-    <a href="https://www.flaticon.com/free-icons/hail" title="hail icons">Hail icons created by Leremy - Flaticon</a>
-  </footer>
-  <p class="intro-paragraph-2">Use one of the buttons below <br> to find rides to your desired destination.</p>
-</ion-content>
-
-<!--Buttons to show rides-->
-<div class="button-container">
-  <ion-button (click)="showInwardRides = true; showOutwardRides = false;">Inward</ion-button>
-  <ion-button (click)="showOutwardRides = true; showInwardRides = false;">Outward</ion-button>
-</div>
-
-<!--List of inward rides-->
-<div *ngIf="showInwardRides" class="rides-container">
-  <ion-grid>
-    <ion-row class="header-row">
-      <ion-col></ion-col>
-      <ion-col>Names</ion-col>
-      <ion-col>Coming From</ion-col>
-      <ion-col>Available Space</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let inwardRide of inwardRides" class="underline-ride-class">
-      <ion-col><img [src]="inwardRide.image" alt="Ride image" class="ride-image"></ion-col>
-      <ion-col>{{ inwardRide.name }}</ion-col>
-      <ion-col>{{ inwardRide.from }}</ion-col>
-      <ion-col><ion-icon name="person"></ion-icon> {{ inwardRide.availableSpace }}</ion-col>
-    </ion-row>
-  </ion-grid>
-</div>
-
-
-<!--List of outward rides-->
-<div *ngIf="showOutwardRides" class="rides-container">
-  <ion-grid>
-    <ion-row class="header-row">
-      <ion-col></ion-col>
-      <ion-col>Names</ion-col>
-      <ion-col>Going to</ion-col>
-      <ion-col>Available Space</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let outwardRide of outwardRides" class="underline-ride-class">
-      <ion-col><img [src]="outwardRide.image" alt="Ride image" class="ride-image"></ion-col>
-      <ion-col>{{ outwardRide.name }}</ion-col>
-      <ion-col>{{ outwardRide.from }}</ion-col>
-      <ion-col><ion-icon name="person"></ion-icon> {{ outwardRide.availableSpace }}</ion-col>
-    </ion-row>
-  </ion-grid>
 </div>
