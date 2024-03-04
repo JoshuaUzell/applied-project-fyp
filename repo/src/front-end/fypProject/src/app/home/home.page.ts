@@ -33,6 +33,8 @@ export class HomePage {
   // ];
   constructor(private router: Router) {}
 
-  
+  navigateToProfile(){
+    this.router.navigate(['/profile']);
+  }
 
 }
