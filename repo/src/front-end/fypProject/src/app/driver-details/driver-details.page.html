@@ -8,18 +8,33 @@
         <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
         <!-- Input boxes -->
         <ion-item>
+          <ion-label position="floating">License Date of Issue</ion-label>
+          <ion-input type="text" [(ngModel)]="licenseDateOfIssue"></ion-input>
+        </ion-item>
+        <ion-item> 
+          <ion-label position="floating">License Date of Expiry</ion-label>
+          <ion-input type="text" [(ngModel)]="licenseDateOfExpiry"></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label position="floating">License Number</ion-label>
           <ion-input type="text" [(ngModel)]="licenseNumber"></ion-input>
         </ion-item>
+         <!--License Plate Picture-->
         <ion-item>
-          <ion-label position="floating">License Expiry Date</ion-label>
-          <ion-input type="text" [(ngModel)]="licenseExpiryDate"></ion-input>
+          <ion-label position="floating">License Plate Picture</ion-label>
+        </ion-item>
+        <ion-item class="image-item">
+          <input type="file" name="image" accept="image/*" capture="user">
+        </ion-item>
+        <!--Car Make and Model-->
+        <ion-item>
+          <ion-label position="floating">Make</ion-label>
+          <ion-input type="text" [(ngModel)]="make"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Vehicle Information</ion-label>
-          <ion-input type="text" [(ngModel)]="vehicleInfo"></ion-input>
+          <ion-label position="floating">Model</ion-label>
+          <ion-input type="text" [(ngModel)]="model"></ion-input>
         </ion-item>
-
         <!-- ApplyForDriver button -->
         <ion-button class="applyDriverBtn" expand="full" (click)="applyForDriver()">{{actualApplyForDriverBtn}}</ion-button>
         <ion-button *ngIf="unapplyVisible" (click)="unApplyForDriver()">Unapply For Driver</ion-button>

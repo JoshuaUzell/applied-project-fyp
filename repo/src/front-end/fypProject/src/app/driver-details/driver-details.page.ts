@@ -10,9 +10,11 @@ import { ApplyBtnService } from '../apply-btn.service';
 export class DriverDetailsPage implements OnInit {
   actualApplyForDriverBtn: string = 'Apply';
   unapplyVisible: boolean = false;
+  licenseDateOfIssue:string = "";
+  licenseDateOfExpiry:string = "";
   licenseNumber:string = "";
-  licenseExpiryDate:string = "";
-  vehicleInfo:string = "";
+  make:string = "";
+  model:string = "";
 
   constructor(private router: Router, private applyBtnService: ApplyBtnService) { 
     this.applyBtnService.currentUnapplyVisible.subscribe(visible => this.unapplyVisible = visible);
@@ -22,7 +24,7 @@ export class DriverDetailsPage implements OnInit {
   }
 
   applyForDriver(){
-    if(this.licenseNumber && this.licenseExpiryDate && this.vehicleInfo) {
+    if(this.licenseDateOfIssue && this.licenseDateOfExpiry && this.licenseNumber && this.make && this.model) {
       alert("Applied for Driver!");
       //this.actualApplyForDriverBtn = 'Cancel Driver Application';
       this.applyBtnService.changeButtonText('Edit Driver Application');

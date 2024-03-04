@@ -12,6 +12,11 @@
     margin-bottom: -100px;
   }
   
+  .image-item {
+    width: 100%;
+    overflow: visible;
+  }
+
   .button-class{
     --background: #3bc794; 
     width: 100%; // Make the button wider
