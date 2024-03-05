@@ -12,7 +12,8 @@ export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
   selectedTraits: any[]=[];
   selectedHobbies: any[]=[];
-  
+  selectedGender:string = ""; 
+
   name:string = '';
   gender: string = '';
   dob: string = '';

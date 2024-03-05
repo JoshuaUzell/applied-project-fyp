@@ -13,13 +13,26 @@
           <ion-input type="text" [(ngModel)]="name"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Date Of Birth</ion-label>
-          <ion-input type="text" [(ngModel)]="dob"></ion-input>
+          <ion-input [clearInput]="true" label="Date" placeholder="Enter Date Of Birth" type="Date"  [(ngModel)]="dob"></ion-input>
         </ion-item>
+        
+        <!--Gender-->
         <ion-item>
           <ion-label position="floating">Gender</ion-label>
-          <ion-input type="text" [(ngModel)]="gender"></ion-input>
         </ion-item>
+        <ion-list>
+          <ion-item>
+            <ion-select [(ngModel)]="gender" [value]="selectedGender" aria-label="Gender" interface="popover" placeholder="Select an option">
+              <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
+              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="female">Female</ion-select-option>
+              <ion-select-option value="other">Other</ion-select-option>
+              <ion-select-option value="preferNotToSay">Prefer Not To Say</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        
+        <!--Course Department-->
         <ion-item>
           <ion-label position="floating">Course Department</ion-label>
           <ion-input type="text" [(ngModel)]="courseDepartment"></ion-input>

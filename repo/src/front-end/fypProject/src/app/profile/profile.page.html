@@ -10,4 +10,78 @@
       <ion-title size="large">Profile</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-list>
+    <ion-list>
+      <ion-item>
+        <ion-input  [clearInput]="true"  label="Email" type="email" placeholder="email@domain.com"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="Password" placeholder="Enter Password" type="password" value="password"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [clearInput]="true" label="Name" placeholder="Enter Name"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-input [clearInput]="true" label="Date" placeholder="Enter Date Of Birth" type="Date"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input [clearInput]="true" label="CourseDepartment" placeholder="Enter Department"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Gender</ion-label>
+      </ion-item>
+      <ion-list>
+        <ion-item>
+          <ion-select [value]="selectedGender" aria-label="Gender" interface="popover" placeholder="Select an option">
+            <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="other">Other</ion-select-option>
+            <ion-select-option value="preferNotToSay">Prefer Not To Say</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+  
+       <!--Dropdown for Personal Traits-->
+       <ion-item>
+        <ion-label position="floating">Personal Traits</ion-label>
+      </ion-item>
+      <ion-list>
+        <ion-item>
+          <ion-select [value]="selectedTraits" (ionChange)="limitSelectionOfTraits($event)" [multiple]="true" aria-label="Trait" interface="popover" placeholder="Select 3 Traits">
+            <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
+            <ion-select-option value="a">Adventurous</ion-select-option>
+            <ion-select-option value="c">Curious</ion-select-option>
+            <ion-select-option value="e">Empathetic</ion-select-option>
+            <ion-select-option value="f">Friendly</ion-select-option>
+            <ion-select-option value="s">Shy</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+       <!--Dropdown for Hobbies-->
+       <ion-item>
+        <ion-label position="floating">Hobbies</ion-label>
+      </ion-item>
+      <ion-list>
+        <ion-item>
+          <ion-select [value]="selectedHobbies" (ionChange)="limitSelectionOfHobbies($event)" [multiple]="true" aria-label="Trait" interface="popover" placeholder="Select 3 Hobbies">
+            <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
+            <ion-select-option value="r">Reading</ion-select-option>
+            <ion-select-option value="d">Drawing</ion-select-option>
+            <ion-select-option value="p">Painting</ion-select-option>
+            <ion-select-option value="m">Music</ion-select-option>
+            <ion-select-option value="c">Cooking</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+    </ion-list>
+  </ion-list>
 </ion-content>
+
