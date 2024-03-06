@@ -1,5 +1,5 @@
 //Interface for UserInfo data which will be formatted as JSON
-interface UserInfo {
+export interface UserInfo {
     id: string;
     email: string;
     password: string;
@@ -12,7 +12,7 @@ interface UserInfo {
   }
 
   //Interface for DriverDetails data which will be formatted as JSON
-  interface DriverDetails {
+  export interface DriverDetails {
     id: string;
     licenseDateOfIssue: string;
     licenseDateOfExpiry: string;
@@ -27,13 +27,13 @@ interface UserInfo {
   
   export interface DatabaseInterface {
     addUserDetails(userInfo: UserInfo): void;
-    retrieveUserDetails(userId: string): UserInfo; // Returns JSON structure for a user
+    retrieveUserDetails(userId: string): UserInfo | undefined; // Returns JSON structure for a user
     addDriverDetails(driverDetails: DriverDetails): void;
-    retrieveDriverDetails(driverId: string): DriverDetails; // Returns JSON structure for a driver
+    retrieveDriverDetails(driverId: string): DriverDetails | undefined; // Returns JSON structure for a driver
     retrieveListOfDrivers(): DriverDetails[]; // Returns an array of driver JSON objects
     setAvailableSpaceForRide(driverId: string, availableSpace: number): void;
-    retrieveAvailableSpaceForRide(driverId: string): number;
+    retrieveAvailableSpaceForRide(driverId: string): number | undefined;
     setListOfLocationsForRide(driverId: string, locations: string[]): void;
-    retrieveListOfLocationsForRide(driverId: string): string[];
+    retrieveListOfLocationsForRide(driverId: string): string[] | undefined;
   }
   
