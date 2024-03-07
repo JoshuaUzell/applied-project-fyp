@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DatabaseInterface } from '../database.interface';
-import { Inject } from '@angular/core';
 import { MockDatabase } from '../mockDatabase';
 
 @Component({
@@ -18,8 +16,8 @@ export class RegisterPage implements OnInit {
   constructor(private router: Router, private databaseInterface: MockDatabase) {}
 
   ngOnInit() {
-    console.log(this.databaseInterface.retrieveAllUsers());
     //this.databaseInterface.clearData();
+    console.log(this.databaseInterface.retrieveAllUsers());
   }
 
   completeRegistration() {
@@ -29,7 +27,7 @@ export class RegisterPage implements OnInit {
       password: this.password, 
     };
 
-    if(userDetails.email){
+    if(this.isValidEmail(userDetails.email)){
       //Check if the password and confirm password match
       if (this.checkPasswordMatch()) {
         this.registerUser(userDetails);
@@ -38,8 +36,15 @@ export class RegisterPage implements OnInit {
         this.goToUserDetails();
       }
     }else{
-      alert('Please enter a valid email.');
+      alert('Please enter a valid email. Make sure there is an email, a domain and an @ symbol.\n'
+      + 'Example: email@domain.com');
     }
+  }
+
+  isValidEmail(email: string): boolean {
+    // Uses a regular expression to check if the email is valid
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   }
 
   registerUser(userFormData: any): void {

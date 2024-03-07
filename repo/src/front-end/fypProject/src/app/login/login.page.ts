@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DatabaseInterface } from '../database.interface';
-import { Inject } from '@angular/core';
 import { MockDatabase } from '../mockDatabase';
 
 @Component({
@@ -16,8 +14,8 @@ export class LoginPage implements OnInit{
 
   constructor(private router: Router, private databaseInterface: MockDatabase) {}
   ngOnInit(): void {
-    console.log(this.databaseInterface.retrieveAllUsers());
     //this.databaseInterface.clearData();
+    console.log(this.databaseInterface.retrieveAllUsers());
   }
  
   completeLogin() {
