@@ -13,7 +13,7 @@ export class RegisterPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
 
-  constructor(private router: Router, private databaseInterface: MockDatabase) {}
+  constructor(private router: Router, private databaseInterface: MockDatabase) { }
 
   ngOnInit() {
     //this.databaseInterface.clearData();
@@ -24,20 +24,25 @@ export class RegisterPage implements OnInit {
     const userDetails = {
       id: '', // Ensure the ID is a string if your interface expects it, otherwise adjust as needed
       email: this.email,
-      password: this.password, 
+      password: this.password,
     };
 
-    if(this.isValidEmail(userDetails.email)){
-      //Check if the password and confirm password match
-      if (this.checkPasswordMatch()) {
-        this.registerUser(userDetails);
-        // Display an alert with user details
-        alert(`Registration Complete!\nID: ${userDetails.id}\nEmail: ${userDetails.email}\nPassword: ${userDetails.password}`);
-        this.goToUserDetails();
+    if (this.isValidEmail(this.email)) {
+      if (!this.databaseInterface.emailExists(this.email)) {
+        //Check if the password and confirm password match
+        if (this.checkPasswordMatch()) {
+          this.registerUser(userDetails);
+          // Display an alert with user details
+          alert(`Registration Complete!\nID: ${userDetails.id}\nEmail: ${userDetails.email}\nPassword: ${userDetails.password}`);
+          this.goToUserDetails();
+        }
+      }else{
+        alert('Email already exists. Please enter a different email.');
       }
-    }else{
+
+    } else {
       alert('Please enter a valid email. Make sure there is an email, a domain and an @ symbol.\n'
-      + 'Example: email@domain.com');
+        + 'Example: email@domain.com');
     }
   }
 
@@ -51,13 +56,13 @@ export class RegisterPage implements OnInit {
     this.databaseInterface.addUserDetails(userFormData);
   }
 
-  checkPasswordMatch() : boolean{
+  checkPasswordMatch(): boolean {
     //Check if password and confirm password exist, if so, check if they match, if not, display an alert
-    if(this.password && this.confirmPassword) {
+    if (this.password && this.confirmPassword) {
       //Check if password and confirm password match
       if (this.password === this.confirmPassword) {
         // If credentials are valid, return true, else return false
-        alert('Success! This is the correct password!');
+        alert('Success! Passwords match.');
         return true;
       } else {
         alert('Passwords do not match. Please enter the same password in both fields.');

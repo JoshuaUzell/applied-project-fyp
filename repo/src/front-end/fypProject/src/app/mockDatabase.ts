@@ -90,4 +90,8 @@ export class MockDatabase implements DatabaseInterface {
         // Confirm data has been cleared
         console.log('All data cleared from database');
     }
+
+    emailExists(email: string): boolean {
+        return this.users.some(user => user.email === email);
+    }
 }

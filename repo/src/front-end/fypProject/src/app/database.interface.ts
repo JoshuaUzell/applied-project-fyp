@@ -37,5 +37,6 @@ export interface UserInfo {
     retrieveListOfLocationsForRide(driverId: string): string[] | undefined;
     retrieveAllUsers(): UserInfo[];
     clearData(): void;
+    emailExists(email: string): boolean;
   }
   
