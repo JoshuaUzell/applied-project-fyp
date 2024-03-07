@@ -1,39 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service'; // Adjust the path as necessary
-
+import { DatabaseInterface } from '../database.interface';
+import { Inject } from '@angular/core';
+import { MockDatabase } from '../mockDatabase';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+
+export class LoginPage implements OnInit{
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, private dataService: DataService) {}
+  constructor(private router: Router, private databaseInterface: MockDatabase) {}
+  ngOnInit(): void {
+    console.log(this.databaseInterface.retrieveAllUsers());
+    //this.databaseInterface.clearData();
+  }
+ 
+  completeLogin() {
+    this.login(this.email, this.password);
+  }
 
-  //NOTE TO SELF: NEED TO CHECK IF EMAIL AND PASSWORD ARE THE SAME AS THE ONES IN THE DATABASE
-  login() {
-    if(this.email && this.password) {
+  //Checks that the database contains the user's email and password
+  login(email: string, password: string) {
+    const userDetails = this.databaseInterface.retrieveUserDetails(email); 
+    if (userDetails && userDetails.password === password) {
+      // Handle successful login, e.g., redirecting to a dashboard
+      alert('Correct!\n User Details are \nEmail: ' + userDetails.email + '\nPassword: ' + userDetails.password);
       this.router.navigate(['/home']);
-    } else {
+    } else if (userDetails && userDetails.password !== password) {
+      alert('Incorrect Password. Please enter a correct password.');
+    }else if (userDetails?.email !== email) {
+      alert('Email not found. Please enter a correct email.');
+    }else{
+      // Handles login failure
       alert('Please enter valid credentials.');
     }
   }
 
-  //Loads data from the backend
-  loadData() {
-    // NOTE TO SELF: NEED PROPER API FROM JOSE
-    const apiUrl = 'http://yourbackendendpoint/api/data'; 
-    this.dataService.getData(apiUrl).subscribe(data => {
-      console.log(data);
-      // Handle your data here
-    });
-  }
-
-  register() {
+  goToRegisterPage() {
     this.router.navigate(['/register']);
   }
 }

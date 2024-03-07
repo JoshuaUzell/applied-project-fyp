@@ -27,7 +27,7 @@ export interface UserInfo {
   
   export interface DatabaseInterface {
     addUserDetails(userInfo: UserInfo): void;
-    retrieveUserDetails(userId: string): UserInfo | undefined; // Returns JSON structure for a user
+    retrieveUserDetails(email: string): UserInfo | undefined; // Returns JSON structure for a user
     addDriverDetails(driverDetails: DriverDetails): void;
     retrieveDriverDetails(driverId: string): DriverDetails | undefined; // Returns JSON structure for a driver
     retrieveListOfDrivers(): DriverDetails[]; // Returns an array of driver JSON objects
@@ -35,5 +35,7 @@ export interface UserInfo {
     retrieveAvailableSpaceForRide(driverId: string): number | undefined;
     setListOfLocationsForRide(driverId: string, locations: string[]): void;
     retrieveListOfLocationsForRide(driverId: string): string[] | undefined;
+    retrieveAllUsers(): UserInfo[];
+    clearData(): void;
   }
   
