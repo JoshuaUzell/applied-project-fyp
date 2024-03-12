@@ -1,13 +1,16 @@
 import { IDriverDetails, IUserInfo } from "./database.interface";
 import { IDatabaseInterface } from "./database.interface";
 import { Injectable } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+
+export const DATABASE_SERVICE_TOKEN = new InjectionToken<IDatabaseInterface>('DATABASE_SERVICE');
 
 
 @Injectable({
     providedIn: 'root' // A singleton instance of this class is created and injected
 })
 
-export class MockDatabase implements IDatabaseInterface {
+export class MockDatabaseService implements IDatabaseInterface {
     private users: IUserInfo[] = [];
     private drivers: IDriverDetails[] = [];
 

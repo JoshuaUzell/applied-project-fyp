@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PasswordHandlerService } from './password-handler.service';
 import { PASSWORD_HANDLER_TOKEN } from './password-handler.service';
+import { IDatabaseInterface } from "./database.interface";
+import { DATABASE_SERVICE_TOKEN } from './mockDatabase.service';
+import { MockDatabaseService } from './mockDatabase.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +17,7 @@ import { PASSWORD_HANDLER_TOKEN } from './password-handler.service';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: PASSWORD_HANDLER_TOKEN, useClass: PasswordHandlerService },
+    { provide: DATABASE_SERVICE_TOKEN, useClass: MockDatabaseService },
   ],
   bootstrap: [AppComponent],
 })
