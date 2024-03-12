@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MockDatabase } from '../mockDatabase';
-import { PasswordHandlerService } from '../password-handler.service';
+import { IPasswordHandler } from '../passwordHandler.interface';
+import { PASSWORD_HANDLER_TOKEN } from '../password-handler.service';
+
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, private databaseInterface: MockDatabase, private passwordHandler: PasswordHandlerService) { }
+  constructor(private router: Router, private databaseInterface: MockDatabase, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { }
   ngOnInit(): void {
     //this.databaseInterface.clearData();
     console.log(this.databaseInterface.retrieveAllUsers());

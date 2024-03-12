@@ -1,5 +1,5 @@
-import { DriverDetails, UserInfo } from "./database.interface";
-import { DatabaseInterface } from "./database.interface";
+import { IDriverDetails, IUserInfo } from "./database.interface";
+import { IDatabaseInterface } from "./database.interface";
 import { Injectable } from '@angular/core';
 
 
@@ -7,9 +7,9 @@ import { Injectable } from '@angular/core';
     providedIn: 'root' // A singleton instance of this class is created and injected
 })
 
-export class MockDatabase implements DatabaseInterface {
-    private users: UserInfo[] = [];
-    private drivers: DriverDetails[] = [];
+export class MockDatabase implements IDatabaseInterface {
+    private users: IUserInfo[] = [];
+    private drivers: IDriverDetails[] = [];
 
     constructor() {
         this.loadFromStorage();
@@ -27,27 +27,27 @@ export class MockDatabase implements DatabaseInterface {
         localStorage.setItem('drivers', JSON.stringify(this.drivers));
     }
 
-    addUserDetails(userInfo: UserInfo): void {
+    addUserDetails(userInfo: IUserInfo): void {
         userInfo.id = `user_${this.users.length + 1}`; // Generate a unique ID for the new user
         this.users.push(userInfo); // Add the new user to the list of users
         this.saveToStorage(); // Save the updated list of users to local storage
     }
 
-    retrieveUserDetails(email: string): UserInfo | undefined {
+    retrieveUserDetails(email: string): IUserInfo | undefined {
         return this.users.find(user => user.email === email);
     }
 
-    addDriverDetails(driverDetails: DriverDetails): void {
+    addDriverDetails(driverDetails: IDriverDetails): void {
         driverDetails.id = `driver_${this.drivers.length + 1}`;
         this.drivers.push(driverDetails);
         this.saveToStorage();
     }
 
-    retrieveDriverDetails(driverId: string): DriverDetails | undefined {
+    retrieveDriverDetails(driverId: string): IDriverDetails | undefined {
         return this.drivers.find(driver => driver.id === driverId);
     }
 
-    retrieveListOfDrivers(): DriverDetails[] {
+    retrieveListOfDrivers(): IDriverDetails[] {
         return this.drivers;
     }
 
@@ -78,7 +78,7 @@ export class MockDatabase implements DatabaseInterface {
     }
 
     //Returns all users
-    retrieveAllUsers(): UserInfo[] {
+    retrieveAllUsers(): IUserInfo[] {
         return this.users;
     }
 

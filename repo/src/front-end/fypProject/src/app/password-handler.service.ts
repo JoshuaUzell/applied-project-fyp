@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { PasswordHandler } from './passwordHandler.interface'; // Fixed import statement
+import { IPasswordHandler } from './passwordHandler.interface'; 
 import * as bcrypt from 'bcryptjs';
+import { InjectionToken } from '@angular/core';
+
+export const PASSWORD_HANDLER_TOKEN = new InjectionToken<IPasswordHandler>('PASSWORD_HANDLER');
+
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class PasswordHandlerService implements PasswordHandler {
+export class PasswordHandlerService implements IPasswordHandler {
 
   constructor() { }
 
