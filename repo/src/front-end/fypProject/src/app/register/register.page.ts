@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MockDatabase } from '../mockDatabase';
+import { PasswordHandlerService } from '../password-handler.service';
 
 @Component({
   selector: 'app-register',
@@ -13,24 +14,27 @@ export class RegisterPage implements OnInit {
   password: string = '';
   confirmPassword: string = '';
 
-  constructor(private router: Router, private databaseInterface: MockDatabase) { }
+  constructor(private router: Router, private databaseInterface: MockDatabase, private passwordHandler: PasswordHandlerService) { }
 
   ngOnInit() {
     //this.databaseInterface.clearData();
     console.log(this.databaseInterface.retrieveAllUsers());
   }
 
-  completeRegistration() {
+  async completeRegistration() {
     const userDetails = {
       id: '', // Ensure the ID is a string if your interface expects it, otherwise adjust as needed
       email: this.email,
-      password: this.password,
+      password: '',
     };
 
     if (this.isValidEmail(this.email)) {
       if (!this.databaseInterface.emailExists(this.email)) {
         //Check if the password and confirm password match
-        if (this.checkPasswordMatch()) {
+        if (this.passwordHandler.checkPasswordMatchForRegistration(this.password, this.confirmPassword)) {
+          // Hash the password
+          userDetails.password = await this.passwordHandler.hashPassword(this.password);
+          
           this.registerUser(userDetails);
           // Display an alert with user details
           alert(`Registration Complete!\nID: ${userDetails.id}\nEmail: ${userDetails.email}\nPassword: ${userDetails.password}`);
@@ -45,6 +49,7 @@ export class RegisterPage implements OnInit {
         + 'Example: email@domain.com');
     }
   }
+  
 
   isValidEmail(email: string): boolean {
     // Uses a regular expression to check if the email is valid
@@ -56,24 +61,7 @@ export class RegisterPage implements OnInit {
     this.databaseInterface.addUserDetails(userFormData);
   }
 
-  checkPasswordMatch(): boolean {
-    //Check if password and confirm password exist, if so, check if they match, if not, display an alert
-    if (this.password && this.confirmPassword) {
-      //Check if password and confirm password match
-      if (this.password === this.confirmPassword) {
-        // If credentials are valid, return true, else return false
-        alert('Success! Passwords match.');
-        return true;
-      } else {
-        alert('Passwords do not match. Please enter the same password in both fields.');
-        return false;
-      }
-    } else {
-      alert('Please enter all the password fields.');
-      return false;
-    }
-  }
-
+ 
   goToUserDetails() {
     this.router.navigate(['/user-details']);
   }
