@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MockDatabaseService } from '../mockDatabase.service';
 import { IPasswordHandler } from '../passwordHandler.interface';
 import { PASSWORD_HANDLER_TOKEN } from '../password-handler.service';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
