@@ -5,11 +5,11 @@ export interface IUserInfo {
     password: string;
     name: string;
     dob: string;
-    gender: string[];
+    gender: string;
     courseDepartment: string;
     personalTraits: string[];
     personalHobbies: string[];
-  }
+  } 
 
   //Interface for DriverDetails data which will be formatted as JSON
   export interface IDriverDetails {
@@ -38,5 +38,6 @@ export interface IUserInfo {
     retrieveAllUsers(): IUserInfo[];
     clearData(): void;
     emailExists(email: string): boolean;
+    getGenderOptions(): string[];
   }
   

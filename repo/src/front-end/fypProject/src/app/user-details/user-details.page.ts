@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApplyBtnService } from '../apply-btn.service';
 import { AlertController } from '@ionic/angular';
+import { IDatabaseInterface } from '../database.interface';
+import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
 
 @Component({
   selector: 'app-user-details',
@@ -10,21 +12,27 @@ import { AlertController } from '@ionic/angular';
 })
 export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
-  selectedTraits: any[]=[];
-  selectedHobbies: any[]=[];
-  selectedGender:string = ""; 
+  
+  // Gender options which will contain options from the database
+  genderOptions: string[] = [];
 
   name:string = '';
   gender: string = '';
   dob: string = '';
   courseDepartment: string = '';
+  selectedTraits: any[]=[];
+  selectedHobbies: any[]=[];
 
-
-  constructor(private router: Router, private applyBtnService: ApplyBtnService, private alertController: AlertController) { 
+ 
+  constructor(private router: Router, private applyBtnService: ApplyBtnService, private alertController: AlertController
+    ,@Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { 
   }
 
   ngOnInit() {
+    //this.databaseInterface.clearData();
+    this.genderOptions = this.databaseInterface.getGenderOptions();
     this.applyBtnService.currentButtonText.subscribe(text => this.applyForDriverText = text);  
+    console.log(this.databaseInterface.retrieveAllUsers());
   }
 
   async limitSelectionOfTraits(event: any) {
@@ -71,10 +79,27 @@ export class UserDetailsPage implements OnInit {
     }
   }
 
+  saveUserDetails() {
+    const userDetails = {
+      // Assuming you have a way to generate or retrieve a unique user ID
+      id: '',
+      email: '', // You may need to retrieve this from a service or localStorage
+      password: '', // You may need to retrieve this from a service or localStorage
+      name: this.name,
+      dob: this.dob,
+      gender: this.gender,
+      courseDepartment: this.courseDepartment,
+      personalTraits: this.selectedTraits,
+      personalHobbies: this.selectedHobbies,
+    };
+    // Call the databaseInterface service to add user details
+    this.databaseInterface.addUserDetails(userDetails);
+  }
 
   goToHomePage() {
     if(this.name && this.gender && this.courseDepartment && this.dob) {
         alert('Success!');
+        this.saveUserDetails();
         this.router.navigate(['/home']);
       }else{
         alert('Please enter valid credentials.');

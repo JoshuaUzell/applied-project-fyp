@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
+import { IDatabaseInterface } from '../database.interface';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
   
 
-
-
+  
   ////////////////////////
   ////OLD CODE BELOW//////
   ///////////////////////
@@ -31,7 +32,11 @@ export class HomePage {
   //   { name: 'Sarah W.', from: 'Loughrea, G', availableSpace: '3/3', image: 'assets/images/woman-4.jpg'},
   //   { name: 'Rose W.', from: 'Oranmore, G', availableSpace: '2/4', image: 'assets/images/woman-5.jpg'},
   // ];
-  constructor(private router: Router) {}
+  constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) {}
+
+  ngOnInit(): void {
+    console.log(this.databaseInterface.retrieveAllUsers());
+  }
 
   navigateToProfile(){
     this.router.navigate(['/profile']);

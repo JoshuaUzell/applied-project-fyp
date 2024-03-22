@@ -28,7 +28,7 @@ export class MockDatabaseService implements IDatabaseInterface {
     private saveToStorage(): void {
         localStorage.setItem('users', JSON.stringify(this.users));
         localStorage.setItem('drivers', JSON.stringify(this.drivers));
-    }
+    } 
 
     addUserDetails(userInfo: IUserInfo): void {
         userInfo.id = `user_${this.users.length + 1}`; // Generate a unique ID for the new user
@@ -96,5 +96,10 @@ export class MockDatabaseService implements IDatabaseInterface {
 
     emailExists(email: string): boolean {
         return this.users.some(user => user.email === email);
+    }
+
+    // Method to return a list of genders
+    getGenderOptions(): string[] {
+        return ['Male', 'Female', 'Other', 'Prefer not to say'];
     }
 }

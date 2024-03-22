@@ -30,7 +30,7 @@ export class RegisterPage implements OnInit {
       email: this.email,
       password: '',
     };
-
+ 
     if (this.isValidEmail(this.email)) {
       if (!this.databaseInterface.emailExists(this.email)) {
         //Check if the password and confirm password match

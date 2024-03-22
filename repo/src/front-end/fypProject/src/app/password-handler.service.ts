@@ -13,7 +13,7 @@ export const PASSWORD_HANDLER_TOKEN = new InjectionToken<IPasswordHandler>('PASS
 export class PasswordHandlerService implements IPasswordHandler {
 
   constructor() { }
-
+ 
   //Hashes the passwod
   async hashPassword(password: string): Promise<string> {
     const salt = await bcrypt.genSalt(10); // Generates a salt
