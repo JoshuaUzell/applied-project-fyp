@@ -23,6 +23,9 @@ export class UserDetailsPage implements OnInit {
   selectedTraits: any[]=[];
   selectedHobbies: any[]=[];
 
+   // Other properties...
+  personalTraitsOptions: Array<{value: string, display: string}> = [];
+  hobbiesOptions: Array<{value: string, display: string}> = [];
  
   constructor(private router: Router, private applyBtnService: ApplyBtnService, private alertController: AlertController
     ,@Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { 
@@ -30,6 +33,8 @@ export class UserDetailsPage implements OnInit {
 
   ngOnInit() {
     //this.databaseInterface.clearData();
+    this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
+    this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
     this.genderOptions = this.databaseInterface.getGenderOptions();
     this.applyBtnService.currentButtonText.subscribe(text => this.applyForDriverText = text);  
     console.log(this.databaseInterface.retrieveAllUsers());

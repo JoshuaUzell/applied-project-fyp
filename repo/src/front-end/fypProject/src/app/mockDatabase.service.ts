@@ -102,4 +102,26 @@ export class MockDatabaseService implements IDatabaseInterface {
     getGenderOptions(): string[] {
         return ['Male', 'Female', 'Other', 'Prefer not to say'];
     }
+
+    // Method to return a list of personal traits with matched value and display names
+    getPersonalTraitsOptions(): Array<{value: string, display: string}> {
+        return [
+        { value: "Adventurous", display: "Adventurous" },
+        { value: "Curious", display: "Curious" },
+        { value: "Empathetic", display: "Empathetic" },
+        { value: "Friendly", display: "Friendly" },
+        { value: "Shy", display: "Shy" }
+        ];
+    }
+
+    // Method to return a list of hobbies with matched value and display names
+    getHobbiesOptions(): Array<{value: string, display: string}> {
+        return [
+        { value: "Reading", display: "Reading" },
+        { value: "Drawing", display: "Drawing" },
+        { value: "Painting", display: "Painting" },
+        { value: "Music", display: "Music" },
+        { value: "Cooking", display: "Cooking" }
+        ];
+    }
 }

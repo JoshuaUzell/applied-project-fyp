@@ -39,5 +39,7 @@ export interface IUserInfo {
     clearData(): void;
     emailExists(email: string): boolean;
     getGenderOptions(): string[];
+    getPersonalTraitsOptions(): Array<{value: string, display: string}>;
+    getHobbiesOptions(): Array<{value: string, display: string}>;
   }
   
