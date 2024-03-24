@@ -16,7 +16,10 @@ export class UserDetailsPage implements OnInit {
   // Gender options which will contain options from the database
   genderOptions: string[] = [];
 
+  id: string = '';
   name:string = '';
+  email: string = '';
+  password: string = '';
   gender: string = '';
   dob: string = '';
   courseDepartment: string = '';
@@ -33,6 +36,12 @@ export class UserDetailsPage implements OnInit {
 
   ngOnInit() {
     //this.databaseInterface.clearData();
+    const currentUserDetails = this.databaseInterface.getCurrentUser();
+    if (currentUserDetails) {
+      this.id = currentUserDetails.id;
+      this.email = currentUserDetails.email;
+      this.password = currentUserDetails.password;
+    }
     this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
     this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
     this.genderOptions = this.databaseInterface.getGenderOptions();
@@ -85,11 +94,12 @@ export class UserDetailsPage implements OnInit {
   }
 
   saveUserDetails() {
-    const userDetails = {
+    
+    const updatedUserDetails = {
       // Assuming you have a way to generate or retrieve a unique user ID
-      id: '',
-      email: '', // You may need to retrieve this from a service or localStorage
-      password: '', // You may need to retrieve this from a service or localStorage
+      id: this.id,
+      email: this.email, 
+      password: this.password, 
       name: this.name,
       dob: this.dob,
       gender: this.gender,
@@ -97,8 +107,10 @@ export class UserDetailsPage implements OnInit {
       personalTraits: this.selectedTraits,
       personalHobbies: this.selectedHobbies,
     };
-    // Call the databaseInterface service to add user details
-    this.databaseInterface.addUserDetails(userDetails);
+
+    //Updates the user details with other info
+    this.databaseInterface.updateCurrentUserDetails(updatedUserDetails);    
+    
   }
 
   goToHomePage() {

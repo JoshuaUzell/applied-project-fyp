@@ -41,5 +41,8 @@ export interface IUserInfo {
     getGenderOptions(): string[];
     getPersonalTraitsOptions(): Array<{value: string, display: string}>;
     getHobbiesOptions(): Array<{value: string, display: string}>;
+    setCurrentUserEmail(email: string): void;
+    getCurrentUser(): IUserInfo | undefined;
+    updateCurrentUserDetails(updatedDetails: Partial<IUserInfo>): void;
   }
   
