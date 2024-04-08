@@ -35,6 +35,7 @@ export class HomePage implements OnInit{
   constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) {}
 
   ngOnInit(): void {
+    console.log('Session Storage: ' + sessionStorage.getItem('id') + ' ' + sessionStorage.getItem('email') + ' ' + sessionStorage.getItem('password'));
     console.log(this.databaseInterface.retrieveAllUsers());
   }
 

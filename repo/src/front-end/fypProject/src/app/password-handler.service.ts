@@ -14,13 +14,14 @@ export class PasswordHandlerService implements IPasswordHandler {
 
   constructor() { }
  
-  //Hashes the passwod
+  //Hashes the password
   async hashPassword(password: string): Promise<string> {
     const salt = await bcrypt.genSalt(10); // Generates a salt
     const hash = await bcrypt.hash(password, salt); // Hash the password with the salt included
     return hash;
   }
 
+  //Verifies that the password matches the hash
   verifyPassword(password: string, hash: string): Promise<boolean> {
     return bcrypt.compare(password, hash);
   }

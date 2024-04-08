@@ -22,7 +22,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
     //this.databaseInterface.clearData();
     console.log(this.databaseInterface.retrieveAllUsers());
-  }
+  } 
 
   async completeRegistration() {
     const userDetails = {
@@ -31,7 +31,10 @@ export class RegisterPage implements OnInit {
       password: '',
     };
  
+    //Check if the email is valid
     if (this.isValidEmail(this.email)) {
+
+      //Check if the email already exists, if not proceed
       if (!this.databaseInterface.emailExists(this.email)) {
         //Check if the password and confirm password match
         if (this.passwordHandler.checkPasswordMatchForRegistration(this.password, this.confirmPassword)) {
@@ -39,10 +42,15 @@ export class RegisterPage implements OnInit {
           userDetails.password = await this.passwordHandler.hashPassword(this.password);
           
           // Set the current user email so you can retrieve it later
-          this.databaseInterface.setCurrentUserEmail(userDetails.email);
+          //this.databaseInterface.setCurrentUserEmail(userDetails.email);
 
           //Register user to the database
-          this.registerUser(userDetails);
+          //this.registerUser(userDetails);
+          
+          sessionStorage.setItem('id', userDetails.id);
+          sessionStorage.setItem('email', userDetails.email);
+          sessionStorage.setItem('password', userDetails.password); // Caution: Risky for sensitive data
+
           
           // Display an alert with user details
           alert(`Registration Complete!\nID: ${userDetails.id}\nEmail: ${userDetails.email}\nPassword: ${userDetails.password}`);

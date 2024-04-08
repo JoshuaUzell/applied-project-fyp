@@ -33,6 +33,7 @@ export class LoginPage implements OnInit {
     // Use the SecurityService to verify the password against the stored hash
     const isPasswordCorrect = await this.passwordHandler.verifyPassword(password, userDetails?.password ?? '');
 
+    //If the user is found and their password is correct, log them in
     if (userDetails && isPasswordCorrect) {
       // Handle successful login, e.g., redirecting to a dashboard
       alert('Correct!\n User Details are \nEmail: ' + userDetails.email + '\nPassword: ' + userDetails.password);

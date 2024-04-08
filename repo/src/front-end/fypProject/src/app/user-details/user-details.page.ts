@@ -25,8 +25,6 @@ export class UserDetailsPage implements OnInit {
   courseDepartment: string = '';
   selectedTraits: any[]=[];
   selectedHobbies: any[]=[];
-
-   // Other properties...
   personalTraitsOptions: Array<{value: string, display: string}> = [];
   hobbiesOptions: Array<{value: string, display: string}> = [];
  
@@ -36,12 +34,10 @@ export class UserDetailsPage implements OnInit {
 
   ngOnInit() {
     //this.databaseInterface.clearData();
-    const currentUserDetails = this.databaseInterface.getCurrentUser();
-    if (currentUserDetails) {
-      this.id = currentUserDetails.id;
-      this.email = currentUserDetails.email;
-      this.password = currentUserDetails.password;
-    }
+    console.log('Session Storage: ' + sessionStorage.getItem('id') + ' ' + sessionStorage.getItem('email') + ' ' + sessionStorage.getItem('password'));
+    this.id = sessionStorage.getItem('id') as string;
+    this.email = sessionStorage.getItem('email') as string;
+    this.password = sessionStorage.getItem('password') as string;
     this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
     this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
     this.genderOptions = this.databaseInterface.getGenderOptions();
@@ -108,9 +104,11 @@ export class UserDetailsPage implements OnInit {
       personalHobbies: this.selectedHobbies,
     };
 
-    //Updates the user details with other info
-    this.databaseInterface.updateCurrentUserDetails(updatedUserDetails);    
+    //Regtister user to the database
+    this.databaseInterface.addUserDetails(updatedUserDetails);
     
+    //Clear session storage upon successful registration
+    sessionStorage.clear();
   }
 
   goToHomePage() {
