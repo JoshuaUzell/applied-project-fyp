@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApplyBtnService } from '../apply-btn.service';
 
 @Component({
   selector: 'app-driver-details',
@@ -8,16 +7,16 @@ import { ApplyBtnService } from '../apply-btn.service';
   styleUrls: ['./driver-details.page.scss'],
 })
 export class DriverDetailsPage implements OnInit {
-  actualApplyForDriverBtn: string = 'Apply';
+  
   unapplyVisible: boolean = false;
+  driverId:string = "";
   licenseDateOfIssue:string = "";
   licenseDateOfExpiry:string = "";
   licenseNumber:string = "";
   make:string = "";
   model:string = "";
 
-  constructor(private router: Router, private applyBtnService: ApplyBtnService) { 
-    this.applyBtnService.currentUnapplyVisible.subscribe(visible => this.unapplyVisible = visible);
+  constructor(private router: Router) { 
   }
 
   ngOnInit() {
@@ -25,10 +24,16 @@ export class DriverDetailsPage implements OnInit {
 
   applyForDriver(){
     if(this.licenseDateOfIssue && this.licenseDateOfExpiry && this.licenseNumber && this.make && this.model) {
-      alert("Applied for Driver!");
-      //this.actualApplyForDriverBtn = 'Cancel Driver Application';
-      this.applyBtnService.changeButtonText('Edit Driver Application');
-      this.applyBtnService.adjustUnapplyBtnVisibility(true);
+      // Store the driver details in session storage
+      sessionStorage.setItem('driver-id', this.driverId);
+      sessionStorage.setItem('license-date-of-issue', this.licenseDateOfIssue);
+      sessionStorage.setItem('license-date-of-expiry', this.licenseDateOfExpiry);
+      sessionStorage.setItem('license-number', this.licenseNumber);
+      sessionStorage.setItem('make', this.make);
+      sessionStorage.setItem('model', this.model);
+
+      alert("Applied for Driver!"); // Display an alert with driver details
+      
       this.router.navigate(['/user-details']);
     } else {
       alert('Please enter valid credentials.');
@@ -36,10 +41,6 @@ export class DriverDetailsPage implements OnInit {
   }
 
   unApplyForDriver() {
-    // Reset the button text
-    this.applyBtnService.changeButtonText('Apply for Driver');
-    // Hide the "Unapply" button
-    this.applyBtnService.adjustUnapplyBtnVisibility(false);
     alert("You have unapplied from being a driver!");
     this.router.navigate(['/user-details']);
   }

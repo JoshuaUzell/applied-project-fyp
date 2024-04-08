@@ -17,12 +17,8 @@ export interface IUserInfo {
     licenseDateOfIssue: string;
     licenseDateOfExpiry: string;
     licenseNumber: string;
-    pictureOfLicense: string;
     vehicleModel: string;
     vehicleMake: string;
-    availableSpace: number;
-    locationsForRide: string[];
-    
   }
   
   export interface IDatabaseInterface {
@@ -31,10 +27,6 @@ export interface IUserInfo {
     addDriverDetails(driverDetails: IDriverDetails): void;
     retrieveDriverDetails(driverId: string): IDriverDetails | undefined; // Returns JSON structure for a driver
     retrieveListOfDrivers(): IDriverDetails[]; // Returns an array of driver JSON objects
-    setAvailableSpaceForRide(driverId: string, availableSpace: number): void;
-    retrieveAvailableSpaceForRide(driverId: string): number | undefined;
-    setListOfLocationsForRide(driverId: string, locations: string[]): void;
-    retrieveListOfLocationsForRide(driverId: string): string[] | undefined;
     retrieveAllUsers(): IUserInfo[];
     clearData(): void;
     emailExists(email: string): boolean;

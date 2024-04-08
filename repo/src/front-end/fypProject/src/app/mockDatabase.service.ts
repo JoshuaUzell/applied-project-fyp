@@ -55,31 +55,6 @@ export class MockDatabaseService implements IDatabaseInterface {
         return this.drivers;
     }
 
-    setAvailableSpaceForRide(driverId: string, availableSpace: number): void {
-        const driver = this.drivers.find(driver => driver.id === driverId);
-        if (driver) {
-            driver.availableSpace = availableSpace;
-            this.saveToStorage();
-        }
-    }
-
-    retrieveAvailableSpaceForRide(driverId: string): number | undefined {
-        const driver = this.drivers.find(driver => driver.id === driverId);
-        return driver ? driver.availableSpace : undefined;
-    }
-
-    setListOfLocationsForRide(driverId: string, locations: string[]): void {
-        const driver = this.drivers.find(driver => driver.id === driverId);
-        if (driver) {
-            driver.locationsForRide = locations;
-            this.saveToStorage();
-        }
-    }
-
-    retrieveListOfLocationsForRide(driverId: string): string[] | undefined {
-        const driver = this.drivers.find(driver => driver.id === driverId);
-        return driver ? driver.locationsForRide : undefined;
-    }
 
     //Returns all users
     retrieveAllUsers(): IUserInfo[] {

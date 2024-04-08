@@ -40,18 +40,11 @@ export class RegisterPage implements OnInit {
         if (this.passwordHandler.checkPasswordMatchForRegistration(this.password, this.confirmPassword)) {
           // Hash the password
           userDetails.password = await this.passwordHandler.hashPassword(this.password);
-          
-          // Set the current user email so you can retrieve it later
-          //this.databaseInterface.setCurrentUserEmail(userDetails.email);
-
-          //Register user to the database
-          //this.registerUser(userDetails);
-          
+            
           sessionStorage.setItem('id', userDetails.id);
           sessionStorage.setItem('email', userDetails.email);
-          sessionStorage.setItem('password', userDetails.password); // Caution: Risky for sensitive data
+          sessionStorage.setItem('password', userDetails.password); 
 
-          
           // Display an alert with user details
           alert(`Registration Complete!\nID: ${userDetails.id}\nEmail: ${userDetails.email}\nPassword: ${userDetails.password}`);
           this.goToUserDetails();

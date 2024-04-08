@@ -36,7 +36,9 @@ export class HomePage implements OnInit{
 
   ngOnInit(): void {
     console.log('Session Storage: ' + sessionStorage.getItem('id') + ' ' + sessionStorage.getItem('email') + ' ' + sessionStorage.getItem('password'));
+    console.log('Session Storage for driver: ' + sessionStorage.getItem('driver-id') + ' ');
     console.log(this.databaseInterface.retrieveAllUsers());
+    console.log(this.databaseInterface.retrieveListOfDrivers());
   }
 
   navigateToProfile(){
