@@ -113,9 +113,13 @@ export class UserDetailsPage implements OnInit {
 
   goToHomePage() {
     if(this.name && this.gender && this.courseDepartment && this.dob) {
+      if(this.selectedTraits.length <= 0 || this.selectedHobbies.length <= 0) {
+        alert('Please make sure that you have at least one trait and one hobby selected.');
+      }else{
         alert('Success!');
         this.saveUserDetails();
         this.router.navigate(['/home']);
+      }
       }else{
         alert('Please enter valid credentials.');
       }
