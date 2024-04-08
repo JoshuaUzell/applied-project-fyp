@@ -11,32 +11,32 @@ import { IDatabaseInterface } from '../database.interface';
   styleUrls: ['./driver-details.page.scss'],
 })
 export class DriverDetailsPage implements OnInit {
-  
-  unapplyVisible: boolean = false;
-  driverId:string = "";
-  licenseDateOfIssue:string = "";
-  licenseDateOfExpiry:string = "";
-  licenseNumber:string = "";
-  make:string = "";
-  model:string = "";
 
-  constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { 
+  unapplyVisible: boolean = false;
+  driverId: string = "";
+  licenseDateOfIssue: string = "";
+  licenseDateOfExpiry: string = "";
+  licenseNumber: string = "";
+  make: string = "";
+  model: string = "";
+
+  constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) {
   }
 
   ngOnInit() {
     this.unapplyVisible = false;
     this.getDriverDetailsFromSessionStorage();
-    if(this.driverId) {
+    if (this.driverId) {
       this.unapplyVisible = true;
-    }else{
+    } else {
       this.unapplyVisible = false;
     }
   }
 
-  applyForDriver(){
-    if(this.licenseDateOfIssue && this.licenseDateOfExpiry && this.licenseNumber && this.make && this.model) {
+  applyForDriver() {
+    if (this.licenseDateOfIssue && this.licenseDateOfExpiry && this.licenseNumber && this.make && this.model) {
       // Generate a unique ID for the new driver
-      this.driverId = `driver_${this.databaseInterface.generateUniqueID()}`; 
+      this.driverId = `driver_${this.databaseInterface.generateUniqueID()}`;
 
       // Store the driver details in session storage
       sessionStorage.setItem('driver-id', this.driverId);
@@ -47,7 +47,7 @@ export class DriverDetailsPage implements OnInit {
       sessionStorage.setItem('model', this.model);
 
       alert("Applied for Driver!"); // Display an alert with driver details
-      
+
       this.router.navigate(['/user-details']);
     } else {
       alert('Please enter valid credentials.');
@@ -65,6 +65,25 @@ export class DriverDetailsPage implements OnInit {
   }
 
   unApplyForDriver() {
+    // Remove each item related to the driver from session storage
+    sessionStorage.removeItem('driver-id');
+    sessionStorage.removeItem('license-date-of-issue');
+    sessionStorage.removeItem('license-date-of-expiry');
+    sessionStorage.removeItem('license-number');
+    sessionStorage.removeItem('make');
+    sessionStorage.removeItem('model');
+
+    //Resets the input boxes to be empty
+    this.driverId = "";
+    this.licenseDateOfIssue = "";
+    this.licenseDateOfExpiry = "";
+    this.licenseNumber = "";
+    this.make = "";
+    this.model = "";
+
+    //Make the unapply button dissapear
+    this.unapplyVisible = false;
+
     alert("You have unapplied from being a driver!");
     this.router.navigate(['/user-details']);
   }
