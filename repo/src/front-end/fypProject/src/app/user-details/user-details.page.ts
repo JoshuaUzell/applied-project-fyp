@@ -34,12 +34,13 @@ export class UserDetailsPage implements OnInit {
   driver_vehicleMake: string = '';
   driver_vehicleModel: string = '';
 
-  constructor(private router: Router, private alertController: AlertController
-    , @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) {
+  constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) {
   }
 
   ngOnInit() {
     //this.databaseInterface.clearData();
+    this.getUserDetailsFromSessionStorage();
+    this.getDriverDetailsFromSessionStorage();
 
     //Print session storage for user and driver
     console.log('Session Storage for user: ' + sessionStorage.getItem('id') + ' ' + sessionStorage.getItem('email') + ' ' + sessionStorage.getItem('password'));
@@ -47,9 +48,7 @@ export class UserDetailsPage implements OnInit {
       + sessionStorage.getItem('license-date-of-issue') + ' ' + sessionStorage.getItem('license-date-of-expiry') + ' ' + sessionStorage.getItem('license-number')
       + ' ' + sessionStorage.getItem('make') + ' ' + sessionStorage.getItem('model'));
 
-    this.getUserDetailsFromSessionStorage();
-    this.getDriverDetailsFromSessionStorage();
-
+      console.log(this.databaseInterface.retrieveAllUsers());
   }
 
   getUserDetailsFromSessionStorage() {
@@ -60,7 +59,6 @@ export class UserDetailsPage implements OnInit {
     this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
     this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
     this.genderOptions = this.databaseInterface.getGenderOptions();
-    console.log(this.databaseInterface.retrieveAllUsers());
   }
 
   getDriverDetailsFromSessionStorage() {

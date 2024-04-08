@@ -6,6 +6,7 @@ import { PASSWORD_HANDLER_TOKEN } from '../password-handler.service';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
 import { IDatabaseInterface } from '../database.interface';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -41,6 +42,9 @@ export class RegisterPage implements OnInit {
           // Hash the password
           userDetails.password = await this.passwordHandler.hashPassword(this.password);
             
+          // Generate unique ID for the user
+          userDetails.id = `user_${this.databaseInterface.generateUniqueID()}`;
+
           sessionStorage.setItem('id', userDetails.id);
           sessionStorage.setItem('email', userDetails.email);
           sessionStorage.setItem('password', userDetails.password); 

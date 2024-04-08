@@ -2,6 +2,7 @@ import { IDriverDetails, IUserInfo } from "./database.interface";
 import { IDatabaseInterface } from "./database.interface";
 import { Injectable } from '@angular/core';
 import { InjectionToken } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 
 export const DATABASE_SERVICE_TOKEN = new InjectionToken<IDatabaseInterface>('DATABASE_SERVICE');
 
@@ -32,7 +33,6 @@ export class MockDatabaseService implements IDatabaseInterface {
     }
 
     addUserDetails(userInfo: IUserInfo): void {
-        userInfo.id = `user_${this.users.length + 1}`; // Generate a unique ID for the new user
         this.users.push(userInfo); // Add the new user to the list of users
         this.saveToStorage(); // Save the updated list of users to local storage
     }
@@ -42,7 +42,6 @@ export class MockDatabaseService implements IDatabaseInterface {
     }
 
     addDriverDetails(driverDetails: IDriverDetails): void {
-        driverDetails.id = `driver_${this.drivers.length + 1}`;
         this.drivers.push(driverDetails);
         this.saveToStorage();
     }
@@ -115,27 +114,31 @@ export class MockDatabaseService implements IDatabaseInterface {
 
     updateCurrentUserDetails(updatedDetails: Partial<IUserInfo>): void {
         if (!this.currentUserEmail) {
-          console.error("No current user email set. Unable to update user details.");
-          return;
+            console.error("No current user email set. Unable to update user details.");
+            return;
         }
         const userIndex = this.users.findIndex(user => user.email === this.currentUserEmail);
         if (userIndex !== -1) {
-          // Assuming you want to fully replace personalTraits and personalHobbies arrays
-          // and update other fields directly
-          const currentUser = this.users[userIndex];
-          this.users[userIndex] = {
-            ...currentUser,
-            ...updatedDetails,
-            // Directly replace arrays. If you wanted to merge them instead, additional logic would be needed
-            personalTraits: updatedDetails.personalTraits ? [...updatedDetails.personalTraits] : currentUser.personalTraits,
-            personalHobbies: updatedDetails.personalHobbies ? [...updatedDetails.personalHobbies] : currentUser.personalHobbies
-          };
-          this.saveToStorage(); // Persist the updated user list to storage
-          console.log("User details updated successfully.");
+            // Assuming you want to fully replace personalTraits and personalHobbies arrays
+            // and update other fields directly
+            const currentUser = this.users[userIndex];
+            this.users[userIndex] = {
+                ...currentUser,
+                ...updatedDetails,
+                // Directly replace arrays. If you wanted to merge them instead, additional logic would be needed
+                personalTraits: updatedDetails.personalTraits ? [...updatedDetails.personalTraits] : currentUser.personalTraits,
+                personalHobbies: updatedDetails.personalHobbies ? [...updatedDetails.personalHobbies] : currentUser.personalHobbies
+            };
+            this.saveToStorage(); // Persist the updated user list to storage
+            console.log("User details updated successfully.");
         } else {
-          console.error("Current user not found. Unable to update user details.");
+            console.error("Current user not found. Unable to update user details.");
         }
-      }
-      
+    }
+
+    generateUniqueID(): string {
+        return uuidv4();
+    }
+
 
 }//End of class

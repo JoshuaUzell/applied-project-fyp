@@ -36,5 +36,6 @@ export interface IUserInfo {
     setCurrentUserEmail(email: string): void;
     getCurrentUser(): IUserInfo | undefined;
     updateCurrentUserDetails(updatedDetails: Partial<IUserInfo>): void;
+    generateUniqueID(): string;
   }
   

@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IPasswordHandler } from '../passwordHandler.interface';
+import { PASSWORD_HANDLER_TOKEN } from '../password-handler.service';
+import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
+import { IDatabaseInterface } from '../database.interface';
 
 @Component({
   selector: 'app-driver-details',
@@ -16,14 +20,24 @@ export class DriverDetailsPage implements OnInit {
   make:string = "";
   model:string = "";
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { 
   }
 
   ngOnInit() {
+    this.unapplyVisible = false;
+    this.getDriverDetailsFromSessionStorage();
+    if(this.driverId) {
+      this.unapplyVisible = true;
+    }else{
+      this.unapplyVisible = false;
+    }
   }
 
   applyForDriver(){
     if(this.licenseDateOfIssue && this.licenseDateOfExpiry && this.licenseNumber && this.make && this.model) {
+      // Generate a unique ID for the new driver
+      this.driverId = `driver_${this.databaseInterface.generateUniqueID()}`; 
+
       // Store the driver details in session storage
       sessionStorage.setItem('driver-id', this.driverId);
       sessionStorage.setItem('license-date-of-issue', this.licenseDateOfIssue);
@@ -38,6 +52,16 @@ export class DriverDetailsPage implements OnInit {
     } else {
       alert('Please enter valid credentials.');
     }
+  }
+
+  getDriverDetailsFromSessionStorage() {
+    //Get driver details from session storage
+    this.driverId = sessionStorage.getItem('driver-id') as string;
+    this.licenseDateOfIssue = sessionStorage.getItem('license-date-of-issue') as string;
+    this.licenseDateOfExpiry = sessionStorage.getItem('license-date-of-expiry') as string;
+    this.licenseNumber = sessionStorage.getItem('license-number') as string;
+    this.make = sessionStorage.getItem('make') as string;
+    this.model = sessionStorage.getItem('model') as string;
   }
 
   unApplyForDriver() {
