@@ -145,5 +145,14 @@ export class MockDatabaseService implements IDatabaseInterface {
         return regex.test(licenseNumber);
     }
 
+    // Function to check if the dates are equal
+    validateDatesAreNotEqual(issueDate: string, expiryDate: string): boolean {
+        if (issueDate === expiryDate) {
+            console.error('Issue and expiry dates cannot be the same.');
+            return false; 
+        }
+        return true; 
+    }
+
 
 }//End of class

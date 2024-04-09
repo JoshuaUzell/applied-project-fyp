@@ -42,6 +42,12 @@ export class DriverDetailsPage implements OnInit {
         return;
       }
 
+      //Check if the issue and expiry dates are the same
+      if(!this.databaseInterface.validateDatesAreNotEqual(this.licenseDateOfIssue, this.licenseDateOfExpiry)) {
+        alert('Issue and expiry dates cannot be the same. Please enter valid dates.');
+        return;
+      }
+
       // Generate a unique ID for the new driver
       this.driverId = `driver_${this.databaseInterface.generateUniqueID()}`;
 

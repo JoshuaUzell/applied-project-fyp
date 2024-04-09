@@ -38,5 +38,6 @@ export interface IUserInfo {
     updateCurrentUserDetails(updatedDetails: Partial<IUserInfo>): void;
     generateUniqueID(): string;
     isLicenseNumberValid(licenseNumber: string): boolean;
+    validateDatesAreNotEqual(issueDate: string, expiryDate: string): boolean;
   }
   
