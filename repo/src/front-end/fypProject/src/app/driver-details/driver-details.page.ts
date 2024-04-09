@@ -48,8 +48,15 @@ export class DriverDetailsPage implements OnInit {
         return;
       }
 
-      if(!this.databaseInterface.validateExpiryDateIsNotToday(this.licenseDateOfExpiry)) {
-        alert('Expiry date cannot be today. Please enter a valid expiry date.');
+      //Check if the expiry date is today or prior to today
+      if(!this.databaseInterface.validateExpiryDateIsNotPresentOrPriorDate(this.licenseDateOfExpiry)) {
+        alert('The expiry date cannot be today or any date before today. Please enter valid dates.');
+        return;
+      }
+
+      //Check if the expiry date is before the issue date
+      if(!this.databaseInterface.validateExpiryAfterIssue(this.licenseDateOfIssue, this.licenseDateOfExpiry)) {
+        alert('Expiry date cannot be before the issue date. Please enter valid dates.');
         return;
       }
 

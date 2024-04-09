@@ -39,6 +39,7 @@ export interface IUserInfo {
     generateUniqueID(): string;
     isLicenseNumberValid(licenseNumber: string): boolean;
     validateDatesAreNotEqual(issueDate: string, expiryDate: string): boolean;
-    validateExpiryDateIsNotToday(expiryDate: string): boolean;
+    validateExpiryDateIsNotPresentOrPriorDate(expiryDate: string): boolean;
+    validateExpiryAfterIssue(issueDate: string, expiryDate: string): boolean;
   }
   

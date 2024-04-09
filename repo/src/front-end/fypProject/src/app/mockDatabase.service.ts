@@ -149,23 +149,35 @@ export class MockDatabaseService implements IDatabaseInterface {
     validateDatesAreNotEqual(issueDate: string, expiryDate: string): boolean {
         if (issueDate === expiryDate) {
             console.error('Issue and expiry dates cannot be the same.');
-            return false; 
-        }
-        return true; 
-    }
-
-    validateExpiryDateIsNotToday(expiryDate: string): boolean {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for a fair comparison
-      
-        const expiry = new Date(expiryDate);
-        expiry.setHours(0, 0, 0, 0); // Ensure the comparison is date-only, without time
-      
-        if (expiry.getTime() === today.getTime()) {
-          console.error('The expiry date cannot be today.');
-          return false; 
+            return false;
         }
         return true;
-      }
+    }
+
+    validateExpiryDateIsNotPresentOrPriorDate(expiryDate: string): boolean {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for a fair comparison
+
+        const expiry = new Date(expiryDate);
+        expiry.setHours(0, 0, 0, 0); // Ensure the comparison is date-only, without time
+
+        if ((expiry.getTime() < today.getTime()) || (expiry.getTime() === today.getTime())){
+            console.error('The expiry date cannot be today or any date before today.');
+            return false; 
+        }
+
+        return true;
+    }
+
+    validateExpiryAfterIssue(issueDate: string, expiryDate: string): boolean {
+        const issue = new Date(issueDate);
+        const expiry = new Date(expiryDate);
+
+        if (expiry <= issue) {
+            console.error('The expiry date cannot be before the issue date.');
+            return false; // Validation failed
+        }
+        return true; // Validation passed
+    }
 
 }//End of class
