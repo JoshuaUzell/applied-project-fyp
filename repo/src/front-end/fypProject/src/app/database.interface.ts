@@ -37,5 +37,6 @@ export interface IUserInfo {
     getCurrentUser(): IUserInfo | undefined;
     updateCurrentUserDetails(updatedDetails: Partial<IUserInfo>): void;
     generateUniqueID(): string;
+    isLicenseNumberValid(licenseNumber: string): boolean;
   }
   

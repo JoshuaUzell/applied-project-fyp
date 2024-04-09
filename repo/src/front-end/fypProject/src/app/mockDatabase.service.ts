@@ -140,5 +140,10 @@ export class MockDatabaseService implements IDatabaseInterface {
         return uuidv4();
     }
 
+    isLicenseNumberValid(licenseNumber: string): boolean {
+        const regex = /^[A-Z0-9]{10}$/;
+        return regex.test(licenseNumber);
+    }
+
 
 }//End of class

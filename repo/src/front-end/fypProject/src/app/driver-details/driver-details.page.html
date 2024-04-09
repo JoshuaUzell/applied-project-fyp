@@ -22,16 +22,16 @@
         <!-- License Number -->
         <ion-item>
           <ion-label position="floating">License Number</ion-label>
-          <ion-input type="text" [(ngModel)]="licenseNumber"></ion-input>
+          <ion-input type="text" placeholder="0000OO00VV" [(ngModel)]="licenseNumber"></ion-input>
         </ion-item>
         <!--Car Make and Model-->
         <ion-item>
           <ion-label position="floating">Make</ion-label>
-          <ion-input type="text" [(ngModel)]="make"></ion-input>
+          <ion-input type="text" placeholder="Ford" [(ngModel)]="make"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Model</ion-label>
-          <ion-input type="text" [(ngModel)]="model"></ion-input>
+          <ion-input type="text" placeholder="Kuga" [(ngModel)]="model"></ion-input>
         </ion-item>
         <!-- ApplyForDriver button -->
         <ion-button class="applyDriverBtn" expand="full" (click)="applyForDriver()">Apply</ion-button>

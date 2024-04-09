@@ -35,6 +35,13 @@ export class DriverDetailsPage implements OnInit {
 
   applyForDriver() {
     if (this.licenseDateOfIssue && this.licenseDateOfExpiry && this.licenseNumber && this.make && this.model) {
+
+      // Check if the license number is valid
+      if (!this.databaseInterface.isLicenseNumberValid(this.licenseNumber)) {
+        alert('Please enter a valid license number.');
+        return;
+      }
+
       // Generate a unique ID for the new driver
       this.driverId = `driver_${this.databaseInterface.generateUniqueID()}`;
 

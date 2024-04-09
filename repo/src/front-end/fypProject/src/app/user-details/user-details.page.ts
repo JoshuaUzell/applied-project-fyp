@@ -48,7 +48,7 @@ export class UserDetailsPage implements OnInit {
       + sessionStorage.getItem('license-date-of-issue') + ' ' + sessionStorage.getItem('license-date-of-expiry') + ' ' + sessionStorage.getItem('license-number')
       + ' ' + sessionStorage.getItem('make') + ' ' + sessionStorage.getItem('model'));
 
-      console.log(this.databaseInterface.retrieveAllUsers());
+    console.log(this.databaseInterface.retrieveAllUsers());
   }
 
   getUserDetailsFromSessionStorage() {
@@ -138,13 +138,20 @@ export class UserDetailsPage implements OnInit {
       vehicleMake: this.driver_vehicleMake,
       vehicleModel: this.driver_vehicleModel,
     };
-    
+
+    // Check if any property in updatedDriverDetails is null
+    const isUpdatedDriversNull = Object.values(updatedDriverDetails).some(value => value === null);
+
+    if (isUpdatedDriversNull) {
+      console.log('At least one attribute is null. Therefore, driver will not be added to the database.');
+    } else {
+      console.log('No attributes are null. Driver will get added to the database.');
+      //Register driver to the database
+      this.databaseInterface.addDriverDetails(updatedDriverDetails);
+    }
 
     //Regtister user to the database
     this.databaseInterface.addUserDetails(updatedUserDetails);
-
-    //Register driver to the database
-    this.databaseInterface.addDriverDetails(updatedDriverDetails);
 
   }
 
@@ -154,6 +161,8 @@ export class UserDetailsPage implements OnInit {
         alert('Please make sure that you have at least one trait and one hobby selected.');
       } else {
         alert('Success!');
+        //Get driver details from session storage
+        this.getDriverDetailsFromSessionStorage();
         this.saveUserDetails();
         //Clear session storage upon successful registration
         sessionStorage.clear();
