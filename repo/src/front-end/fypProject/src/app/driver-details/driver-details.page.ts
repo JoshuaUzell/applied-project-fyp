@@ -48,6 +48,11 @@ export class DriverDetailsPage implements OnInit {
         return;
       }
 
+      if(!this.databaseInterface.validateExpiryDateIsNotToday(this.licenseDateOfExpiry)) {
+        alert('Expiry date cannot be today. Please enter a valid expiry date.');
+        return;
+      }
+
       // Generate a unique ID for the new driver
       this.driverId = `driver_${this.databaseInterface.generateUniqueID()}`;
 

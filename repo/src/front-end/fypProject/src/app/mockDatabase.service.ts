@@ -154,5 +154,18 @@ export class MockDatabaseService implements IDatabaseInterface {
         return true; 
     }
 
+    validateExpiryDateIsNotToday(expiryDate: string): boolean {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Normalize today's date to midnight for a fair comparison
+      
+        const expiry = new Date(expiryDate);
+        expiry.setHours(0, 0, 0, 0); // Ensure the comparison is date-only, without time
+      
+        if (expiry.getTime() === today.getTime()) {
+          console.error('The expiry date cannot be today.');
+          return false; 
+        }
+        return true;
+      }
 
 }//End of class
