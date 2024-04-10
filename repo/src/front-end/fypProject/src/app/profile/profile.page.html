@@ -1,87 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-list>
-    <ion-list>
-      <ion-item>
-        <ion-input  [clearInput]="true"  label="Email" type="email" placeholder="email@domain.com"></ion-input>
-      </ion-item>
-      
-      <ion-item>
-        <ion-input label="Password" placeholder="Enter Password" type="password" value="password"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input [clearInput]="true" label="Name" placeholder="Enter Name"></ion-input>
-      </ion-item>
+<ion-content padding>
+  <ion-card class="profile-card">
+    <ion-card-content>
+      <div class="profile-container">
+        <ion-buttons slot="start">
+          <ion-back-button class="back-button" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
+        <ion-label class="detailsText">Please enter details</ion-label>
+        <!-- Input boxes -->
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" [(ngModel)]="email"></ion-input>
+        </ion-item>
   
-      <ion-item>
-        <ion-input [clearInput]="true" label="Date" placeholder="Enter Date Of Birth" type="Date"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input [clearInput]="true" label="CourseDepartment" placeholder="Enter Department"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Gender</ion-label>
-      </ion-item>
-      <ion-list>
         <ion-item>
-          <ion-select [value]="selectedGender" aria-label="Gender" interface="popover" placeholder="Select an option">
-            <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
-            <ion-select-option value="male">Male</ion-select-option>
-            <ion-select-option value="female">Female</ion-select-option>
-            <ion-select-option value="other">Other</ion-select-option>
-            <ion-select-option value="preferNotToSay">Prefer Not To Say</ion-select-option>
-          </ion-select>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
-      </ion-list>
-  
-       <!--Dropdown for Personal Traits-->
-       <ion-item>
-        <ion-label position="floating">Personal Traits</ion-label>
-      </ion-item>
-      <ion-list>
+        
+        <!-- Name -->
         <ion-item>
-          <ion-select [value]="selectedTraits" (ionChange)="limitSelectionOfTraits($event)" [multiple]="true" aria-label="Trait" interface="popover" placeholder="Select 3 Traits">
-            <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
-            <ion-select-option value="a">Adventurous</ion-select-option>
-            <ion-select-option value="c">Curious</ion-select-option>
-            <ion-select-option value="e">Empathetic</ion-select-option>
-            <ion-select-option value="f">Friendly</ion-select-option>
-            <ion-select-option value="s">Shy</ion-select-option>
-          </ion-select>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" [(ngModel)]="name"></ion-input>
         </ion-item>
-      </ion-list>
 
-       <!--Dropdown for Hobbies-->
-       <ion-item>
-        <ion-label position="floating">Hobbies</ion-label>
-      </ion-item>
-      <ion-list>
+        
+        <!-- DOB -->
         <ion-item>
-          <ion-select [value]="selectedHobbies" (ionChange)="limitSelectionOfHobbies($event)" [multiple]="true" aria-label="Trait" interface="popover" placeholder="Select 3 Hobbies">
-            <!--NOTE TO SELF: WILL NEED TO SOMEHOW REPLACE OPTIONS BELOW WITH ONES FROM DATABASE-->
-            <ion-select-option value="r">Reading</ion-select-option>
-            <ion-select-option value="d">Drawing</ion-select-option>
-            <ion-select-option value="p">Painting</ion-select-option>
-            <ion-select-option value="m">Music</ion-select-option>
-            <ion-select-option value="c">Cooking</ion-select-option>
-          </ion-select>
+          <ion-input [clearInput]="true" label="Date" placeholder="Enter Date Of Birth" type="Date"  [(ngModel)]="dob"></ion-input>
         </ion-item>
-      </ion-list>
+        
+        <!--Gender-->
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Gender</ion-label>
+            <ion-select [(ngModel)]="gender" interface="popover" placeholder="Select an option">
+              <ion-select-option *ngFor="let genderOption of genderOptions" [value]="genderOption">
+                {{ genderOption }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list> 
+        
+        <!--Course Department-->
+        <ion-item>
+          <ion-label position="floating">Course Department</ion-label>
+          <ion-input type="text" [(ngModel)]="courseDepartment"></ion-input>
+        </ion-item>
 
-    </ion-list>
-  </ion-list>
+        <!--Dropdown for Personal Traits-->
+        <ion-item>
+          <ion-label position="floating">Personal Traits</ion-label>
+        </ion-item>
+        <ion-list>
+          <!-- Personal Traits -->
+          <ion-item>
+            <ion-label position="floating">Personal Traits</ion-label>
+            <ion-select (ionChange)="limitSelectionOfTraits($event)" [(ngModel)]="selectedTraits" [multiple]="true" interface="popover" placeholder="Select Traits">
+              <ion-select-option *ngFor="let trait of personalTraitsOptions" [value]="trait.value">
+                {{ trait.display }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <!--Dropdown for Hobbies-->
+        <ion-item>
+          <ion-label position="floating">Hobbies</ion-label>
+        </ion-item>
+        <ion-list>
+         <!-- Hobbies -->
+          <ion-item>
+            <ion-label position="floating">Hobbies</ion-label>
+            <ion-select (ionChange)="limitSelectionOfHobbies($event)" [(ngModel)]="selectedHobbies" [multiple]="true" interface="popover" placeholder="Select Hobbies">
+              <ion-select-option *ngFor="let hobby of hobbiesOptions" [value]="hobby.value">
+                {{ hobby.display }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+
+        <!--Container for bottom buttons -->
+        <div class="button-container">
+          <ion-button expand="full" >Apply for Driver</ion-button>
+          <ion-button expand="full" >Update Profile</ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
-

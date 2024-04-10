@@ -1,0 +1,51 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+   
+  .app-logo {
+    width: 250px;
+    height: 250px;
+    margin-bottom: -100px;
+  }
+  
+  .profile-card {
+    width: 70%;  
+    height: auto;
+    margin: auto; 
+  }
+
+  .button-class{
+    --color: #ffffff; 
+    width: 100%; // Make the button wider
+    padding: 10px 20px; // Add some padding
+    --border-radius: 100px; // Add rounded corners
+  }
+  
+  .back-button {
+    position: absolute;
+    margin-top: 30px;
+    margin-bottom: -220px;
+    margin-left: -140px;
+  }
+
+  .detailsText{
+    margin-top: 20px;
+    margin-left: -20px;
+    margin-bottom: 20px;
+    font-size: large;
+  }
+
+
+  

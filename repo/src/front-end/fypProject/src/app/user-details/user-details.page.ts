@@ -12,9 +12,7 @@ import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
 export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
 
-  // Gender options which will contain options from the database
-  genderOptions: string[] = [];
-
+  
   id: string = '';
   name: string = '';
   email: string = '';
@@ -26,7 +24,8 @@ export class UserDetailsPage implements OnInit {
   selectedHobbies: any[] = [];
   personalTraitsOptions: Array<{ value: string, display: string }> = [];
   hobbiesOptions: Array<{ value: string, display: string }> = [];
-
+  genderOptions: string[] = [];
+  
   driver_id: string = '';
   driver_licenseDateOfIssue: string = '';
   driver_licenseDateOfExpiry: string = '';
@@ -163,7 +162,11 @@ export class UserDetailsPage implements OnInit {
         alert('Success!');
         //Get driver details from session storage
         this.getDriverDetailsFromSessionStorage();
-        this.saveUserDetails();
+        this.saveUserDetails(); // Save user details to the database
+
+        //Set the current user's email in the database
+        this.databaseInterface.setCurrentUserEmail(this.email);
+        
         //Clear session storage upon successful registration
         sessionStorage.clear();
         this.router.navigate(['/home']);

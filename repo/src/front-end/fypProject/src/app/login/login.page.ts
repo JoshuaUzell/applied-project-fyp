@@ -37,7 +37,13 @@ export class LoginPage implements OnInit {
     if (userDetails && isPasswordCorrect) {
       // Handle successful login, e.g., redirecting to a dashboard
       alert('Correct!\n User Details are \nEmail: ' + userDetails.email + '\nPassword: ' + userDetails.password);
+      
+      //Set the current user's email in the database
+      this.databaseInterface.setCurrentUserEmail(userDetails.email);
+
+      //Navigate to the home page
       this.router.navigate(['/home']);
+      
     } else if (userDetails && userDetails.password !== password) {
       alert('Incorrect Password. Please enter a correct password.');
     } else if (userDetails?.email !== email) {
