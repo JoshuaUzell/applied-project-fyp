@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
 import { IDatabaseInterface } from '../database.interface';
+import { PASSWORD_HANDLER_TOKEN } from '../password-handler.service';
+import { IPasswordHandler } from '../passwordHandler.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,8 +12,12 @@ import { IDatabaseInterface } from '../database.interface';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  
-  
+
+  //Password fields from the form 
+  currentPassword: string = '';
+  newPassword: string = '';
+  confirmNewPassword: string = '';
+
   id: string = '';
   name: string = '';
   email: string = '';
@@ -26,7 +33,7 @@ export class ProfilePage implements OnInit {
 
   currentUser: any;
 
-  constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
+  constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { }
 
   ngOnInit() {
     //Retrieve the gender options, personal traits options, and hobbies options from the database
@@ -46,7 +53,6 @@ export class ProfilePage implements OnInit {
       this.id = this.currentUser.id || '';
       this.name = this.currentUser.name || '';
       this.email = this.currentUser.email || '';
-      this.password = this.currentUser.password || ''; // Be mindful of security practices here
       this.gender = this.currentUser.gender || '';
       this.dob = this.currentUser.dob || '';
       this.courseDepartment = this.currentUser.courseDepartment || '';
@@ -64,9 +70,9 @@ export class ProfilePage implements OnInit {
         message: 'You can only select up to 3 traits.',
         buttons: ['OK']
       });
-  
+
       await alert.present();
-  
+
       // Set the selectedTraits to the first three selections
       this.selectedTraits = event.detail.value.slice(0, 3);
       // Reset the ion-select to only have the first three items
@@ -86,9 +92,9 @@ export class ProfilePage implements OnInit {
         message: 'You can only select up to 3 hobbies.',
         buttons: ['OK']
       });
-  
+
       await alert.present();
-  
+
       // Set the selectedHobbies to the first three selections
       this.selectedHobbies = event.detail.value.slice(0, 3);
       // Reset the ion-select to only have the first three items
@@ -99,4 +105,40 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  //Method to update the user details
+  async applyChanges() {
+    const isPasswordCorrect = this.passwordHandler.verifyPassword(this.currentPassword, this.currentUser?.password ?? '');
+
+    if (this.id && this.name && this.email && this.gender && this.dob && this.courseDepartment && this.selectedTraits && this.selectedHobbies) {
+      if (await isPasswordCorrect) {
+        if (this.passwordHandler.checkPasswordAndConfirmPasswordMatch(this.confirmNewPassword, this.newPassword)) {
+          // Update the user details in the database
+          this.currentUser.password = await this.passwordHandler.hashPassword(this.newPassword);
+          this.reApplyChanges();
+          this.databaseInterface.updateCurrentUserDetails(this.currentUser);
+          this.goToHomePage();
+        }else{
+          alert('The new password and confirm new password do not match. Please enter the same password in both fields.');
+        }
+      }else{
+        alert('Please enter the correct password to apply changes.');
+      }
+    }else{
+      alert('Please enter all the fields to apply changes.');
+    }
+  }
+
+  reApplyChanges() {
+    this.currentUser.name = this.name;
+    this.currentUser.email = this.email;
+    this.currentUser.gender = this.gender
+    this.currentUser.dob = this.dob;
+    this.currentUser.courseDepartment = this.courseDepartment;
+    this.currentUser.selectedTraits = this.selectedTraits;
+    this.currentUser.selectedHobbies = this.selectedHobbies;
+  }
+
+  goToHomePage() {
+    this.router.navigate(['/home']);
+  }
 }

@@ -26,7 +26,7 @@ export class PasswordHandlerService implements IPasswordHandler {
     return bcrypt.compare(password, hash);
   }
 
-  checkPasswordMatchForRegistration(password: string, confirmPassword: string): boolean {
+  checkPasswordAndConfirmPasswordMatch(password: string, confirmPassword: string): boolean {
     //Check if password and confirm password exist, if so, check if they match, if not, display an alert
     if (password && confirmPassword) {
       //Check if password and confirm password match

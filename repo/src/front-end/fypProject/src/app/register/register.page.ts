@@ -38,7 +38,7 @@ export class RegisterPage implements OnInit {
       //Check if the email already exists, if not proceed
       if (!this.databaseInterface.emailExists(this.email)) {
         //Check if the password and confirm password match
-        if (this.passwordHandler.checkPasswordMatchForRegistration(this.password, this.confirmPassword)) {
+        if (this.passwordHandler.checkPasswordAndConfirmPasswordMatch(this.password, this.confirmPassword)) {
           // Hash the password
           userDetails.password = await this.passwordHandler.hashPassword(this.password);
             
