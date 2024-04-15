@@ -125,4 +125,8 @@ export class ProfilePage implements OnInit {
   goToHomePage() {
     this.router.navigate(['/home']);
   }
+
+  goToChangePasswordPage() {
+    this.router.navigate(['/change-password']);
+  }
 }
