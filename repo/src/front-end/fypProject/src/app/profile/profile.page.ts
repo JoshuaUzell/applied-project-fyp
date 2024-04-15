@@ -2,8 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
 import { IDatabaseInterface } from '../database.interface';
-import { PASSWORD_HANDLER_TOKEN } from '../password-handler.service';
-import { IPasswordHandler } from '../passwordHandler.interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -28,7 +26,7 @@ export class ProfilePage implements OnInit {
 
   currentUser: any;
 
-  constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { }
+  constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
   ngOnInit() {
     //Retrieve the gender options, personal traits options, and hobbies options from the database
@@ -106,6 +104,7 @@ export class ProfilePage implements OnInit {
       // Update the user details in the database
       this.reApplyChanges();
       this.databaseInterface.updateCurrentUserDetails(this.currentUser);
+      alert('Changes applied successfully.');
       this.goToHomePage();
     }else{
       alert('Please enter all the fields to apply changes.');
