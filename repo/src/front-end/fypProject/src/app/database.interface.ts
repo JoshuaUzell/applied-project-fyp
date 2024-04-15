@@ -2,7 +2,7 @@
 export interface IUserInfo {
     id: string;
     email: string;
-    password: string;
+    password: string; 
     name: string;
     dob: string;
     gender: string;
@@ -14,6 +14,7 @@ export interface IUserInfo {
   //Interface for DriverDetails data which will be formatted as JSON
   export interface IDriverDetails {
     id: string;
+    driverEmail: string //Driver email will be the same as the user email
     licenseDateOfIssue: string;
     licenseDateOfExpiry: string;
     licenseNumber: string;
@@ -41,5 +42,6 @@ export interface IUserInfo {
     validateDatesAreNotEqual(issueDate: string, expiryDate: string): boolean;
     validateExpiryDateIsNotPresentOrPriorDate(expiryDate: string): boolean;
     validateExpiryAfterIssue(issueDate: string, expiryDate: string): boolean;
+    getCurrentDriver(): IDriverDetails | undefined;
   }
   

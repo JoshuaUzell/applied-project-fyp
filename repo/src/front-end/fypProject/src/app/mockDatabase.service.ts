@@ -104,7 +104,7 @@ export class MockDatabaseService implements IDatabaseInterface {
         this.currentUserEmail = email;
     }
 
-    getCurrentUser(): IUserInfo | undefined {
+    getCurrentUser(): IUserInfo | undefined { 
         if (!this.currentUserEmail) {
             console.log("No current user email set.");
             return undefined;
@@ -178,6 +178,14 @@ export class MockDatabaseService implements IDatabaseInterface {
             return false; // Validation failed
         }
         return true; // Validation passed
+    }
+
+    getCurrentDriver(): IDriverDetails | undefined {
+        if (!this.currentUserEmail) {
+            console.error("No current driver email is set.");
+            return undefined;
+        }
+        return this.drivers.find(driver => driver.driverEmail === this.currentUserEmail);
     }
 
 }//End of class

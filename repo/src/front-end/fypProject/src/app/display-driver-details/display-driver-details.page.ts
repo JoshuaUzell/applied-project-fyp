@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
+import { IDatabaseInterface } from '../database.interface';
 
 @Component({
   selector: 'app-display-driver-details',
@@ -15,9 +17,25 @@ export class DisplayDriverDetailsPage implements OnInit {
   make: string = "";
   model: string = "";
 
-  constructor() { }
+  currentDriver: any;
+
+  constructor(@Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
   ngOnInit() {
+    this.currentDriver = this.databaseInterface.getCurrentDriver();
+    if(this.currentDriver){
+      this.assignDriverDetails();
+      this.unapplyVisible = true;
+    }
+  }
+
+  assignDriverDetails() {
+      this.driverId = this.currentDriver.id || '';
+      this.licenseDateOfIssue = this.currentDriver.licenseDateOfIssue || '';
+      this.licenseDateOfExpiry = this.currentDriver.licenseDateOfExpiry || '';
+      this.licenseNumber = this.currentDriver.licenseNumber || '';
+      this.make = this.currentDriver.vehicleMake || '';
+      this.model = this.currentDriver.vehicleModel || '';
   }
 
 }

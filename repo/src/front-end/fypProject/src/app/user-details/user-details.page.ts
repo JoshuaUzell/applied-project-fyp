@@ -115,9 +115,7 @@ export class UserDetailsPage implements OnInit {
   }
 
   saveUserDetails() {
-
     const updatedUserDetails = {
-      // Assuming you have a way to generate or retrieve a unique user ID
       id: this.id,
       email: this.email,
       password: this.password,
@@ -131,6 +129,7 @@ export class UserDetailsPage implements OnInit {
 
     const updatedDriverDetails = {
       id: this.driver_id,
+      driverEmail: this.email, //Make the user email the same as the driver email
       licenseDateOfIssue: this.driver_licenseDateOfIssue,
       licenseDateOfExpiry: this.driver_licenseDateOfExpiry,
       licenseNumber: this.driver_licenseNumber,
@@ -154,6 +153,7 @@ export class UserDetailsPage implements OnInit {
 
   }
 
+  //Being called in html file
   goToHomePage() {
     if (this.name && this.gender && this.courseDepartment && this.dob) {
       if (this.selectedTraits.length <= 0 || this.selectedHobbies.length <= 0) {
@@ -176,6 +176,7 @@ export class UserDetailsPage implements OnInit {
     }
   }
 
+  //Being called in html file
   goToApplyForDriverPage() {
     this.router.navigate(['/driver-details']);
   }
