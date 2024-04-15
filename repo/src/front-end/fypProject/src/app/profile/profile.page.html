@@ -12,23 +12,7 @@
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" [(ngModel)]="email"></ion-input>
         </ion-item>
-  
-        <ion-item>
-          <ion-label position="floating">Current Password</ion-label>
-          <ion-input placeholder="Enter current password" type="password" [(ngModel)]="currentPassword"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label position="floating">New Password</ion-label>
-          <ion-input placeholder="Enter new password" type="password" [(ngModel)]="newPassword"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="floating">Confirm New Password</ion-label>
-          <ion-input placeholder="Re-enter new password" type="password" [(ngModel)]="confirmNewPassword"></ion-input>
-        </ion-item>
-        
-        
+         
         <!-- Name -->
         <ion-item>
           <ion-label position="floating">Name</ion-label>
@@ -94,7 +78,8 @@
         <!--Container for bottom buttons -->
         <div class="button-container">
           <ion-button expand="full" >Apply for Driver</ion-button>
-          <ion-button expand="full" (click)="applyChanges()">Update Profile</ion-button>
+          <ion-button expand="full" (click)="applyChanges()">Apply Profile Changes</ion-button>
+          <ion-button expand="full" >Update Password</ion-button>
         </div>
       </div>
     </ion-card-content>

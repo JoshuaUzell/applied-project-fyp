@@ -13,11 +13,6 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-  //Password fields from the form 
-  currentPassword: string = '';
-  newPassword: string = '';
-  confirmNewPassword: string = '';
-
   id: string = '';
   name: string = '';
   email: string = '';
@@ -107,22 +102,11 @@ export class ProfilePage implements OnInit {
 
   //Method to update the user details
   async applyChanges() {
-    const isPasswordCorrect = this.passwordHandler.verifyPassword(this.currentPassword, this.currentUser?.password ?? '');
-
     if (this.id && this.name && this.email && this.gender && this.dob && this.courseDepartment && this.selectedTraits && this.selectedHobbies) {
-      if (await isPasswordCorrect) {
-        if (this.passwordHandler.checkPasswordAndConfirmPasswordMatch(this.confirmNewPassword, this.newPassword)) {
-          // Update the user details in the database
-          this.currentUser.password = await this.passwordHandler.hashPassword(this.newPassword);
-          this.reApplyChanges();
-          this.databaseInterface.updateCurrentUserDetails(this.currentUser);
-          this.goToHomePage();
-        }else{
-          alert('The new password and confirm new password do not match. Please enter the same password in both fields.');
-        }
-      }else{
-        alert('Please enter the correct password to apply changes.');
-      }
+      // Update the user details in the database
+      this.reApplyChanges();
+      this.databaseInterface.updateCurrentUserDetails(this.currentUser);
+      this.goToHomePage();
     }else{
       alert('Please enter all the fields to apply changes.');
     }
