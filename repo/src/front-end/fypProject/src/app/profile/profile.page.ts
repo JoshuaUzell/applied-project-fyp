@@ -128,4 +128,9 @@ export class ProfilePage implements OnInit {
   goToChangePasswordPage() {
     this.router.navigate(['/change-password']);
   }
+
+  goToDisplayDriverDetailsPage() {
+    this.router.navigate(['/display-driver-details']);
+  }
+
 }

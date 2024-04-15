@@ -1,0 +1,43 @@
+<ion-content padding>
+  <ion-card class="displayDriverDetails-card">
+    <ion-card-content>
+      <div class="displayDriverDetails-container">
+        <ion-buttons slot="start">
+          <ion-back-button class="back-button" defaultHref="/profile"></ion-back-button>
+        </ion-buttons>
+        <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
+        <!-- Input boxes -->
+       
+        <!-- License Date of Issue and Expiry -->
+        <ion-item>
+          <ion-label position="floating">License Date of Issue</ion-label>
+          <ion-input [clearInput]="true" placeholder="Enter License Date of Issue" type="Date"  [(ngModel)]="licenseDateOfIssue"></ion-input>
+        </ion-item>
+
+        <ion-item> 
+          <ion-label position="floating">License Date of Expiry</ion-label>
+          <ion-input [clearInput]="true" placeholder="Enter License Date of Expiry" type="Date" [(ngModel)]="licenseDateOfExpiry"></ion-input>
+        </ion-item>
+
+        <!-- License Number -->
+        <ion-item>
+          <ion-label position="floating">License Number</ion-label>
+          <ion-input type="text" placeholder="0000OO00VV" [(ngModel)]="licenseNumber"></ion-input>
+        </ion-item>
+        <!--Car Make and Model-->
+        <ion-item>
+          <ion-label position="floating">Make</ion-label>
+          <ion-input type="text" placeholder="Ford" [(ngModel)]="make"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Model</ion-label>
+          <ion-input type="text" placeholder="Kuga" [(ngModel)]="model"></ion-input>
+        </ion-item>
+        <!-- ApplyForDriver button -->
+        <ion-button class="applyDriverBtn" expand="full">Apply</ion-button>
+        <ion-button *ngIf="unapplyVisible">Offer a Ride</ion-button>
+        <ion-button *ngIf="unapplyVisible">Unapply For Driver</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
