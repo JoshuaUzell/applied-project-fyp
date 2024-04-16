@@ -34,16 +34,11 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
-    path: 'change-password',
-    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
   {
-    path: 'display-driver-details',
-    loadChildren: () => import('./display-driver-details/display-driver-details.module').then( m => m.DisplayDriverDetailsPageModule)
-  },
-
-
+    path: 'change-password',
+    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+  }
 ];
 
 @NgModule({

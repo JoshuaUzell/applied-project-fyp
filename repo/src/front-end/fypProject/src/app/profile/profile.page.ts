@@ -13,7 +13,6 @@ export class ProfilePage implements OnInit {
 
   id: string = '';
   name: string = '';
-  email: string = '';
   password: string = '';
   gender: string = '';
   dob: string = '';
@@ -25,6 +24,7 @@ export class ProfilePage implements OnInit {
   genderOptions: string[] = [];
 
   currentUser: any;
+  currentDriver: any;
 
   constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
@@ -45,7 +45,6 @@ export class ProfilePage implements OnInit {
     if (this.currentUser) {
       this.id = this.currentUser.id || '';
       this.name = this.currentUser.name || '';
-      this.email = this.currentUser.email || '';
       this.gender = this.currentUser.gender || '';
       this.dob = this.currentUser.dob || '';
       this.courseDepartment = this.currentUser.courseDepartment || '';
@@ -100,7 +99,7 @@ export class ProfilePage implements OnInit {
 
   //Method to update the user details
   async applyChanges() {
-    if (this.id && this.name && this.email && this.gender && this.dob && this.courseDepartment && this.selectedTraits && this.selectedHobbies) {
+    if (this.id && this.name && this.gender && this.dob && this.courseDepartment && this.selectedTraits && this.selectedHobbies) {
       // Update the user details in the database
       this.reApplyChanges();
       this.databaseInterface.updateCurrentUserDetails(this.currentUser);
@@ -113,13 +112,13 @@ export class ProfilePage implements OnInit {
 
   reApplyChanges() {
     this.currentUser.name = this.name;
-    this.currentUser.email = this.email;
     this.currentUser.gender = this.gender
     this.currentUser.dob = this.dob;
     this.currentUser.courseDepartment = this.courseDepartment;
     this.currentUser.selectedTraits = this.selectedTraits;
     this.currentUser.selectedHobbies = this.selectedHobbies;
   }
+
 
   goToHomePage() {
     this.router.navigate(['/home']);
@@ -129,8 +128,8 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['/change-password']);
   }
 
-  goToDisplayDriverDetailsPage() {
-    this.router.navigate(['/display-driver-details']);
+  goToDriverDetailsPage() {
+    this.router.navigate(['/driver-details']);
   }
 
 }
