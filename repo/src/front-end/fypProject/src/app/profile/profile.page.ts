@@ -192,12 +192,42 @@ export class ProfilePage implements OnInit {
     this.currentUser.personalHobbies = this.personalHobbies;
   }
 
+  async presentLogoutAlert() {
+    const alert = await this.alertController.create({
+      header: 'Confirm Logout',
+      message: 'Are you sure you want to logout?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (event) => {
+            console.log('Logout cancelled');
+          }
+        }, {
+          text: 'Logout',
+          handler: () => {
+            console.log('Confirm Logout');
+            this.logOut();
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+  
+
+  
   logOut() {
     //Clear the session storage
     sessionStorage.clear();
 
     //Remove current email from the local storage
     localStorage.removeItem('currentEmail');
+
+    //Refresh the data
+    this.databaseInterface.refreshData();
 
     alert('The user has been logged out.');
 
