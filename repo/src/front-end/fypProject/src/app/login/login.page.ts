@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   password: string = '';
 
   constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { }
+  
   ngOnInit(): void {
     //this.databaseInterface.clearData();
     //console.log(this.databaseInterface.retrieveAllUsers());
@@ -40,6 +41,10 @@ export class LoginPage implements OnInit {
       
       //Set the current user's email in the database
       this.databaseInterface.setCurrentUserEmail(userDetails.email);
+
+      //Set the html fields to blank upon logging in
+      this.email = ''
+      this.password = '';
 
       //Navigate to the home page
       this.router.navigate(['/home']);
