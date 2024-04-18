@@ -9,6 +9,7 @@ import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
   templateUrl: './user-details.page.html',
   styleUrls: ['./user-details.page.scss'],
 })
+
 export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
 
@@ -110,6 +111,9 @@ export class UserDetailsPage implements OnInit {
 
     //Regtister user to the database
     this.databaseInterface.addUserDetails(updatedUserDetails);
+
+    //Refresh the data
+    this.databaseInterface.refreshData();
   }
 
   //Being called in html file

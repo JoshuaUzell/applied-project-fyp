@@ -42,6 +42,9 @@ export class ProfilePage implements OnInit {
   constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
   ngOnInit() {
+    //Refresh data
+    this.databaseInterface.refreshData();
+
     //Retrieve the current user from the database
     this.currentUser = this.databaseInterface.getCurrentUser();
     
@@ -169,6 +172,9 @@ export class ProfilePage implements OnInit {
         //Set the current user's email in the database
         this.databaseInterface.setCurrentUserEmail(this.currentUser.email);
   
+        //Refresh the data
+        this.databaseInterface.refreshData();
+
         alert('Changes applied successfully.');
         this.goToHomePage();
       }
@@ -201,5 +207,4 @@ export class ProfilePage implements OnInit {
   }
 
   
-
 }//End of class

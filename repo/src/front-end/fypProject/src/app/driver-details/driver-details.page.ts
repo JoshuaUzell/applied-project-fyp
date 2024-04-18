@@ -27,6 +27,9 @@ export class DriverDetailsPage implements OnInit {
   }
 
   ngOnInit() {
+    //Refresh data
+    this.databaseInterface.refreshData();
+
     //Retrieve the current user to access the user email and get the currentDriver
     this.currentUser = this.databaseInterface.getCurrentUser();
     this.currentDriver = this.databaseInterface.getCurrentDriver();
@@ -123,6 +126,9 @@ export class DriverDetailsPage implements OnInit {
         //Register driver to the database
         this.databaseInterface.addDriverDetails(updatedDriverDetails);
       }
+
+      //Refresh the data
+      this.databaseInterface.refreshData();
     }
   }
 
@@ -149,6 +155,9 @@ export class DriverDetailsPage implements OnInit {
     //Remove the driver from the database
     this.databaseInterface.removeCurrentDriver();
 
+    //Refresh the data
+    this.databaseInterface.refreshData();
+    
     alert("You have unapplied from being a driver!");
     this.router.navigate(['/profile']);
   }

@@ -36,6 +36,8 @@ export class HomePage implements OnInit{
 
   ngOnInit(): void {
     //this.databaseInterface.clearData();
+    //Refresh data
+    this.databaseInterface.refreshData();
     this.printSessionStorageAndDatabaseDetails();
   }
 

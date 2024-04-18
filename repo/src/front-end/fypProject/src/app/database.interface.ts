@@ -23,6 +23,7 @@ export interface IUserInfo {
   }
   
   export interface IDatabaseInterface {
+    refreshData(): void;
     addUserDetails(userInfo: IUserInfo): void;
     retrieveUserDetails(email: string): IUserInfo | undefined; // Returns JSON structure for a user
     addDriverDetails(driverDetails: IDriverDetails): void;

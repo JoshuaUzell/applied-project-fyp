@@ -18,6 +18,7 @@ export class MockDatabaseService implements IDatabaseInterface {
 
     constructor() {
         this.loadFromStorage();
+        this.loadCurrentUserEmail();
     }
 
     private loadFromStorage(): void {
@@ -30,6 +31,17 @@ export class MockDatabaseService implements IDatabaseInterface {
     private saveToStorage(): void {
         localStorage.setItem('users', JSON.stringify(this.users));
         localStorage.setItem('drivers', JSON.stringify(this.drivers));
+    }
+
+    private loadCurrentUserEmail(): void {
+        const email = localStorage.getItem('currentUserEmail');
+        if (email) {
+            this.currentUserEmail = email;
+        }
+    }
+
+    refreshData(): void {
+        this.loadFromStorage();
     }
 
     addUserDetails(userInfo: IUserInfo): void {
@@ -102,6 +114,7 @@ export class MockDatabaseService implements IDatabaseInterface {
 
     setCurrentUserEmail(email: string): void {
         this.currentUserEmail = email;
+        localStorage.setItem('currentUserEmail', email); // Save the current user email to localStorage
     }
 
     getCurrentUser(): IUserInfo | undefined {

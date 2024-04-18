@@ -35,6 +35,7 @@ export class ChangePasswordPage implements OnInit {
           // Update the user details in the database
           this.currentUser.password = await this.passwordHandler.hashPassword(this.newPassword);
           this.databaseInterface.updateCurrentUserDetails(this.currentUser);
+          this.databaseInterface.refreshData();
           this.goBackToProfilePage();
         } else {
           alert('The new password and confirm new password do not match. Please enter the same password in both fields.');
