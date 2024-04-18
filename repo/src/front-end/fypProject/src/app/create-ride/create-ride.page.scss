@@ -1,0 +1,45 @@
+.createRide-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+  
+  .app-logo {
+    width: 250px;
+    height: 250px;
+    margin-bottom: -100px;
+  }
+  
+  .image-item {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .button-class{
+    --background: #3bc794; 
+    width: 100%; // Make the button wider
+    padding: 10px 20px; // Add some padding
+    --border-radius: 100px; // Add rounded corners
+  }
+
+  .createRide-card {
+    width: 70%;  
+    height: auto;
+    margin: auto; 
+  }
+
+  .back-button {
+    position: absolute;
+    margin-top: 30px;
+    margin-bottom: -220px;
+    margin-left: -140px;
+  }
+
+  .applyDriverBtn{
+    margin-top: 20px;
+    margin-left: -20px;
+  }
+
+  

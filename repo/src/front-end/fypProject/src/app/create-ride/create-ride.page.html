@@ -1,13 +1,34 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>createRide</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content padding>
+  <ion-card class="createRide-card">
+    <ion-card-content>
+      <div class="createRide-container">
+        <ion-buttons slot="start">
+          <ion-back-button class="back-button" defaultHref="/profile"></ion-back-button>
+        </ion-buttons>
+        <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">createRide</ion-title>
-    </ion-toolbar>
-  </ion-header>
+        <!-- <ion-item>
+          <ion-label position="floating">Number of Available Spaces</ion-label>
+          <ion-input type="number" [(ngModel)]="availableSpaces" min="2" max="7" required></ion-input>
+        </ion-item> -->
+
+        <ion-item>
+          <ion-label position="floating">Direction</ion-label>
+          <ion-select [(ngModel)]="direction">
+            <ion-select-option *ngFor="let direction of directions">{{ direction }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="floating">Location</ion-label>
+          <ion-select [(ngModel)]="location">
+            <ion-select-option *ngFor="let location of locations">{{ location }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="full" (click)="confirmRide()">Create Ride</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
