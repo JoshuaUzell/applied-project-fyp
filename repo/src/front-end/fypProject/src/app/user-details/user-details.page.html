@@ -42,7 +42,7 @@
           <!-- Personal Traits -->
           <ion-item>
             <ion-label position="floating">Personal Traits</ion-label>
-            <ion-select (ionChange)="limitSelectionOfTraits($event)" [(ngModel)]="selectedTraits" [multiple]="true" interface="popover" placeholder="Select Traits">
+            <ion-select (ionChange)="limitSelectionOfTraits($event)" [(ngModel)]="personalTraits" [multiple]="true" interface="popover" placeholder="Select Traits">
               <ion-select-option *ngFor="let trait of personalTraitsOptions" [value]="trait.value">
                 {{ trait.display }}
               </ion-select-option>
@@ -58,7 +58,7 @@
          <!-- Hobbies -->
           <ion-item>
             <ion-label position="floating">Hobbies</ion-label>
-            <ion-select (ionChange)="limitSelectionOfHobbies($event)" [(ngModel)]="selectedHobbies" [multiple]="true" interface="popover" placeholder="Select Hobbies">
+            <ion-select (ionChange)="limitSelectionOfHobbies($event)" [(ngModel)]="personalHobbies" [multiple]="true" interface="popover" placeholder="Select Hobbies">
               <ion-select-option *ngFor="let hobby of hobbiesOptions" [value]="hobby.value">
                 {{ hobby.display }}
               </ion-select-option>

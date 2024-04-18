@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) { }
   ngOnInit(): void {
     //this.databaseInterface.clearData();
-    console.log(this.databaseInterface.retrieveAllUsers());
+    //console.log(this.databaseInterface.retrieveAllUsers());
   }
 
   completeLogin() {

@@ -8,7 +8,7 @@ export interface IUserInfo {
     gender: string;
     courseDepartment: string;
     personalTraits: string[];
-    personalHobbies: string[];
+    personalHobbies: string[]; 
   } 
 
   //Interface for DriverDetails data which will be formatted as JSON

@@ -22,7 +22,7 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     //this.databaseInterface.clearData();
-    console.log(this.databaseInterface.retrieveAllUsers());
+    //console.log(this.databaseInterface.retrieveAllUsers());
   } 
 
   async completeRegistration() {

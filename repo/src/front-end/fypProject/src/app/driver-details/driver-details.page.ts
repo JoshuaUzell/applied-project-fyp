@@ -73,7 +73,7 @@ export class DriverDetailsPage implements OnInit {
 
       alert("Applied for Driver!"); // Display an alert with driver details
 
-      this.router.navigate(['/user-details']);
+      this.router.navigate(['/profile']);
     } else {
       alert('Please enter valid credentials.');
     }
@@ -110,7 +110,7 @@ export class DriverDetailsPage implements OnInit {
     this.unapplyVisible = false;
 
     alert("You have unapplied from being a driver!");
-    this.router.navigate(['/user-details']);
+    this.router.navigate(['/profile']);
   }
 
 }
