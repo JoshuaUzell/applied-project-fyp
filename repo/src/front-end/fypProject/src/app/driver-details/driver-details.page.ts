@@ -34,8 +34,14 @@ export class DriverDetailsPage implements OnInit {
     this.currentUser = this.databaseInterface.getCurrentUser();
     this.currentDriver = this.databaseInterface.getCurrentDriver();
 
+    //console.log("Here is the current driver: " + this.currentDriver);
+
     this.unapplyVisible = false;
-    this.getDriverDetailsFromSessionStorage();
+
+    if(this.currentDriver){
+    this.getDetailsFromCurrentDriver();
+    }
+    
     if (this.driverId) {
       this.unapplyVisible = true;
     } else {
@@ -90,6 +96,15 @@ export class DriverDetailsPage implements OnInit {
     } else {
       alert('Please enter valid credentials.');
     }
+  }
+
+  getDetailsFromCurrentDriver(){
+    this.driverId = this.currentDriver.id;
+    this.licenseDateOfIssue = this.currentDriver.licenseDateOfIssue;
+    this.licenseDateOfExpiry = this.currentDriver.licenseDateOfExpiry;
+    this.licenseNumber = this.currentDriver.licenseNumber;
+    this.make = this.currentDriver.vehicleMake;
+    this.model = this.currentDriver.vehicleModel;
   }
 
   getDriverDetailsFromSessionStorage() {
