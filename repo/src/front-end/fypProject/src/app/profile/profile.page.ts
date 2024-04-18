@@ -192,8 +192,19 @@ export class ProfilePage implements OnInit {
     this.currentUser.personalHobbies = this.personalHobbies;
   }
 
- 
+  logOut() {
+    //Clear the session storage
+    sessionStorage.clear();
 
+    //Remove current email from the local storage
+    localStorage.removeItem('currentEmail');
+
+    alert('The user has been logged out.');
+
+    //Navigate to the login page
+    this.goToLoginPage();
+  }
+ 
   goToHomePage() {
     this.router.navigate(['/home']);
   }
@@ -204,6 +215,10 @@ export class ProfilePage implements OnInit {
 
   goToDriverDetailsPage() {
     this.router.navigate(['/driver-details']);
+  }
+
+  goToLoginPage(){
+    this.router.navigate(['/login']);
   }
 
   
