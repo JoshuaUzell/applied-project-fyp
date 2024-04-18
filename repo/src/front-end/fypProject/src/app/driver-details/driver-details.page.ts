@@ -19,11 +19,14 @@ export class DriverDetailsPage implements OnInit {
   licenseNumber: string = "";
   make: string = "";
   model: string = "";
+  
+  currentUser: any;
 
   constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) {
   }
 
   ngOnInit() {
+    this.currentUser = this.databaseInterface.getCurrentUser();
     this.unapplyVisible = false;
     this.getDriverDetailsFromSessionStorage();
     if (this.driverId) {
@@ -71,6 +74,9 @@ export class DriverDetailsPage implements OnInit {
       sessionStorage.setItem('make', this.make);
       sessionStorage.setItem('model', this.model);
 
+      //Apply for Driver here
+      this.saveDriverDetails();
+
       alert("Applied for Driver!"); // Display an alert with driver details
 
       this.router.navigate(['/profile']);
@@ -87,6 +93,29 @@ export class DriverDetailsPage implements OnInit {
     this.licenseNumber = sessionStorage.getItem('license-number') as string;
     this.make = sessionStorage.getItem('make') as string;
     this.model = sessionStorage.getItem('model') as string;
+  }
+
+  saveDriverDetails() {
+    const updatedDriverDetails = {
+      id: this.driverId,
+      driverEmail: this.currentUser.email, //Make the user email the same as the driver email
+      licenseDateOfIssue: this.licenseDateOfIssue,
+      licenseDateOfExpiry: this.licenseDateOfExpiry,
+      licenseNumber: this.licenseNumber,
+      vehicleMake: this.make,
+      vehicleModel: this.model,
+    };
+
+    // Check if any property in updatedDriverDetails is null
+    const isUpdatedDriversNull = Object.values(updatedDriverDetails).some(value => value === null);
+
+    if (isUpdatedDriversNull) {
+      console.log('At least one attribute is null. Therefore, driver will not be added to the database.');
+    } else {
+      console.log('No attributes are null. Driver will get added to the database.');
+      //Register driver to the database
+      this.databaseInterface.addDriverDetails(updatedDriverDetails);
+    }
   }
 
   unApplyForDriver() {
@@ -108,6 +137,9 @@ export class DriverDetailsPage implements OnInit {
 
     //Make the unapply button dissapear
     this.unapplyVisible = false;
+
+    //Remove the driver from the database
+    this.databaseInterface.removeCurrentDriver();
 
     alert("You have unapplied from being a driver!");
     this.router.navigate(['/profile']);

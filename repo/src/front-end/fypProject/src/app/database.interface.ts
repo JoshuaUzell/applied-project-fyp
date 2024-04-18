@@ -43,5 +43,6 @@ export interface IUserInfo {
     validateExpiryDateIsNotPresentOrPriorDate(expiryDate: string): boolean;
     validateExpiryAfterIssue(issueDate: string, expiryDate: string): boolean;
     getCurrentDriver(): IDriverDetails | undefined;
+    removeCurrentDriver(): void;
   }
   

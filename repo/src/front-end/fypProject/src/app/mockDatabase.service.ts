@@ -104,7 +104,7 @@ export class MockDatabaseService implements IDatabaseInterface {
         this.currentUserEmail = email;
     }
 
-    getCurrentUser(): IUserInfo | undefined { 
+    getCurrentUser(): IUserInfo | undefined {
         if (!this.currentUserEmail) {
             console.log("No current user email set.");
             return undefined;
@@ -161,9 +161,9 @@ export class MockDatabaseService implements IDatabaseInterface {
         const expiry = new Date(expiryDate);
         expiry.setHours(0, 0, 0, 0); // Ensure the comparison is date-only, without time
 
-        if ((expiry.getTime() < today.getTime()) || (expiry.getTime() === today.getTime())){
+        if ((expiry.getTime() < today.getTime()) || (expiry.getTime() === today.getTime())) {
             console.error('The expiry date cannot be today or any date before today.');
-            return false; 
+            return false;
         }
 
         return true;
@@ -187,5 +187,23 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
         return this.drivers.find(driver => driver.driverEmail === this.currentUserEmail);
     }
+
+    removeCurrentDriver(): void {
+        //Check that's done as an edge case
+        if (!this.currentUserEmail) {
+            console.error("No current driver email is set. Unable to remove driver.");
+            return;
+        }
+
+        const driverIndex = this.drivers.findIndex(driver => driver.driverEmail === this.currentUserEmail);
+        if (driverIndex !== -1) {
+            this.drivers.splice(driverIndex, 1); // Remove the driver from the array
+            this.saveToStorage(); // Save the updated list of drivers to local storage
+            console.log("Driver removed successfully.");
+        } else {
+            console.error("Current driver not found. Unable to remove driver.");
+        }
+    }
+
 
 }//End of class

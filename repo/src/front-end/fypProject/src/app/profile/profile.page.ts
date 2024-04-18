@@ -164,7 +164,6 @@ export class ProfilePage implements OnInit {
       }else{
         // Update the user details in the database
         this.applyFormValueChangesToCurrentUserValues();
-        this.saveDriverDetails();
         this.databaseInterface.updateCurrentUserDetails(this.currentUser);
         
         //Set the current user's email in the database
@@ -187,28 +186,7 @@ export class ProfilePage implements OnInit {
     this.currentUser.personalHobbies = this.personalHobbies;
   }
 
-  saveDriverDetails() {
-    const updatedDriverDetails = {
-      id: this.driver_id,
-      driverEmail: this.email, //Make the user email the same as the driver email
-      licenseDateOfIssue: this.driver_licenseDateOfIssue,
-      licenseDateOfExpiry: this.driver_licenseDateOfExpiry,
-      licenseNumber: this.driver_licenseNumber,
-      vehicleMake: this.driver_vehicleMake,
-      vehicleModel: this.driver_vehicleModel,
-    };
-
-    // Check if any property in updatedDriverDetails is null
-    const isUpdatedDriversNull = Object.values(updatedDriverDetails).some(value => value === null);
-
-    if (isUpdatedDriversNull) {
-      console.log('At least one attribute is null. Therefore, driver will not be added to the database.');
-    } else {
-      console.log('No attributes are null. Driver will get added to the database.');
-      //Register driver to the database
-      this.databaseInterface.addDriverDetails(updatedDriverDetails);
-    }
-  }
+ 
 
   goToHomePage() {
     this.router.navigate(['/home']);

@@ -45,6 +45,7 @@ export class RegisterPage implements OnInit {
           // Generate unique ID for the user
           userDetails.id = `user_${this.databaseInterface.generateUniqueID()}`;
 
+          //Sets the id, email and password in session storage
           sessionStorage.setItem('id', userDetails.id);
           sessionStorage.setItem('email', userDetails.email);
           sessionStorage.setItem('password', userDetails.password); 

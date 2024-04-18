@@ -12,6 +12,7 @@ import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
 export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
 
+  //User Details from html form
   id: string = '';
   name: string = '';
   email: string = '';
@@ -21,6 +22,8 @@ export class UserDetailsPage implements OnInit {
   courseDepartment: string = '';
   personalTraits: any[] = [];
   personalHobbies: any[] = [];
+
+  //Options that the user can choose from
   personalTraitsOptions: Array<{ value: string, display: string }> = [];
   hobbiesOptions: Array<{ value: string, display: string }> = [];
   genderOptions: string[] = [];
@@ -30,8 +33,23 @@ export class UserDetailsPage implements OnInit {
 
   ngOnInit() {
     //this.databaseInterface.clearData();
+    this.retrieveRegistrationDetailsFromSessionStorage();
+    this.retrieveOptionsToChooseFrom();
   }
 
+  retrieveOptionsToChooseFrom() {
+    //Retrieve the gender options, personal traits options, and hobbies options from the database
+    this.genderOptions = this.databaseInterface.getGenderOptions();
+    this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
+    this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
+  }
+
+  retrieveRegistrationDetailsFromSessionStorage() {
+    //Retrieve the registration details from session storage
+    this.id = sessionStorage.getItem('id') as string;
+    this.email = sessionStorage.getItem('email') as string;
+    this.password = sessionStorage.getItem('password') as string; 
+  }
 
   async limitSelectionOfTraits(event: any) {
     // Check if more than three traits are selected
