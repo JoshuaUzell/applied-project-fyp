@@ -177,6 +177,10 @@ export class DriverDetailsPage implements OnInit {
     this.router.navigate(['/profile']);
   }
 
+  goToCreateRide() {
+    this.router.navigate(['/create-ride']);
+  }
+
 }
 
 

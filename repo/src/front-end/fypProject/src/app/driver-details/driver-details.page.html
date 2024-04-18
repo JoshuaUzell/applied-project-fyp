@@ -36,6 +36,7 @@
         <!-- ApplyForDriver button -->
         <ion-button class="applyDriverBtn" expand="full" (click)="applyForDriver()">Apply</ion-button>
         <ion-button *ngIf="unapplyVisible" (click)="unApplyForDriver()">Unapply For Driver</ion-button>
+        <ion-button *ngIf="unapplyVisible" (click)="goToCreateRide()">Create New Ride</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
