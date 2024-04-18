@@ -205,5 +205,27 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
     }
 
+    updateCurrentDriverDetails(updatedDetails: Partial<IUserInfo>): void {
+        if (!this.currentUserEmail) {
+            console.error("No current user email set. Unable to update driver details.");
+            return;
+        }
+        const driverIndex = this.drivers.findIndex(driver => driver.driverEmail === this.currentUserEmail);
+        if (driverIndex !== -1) {
+            // Merge the existing driver details with the updated details
+            const currentDriver = this.drivers[driverIndex];
+            this.drivers[driverIndex] = {
+                ...currentDriver,
+                ...updatedDetails
+            };
+
+            this.saveToStorage(); // Save the updated list of drivers to local storage
+            console.log("Driver details updated successfully.");
+
+        } else {
+            console.error("Current driver not found. Unable to update driver details.");
+        }
+    }
+
 
 }//End of class

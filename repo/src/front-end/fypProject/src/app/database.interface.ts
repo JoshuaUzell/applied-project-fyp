@@ -44,5 +44,6 @@ export interface IUserInfo {
     validateExpiryAfterIssue(issueDate: string, expiryDate: string): boolean;
     getCurrentDriver(): IDriverDetails | undefined;
     removeCurrentDriver(): void;
+    updateCurrentDriverDetails(updatedDetails: Partial<IUserInfo>): void;
   }
   

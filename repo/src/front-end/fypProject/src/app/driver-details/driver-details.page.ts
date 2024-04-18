@@ -21,12 +21,16 @@ export class DriverDetailsPage implements OnInit {
   model: string = "";
   
   currentUser: any;
+  currentDriver: any;
 
   constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, @Inject(PASSWORD_HANDLER_TOKEN) private passwordHandler: IPasswordHandler) {
   }
 
   ngOnInit() {
+    //Retrieve the current user to access the user email and get the currentDriver
     this.currentUser = this.databaseInterface.getCurrentUser();
+    this.currentDriver = this.databaseInterface.getCurrentDriver();
+
     this.unapplyVisible = false;
     this.getDriverDetailsFromSessionStorage();
     if (this.driverId) {
@@ -112,9 +116,13 @@ export class DriverDetailsPage implements OnInit {
     if (isUpdatedDriversNull) {
       console.log('At least one attribute is null. Therefore, driver will not be added to the database.');
     } else {
-      console.log('No attributes are null. Driver will get added to the database.');
-      //Register driver to the database
-      this.databaseInterface.addDriverDetails(updatedDriverDetails);
+      if(this.currentDriver){
+        this.databaseInterface.updateCurrentDriverDetails(updatedDriverDetails);
+      }else{
+        console.log('No attributes are null. Driver will get added to the database.');
+        //Register driver to the database
+        this.databaseInterface.addDriverDetails(updatedDriverDetails);
+      }
     }
   }
 
