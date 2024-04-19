@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class CreateRidePage {
 
-  availableSpaces: number;
+  numberOfSeats: number;
   direction: string;
   location: string;
   directions: string[] = ['To Campus', 'From Campus']; 
@@ -19,7 +19,7 @@ export class CreateRidePage {
   async confirmRide() {
     const alert = await this.alertController.create({
       header: 'Confirm New Ride',
-      message: `Are you sure you want to create a ride with ${this.availableSpaces} spaces, going ${this.direction} to ${this.location}?`,
+      message: `Are you sure you want to create a ride with ${this.numberOfSeats} spaces, going ${this.direction} to ${this.location}?`,
       buttons: [
         {
           text: 'Cancel',
@@ -42,7 +42,7 @@ export class CreateRidePage {
   createRide() {
     //Need logic here to create the ride..
 
-    console.log('Ride created:', this.availableSpaces, this.direction, this.location);
+    console.log('Ride created:', this.numberOfSeats, this.direction, this.location);
   }
 
 }
