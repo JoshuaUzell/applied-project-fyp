@@ -16,7 +16,7 @@ export class MockDatabaseService implements IDatabaseInterface {
     private drivers: IDriverDetails[] = [];
     private ridesToCollege: IRide[] = [];
     private ridesFromCollege: IRide[] = [];
-    
+
     private currentUserEmail: string | null = null;
 
     constructor() {
@@ -285,6 +285,24 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
     }
 
+    updateRideDetails(rideEmail: string, direction: string, updatedDetails: Partial<IRide>): void {
+        let rides = direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
+        const rideIndex = rides.findIndex(ride => ride.rideEmail === rideEmail);
+        if (rideIndex !== -1) {
+            // Update the ride details with the new information provided
+            rides[rideIndex] = {
+                ...rides[rideIndex],
+                ...updatedDetails
+            };
+            this.saveToStorage(); // Save the updated list to local storage
+            alert('Ride updated successfully');
+            console.log("Ride updated successfully:", rides[rideIndex]);
+        } else {
+            alert('Ride not found. Unable to update ride details.');
+            console.error("Ride not found. Unable to update ride details.");
+        }
+    }
+
     retrieveListOfRidesFromCollege(): IRide[] {
         return this.ridesFromCollege;
     }
@@ -292,6 +310,17 @@ export class MockDatabaseService implements IDatabaseInterface {
     retrieveListOfRidesToCollege(): IRide[] {
         return this.ridesToCollege;
     }
+
+    getCurrentRide(): IRide | undefined {
+        // Check 'ridesToCollege' array for the ride
+        let currentRide = this.ridesToCollege.find(ride => ride.rideEmail === this.currentUserEmail);
+        if (!currentRide) {
+            // If not found, check 'ridesFromCollege' array
+            currentRide = this.ridesFromCollege.find(ride => ride.rideEmail === this.currentUserEmail);
+        }
+        return currentRide;
+    }
+
 
     getCurrentUserEmail(): string | null {
         return this.currentUserEmail;

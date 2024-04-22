@@ -60,8 +60,10 @@ export interface IUserInfo {
     cancelRide(rideId: string, direction: string): void;
     getRides(direction: string): IRide[]; 
     updateRideStatus(rideId: string, direction: string, status: string): void;
+    updateRideDetails(rideEmail: string, direction: string, updatedDetails: Partial<IRide>): void;
     retrieveListOfRidesFromCollege(): IRide[];
     retrieveListOfRidesToCollege(): IRide[];
+    getCurrentRide(): IRide | undefined;
     getCurrentUserEmail(): string | null;
   }
   

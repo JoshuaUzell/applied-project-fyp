@@ -24,7 +24,20 @@ export class CreateRidePage implements OnInit{
   locationsAtCollege: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
   locationsOutsideOfCollege: string; 
 
+  currentRide: any;
+
   ngOnInit(): void {
+    //Refresh data
+    this.databaseInterface.refreshData();
+
+    //Retrieve the currentRide
+    this.currentRide = this.databaseInterface.getCurrentRide();
+
+    //Assign the currentRide details to the fields
+    if(this.currentRide){
+      this.assignCurrentRideValuesToFormFields();
+    }
+
     this.printListOfRidesToConsole();
   }
 
@@ -46,7 +59,7 @@ export class CreateRidePage implements OnInit{
         {
           text: 'Confirm',
           handler: () => {
-            this.assignRideFields();
+            this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
             this.showProgressBar();
             this.printListOfRidesToConsole();
@@ -84,11 +97,15 @@ export class CreateRidePage implements OnInit{
     await alert.present();
   }
 
+  //Update current ride details
+  updateCurrentRide(){
+    this.databaseInterface.updateRideDetails(this.rideEmail, this.direction, this.ride);
+  }
+
   async cancelRide() {
     this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
-
 
   async confirmLeavePage() {
     const alert = await this.alertController.create({
@@ -110,7 +127,15 @@ export class CreateRidePage implements OnInit{
     await alert.present();
   }
 
-  assignRideFields() {
+  assignCurrentRideValuesToFormFields(){
+    this.rideEmail = this.currentRide.rideEmail;
+    this.numberOfSeats = this.currentRide.numberOfSeats;
+    this.direction = this.currentRide.direction;
+    this.locationAtCollege = this.currentRide.locationAtCollege;
+    this.locationOutsideOfCollege = this.currentRide.locationOutsideOfCollege;
+  }
+
+  assignRideFieldsToCurrentRide() {
     this.ride = {
       rideEmail: this.databaseInterface.getCurrentUserEmail() as string ?? '',
       status: 'active',
@@ -120,6 +145,14 @@ export class CreateRidePage implements OnInit{
       locationOutsideOfCollege: this.locationOutsideOfCollege
     }
     alert('Ride created successfully');
+  }
+
+  showRideDetailsIfPresent(){
+    if(this.rideEmail){
+      this.numberOfSeats = this.ride.numberOfSeats;
+      this.locationAtCollege = this.ride.locationAtCollege;
+      this.locationOutsideOfCollege = this.ride.locationOutsideOfCollege;
+    }
   }
 
   async createRide() {
