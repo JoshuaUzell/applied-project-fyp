@@ -14,7 +14,7 @@ export interface IUserInfo {
   //Interface for DriverDetails data which will be formatted as JSON
   export interface IDriverDetails {
     id: string;
-    driverEmail: string //Driver email will be the same as the user email
+    driverEmail: string; //Driver email will be the same as the user email
     licenseDateOfIssue: string;
     licenseDateOfExpiry: string;
     licenseNumber: string;
@@ -24,7 +24,7 @@ export interface IUserInfo {
 
   //Interface for Ride
   export interface IRide {
-    id: string;
+    rideEmail: string;
     status: string;
     numberOfSeats: number;
     direction: string;
@@ -60,5 +60,6 @@ export interface IUserInfo {
     cancelRide(rideId: string, direction: string): void;
     getRides(direction: string): IRide[]; 
     updateRideStatus(rideId: string, direction: string, status: string): void;
+    getCurrentUserEmail(): string | null;
   }
   

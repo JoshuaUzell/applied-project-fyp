@@ -253,9 +253,9 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
     }
 
-    cancelRide(rideId: string, direction: string): void {
+    cancelRide(rideEmail: string, direction: string): void {
         let rides = direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
-        const index = rides.findIndex(ride => ride.id === rideId);
+        const index = rides.findIndex(ride => ride.rideEmail === rideEmail);
         if (index > -1) {
             rides.splice(index, 1);
         }
@@ -265,12 +265,16 @@ export class MockDatabaseService implements IDatabaseInterface {
         return direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
     }
 
-    updateRideStatus(rideId: string, direction: string, status: string): void {
+    updateRideStatus(rideEmail: string, direction: string, status: string): void {
         let rides = direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
-        const ride = rides.find(ride => ride.id === rideId);
+        const ride = rides.find(ride => ride.rideEmail === rideEmail);
         if (ride) {
             ride.status = status;
         }
+    }
+
+    getCurrentUserEmail(): string | null {
+        return this.currentUserEmail;
     }
 
 

@@ -13,7 +13,6 @@ export class CreateRidePage {
   ride: IRide;
 
   //Ride fields
-  id: string;
   numberOfSeats: number;
   direction: string;
   meetUpLocation: string;
@@ -22,7 +21,7 @@ export class CreateRidePage {
   //Options for directions and meetup locations
   directions: string[] = ['To Campus', 'From Campus']; 
   meetUpLocations: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
-  
+  dropOffLocations: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
 
   constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) {}
 
@@ -70,7 +69,7 @@ export class CreateRidePage {
   }
 
   async cancelRide() {
-    this.databaseInterface.cancelRide(this.id, this.direction); //May need to alter arguements in this method call
+    this.databaseInterface.cancelRide(this.ride.rideEmail, this.ride.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
 
@@ -95,12 +94,27 @@ export class CreateRidePage {
     await alert.present();
   }
 
-  async createRide() {
-    //Need logic here to create the ride..
-    this.databaseInterface.addRide(this.ride);
-    this.showProgressBar();
+  assignRideFields() {
+    this.ride = {
+      rideEmail: this.databaseInterface.getCurrentUserEmail() as string ?? '',
+      status: 'active',
+      numberOfSeats: this.numberOfSeats,
+      direction: this.direction,
+      meetUpLocation: this.meetUpLocation,
+      dropOffLocation: this.dropOffLocation
+  }
+}
 
-    console.log('Ride created:', this.numberOfSeats, this.direction, this.meetUpLocation);
+  async createRide() {
+    if(this.numberOfSeats && this.direction && this.meetUpLocation && this.dropOffLocation) {
+      this.confirmNewRide();
+      this.assignRideFields();
+      this.databaseInterface.addRide(this.ride);
+      this.showProgressBar();
+      alert('Ride created successfully');
+    }else{
+      alert('Please fill in all fields');
+    }
   }
 
   showProgressBar() {
