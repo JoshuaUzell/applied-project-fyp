@@ -273,6 +273,14 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
     }
 
+    retrieveListOfRidesFromCollege(): IRide[] {
+        return this.ridesFromCollege;
+    }
+
+    retrieveListOfRidesToCollege(): IRide[] {
+        return this.ridesToCollege;
+    }
+
     getCurrentUserEmail(): string | null {
         return this.currentUserEmail;
     }

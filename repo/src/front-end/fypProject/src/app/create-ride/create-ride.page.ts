@@ -15,20 +15,21 @@ export class CreateRidePage {
   //Ride fields
   numberOfSeats: number;
   direction: string;
-  meetUpLocation: string;
-  dropOffLocation: string;
+  locationAtCollege: string;
+  locationOutsideOfCollege: string;
 
   //Options for directions and meetup locations
-  directions: string[] = ['To Campus', 'From Campus']; 
-  meetUpLocations: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
-  dropOffLocations: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
+  directions: string[] = ['To Campus', 'From Campus'];
+  locationsAtCollege: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
+  locationsOutsideOfCollege: string; 
 
-  constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) {}
+  constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) { }
 
   async confirmNewRide() {
     const alert = await this.alertController.create({
       header: 'Confirm New Ride',
-      message: `Are you sure you want to create a ride with the following info?\nNumber of Seats: ${this.numberOfSeats},\nDirection: ${this.direction}, \nMeetUpLocation ${this.meetUpLocation}?`,
+      message: `Are you sure you want to create a ride with the following info?\nNumber of Seats: ${this.numberOfSeats},\nDirection: ${this.direction}, 
+      \nLocation At College: ${this.locationAtCollege}\nLocation Outside College: ${this.locationOutsideOfCollege}?`,
       buttons: [
         {
           text: 'Cancel',
@@ -40,7 +41,13 @@ export class CreateRidePage {
         {
           text: 'Confirm',
           handler: () => {
-            this.createRide();
+            this.assignRideFields();
+            this.databaseInterface.addRide(this.ride);
+            this.showProgressBar();
+            console.log('List of Rides from college:')
+            console.log(this.databaseInterface.retrieveListOfRidesFromCollege());
+            console.log('List of Rides to college:')
+            console.log(this.databaseInterface.retrieveListOfRidesToCollege());
           }
         }
       ]
@@ -100,19 +107,16 @@ export class CreateRidePage {
       status: 'active',
       numberOfSeats: this.numberOfSeats,
       direction: this.direction,
-      meetUpLocation: this.meetUpLocation,
-      dropOffLocation: this.dropOffLocation
+      locationAtCollege: this.locationAtCollege,
+      locationOutsideOfCollege: this.locationOutsideOfCollege
+    }
+    alert('Ride created successfully');
   }
-}
 
   async createRide() {
-    if(this.numberOfSeats && this.direction && this.meetUpLocation && this.dropOffLocation) {
+    if (this.numberOfSeats && this.direction && this.locationAtCollege && this.locationOutsideOfCollege) {
       this.confirmNewRide();
-      this.assignRideFields();
-      this.databaseInterface.addRide(this.ride);
-      this.showProgressBar();
-      alert('Ride created successfully');
-    }else{
+    } else {
       alert('Please fill in all fields');
     }
   }

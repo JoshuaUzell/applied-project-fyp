@@ -28,8 +28,8 @@ export interface IUserInfo {
     status: string;
     numberOfSeats: number;
     direction: string;
-    meetUpLocation: string;
-    dropOffLocation: string;
+    locationAtCollege: string;
+    locationOutsideOfCollege: string;
   }
   
   export interface IDatabaseInterface {
@@ -60,6 +60,8 @@ export interface IUserInfo {
     cancelRide(rideId: string, direction: string): void;
     getRides(direction: string): IRide[]; 
     updateRideStatus(rideId: string, direction: string, status: string): void;
+    retrieveListOfRidesFromCollege(): IRide[];
+    retrieveListOfRidesToCollege(): IRide[];
     getCurrentUserEmail(): string | null;
   }
   

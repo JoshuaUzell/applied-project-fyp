@@ -16,19 +16,16 @@
           </ion-select>
         </ion-item>
 
-
         <ion-item>
-          <ion-label position="floating">Meet up Location</ion-label>
-          <ion-select [(ngModel)]="meetUpLocation">
-            <ion-select-option *ngFor="let meetUpLocation of meetUpLocations">{{ meetUpLocation }}</ion-select-option>
+          <ion-label position="floating">Location At College</ion-label>
+          <ion-select [(ngModel)]="locationAtCollege">
+            <ion-select-option *ngFor="let locationAtCollege of locationsAtCollege">{{ locationAtCollege }}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Drop Off Location</ion-label>
-          <ion-select [(ngModel)]="dropOffLocation">
-            <ion-select-option *ngFor="let dropOffLocation of dropOffLocations">{{ dropOffLocation }}</ion-select-option>
-          </ion-select>
+          <ion-label position="floating">Location Outside College</ion-label>
+          <ion-input [(ngModel)]="locationOutsideOfCollege" min="2" max="7" required></ion-input>
         </ion-item>
 
         <ion-button expand="full" (click)="createRide()">Create Ride</ion-button>
