@@ -13,6 +13,7 @@ export class CreateRidePage {
   ride: IRide;
 
   //Ride fields
+  id: string;
   numberOfSeats: number;
   direction: string;
   meetUpLocation: string;
@@ -25,7 +26,7 @@ export class CreateRidePage {
 
   constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) {}
 
-  async confirmRide() {
+  async confirmNewRide() {
     const alert = await this.alertController.create({
       header: 'Confirm New Ride',
       message: `Are you sure you want to create a ride with the following info?\nNumber of Seats: ${this.numberOfSeats},\nDirection: ${this.direction}, \nMeetUpLocation ${this.meetUpLocation}?`,
@@ -48,7 +49,7 @@ export class CreateRidePage {
     await alert.present();
   }
 
-  async cancelRide() {
+  async confirmCancelRide() {
     const alert = await this.alertController.create({
       header: 'Confirm Cancellation',
       message: 'Are you sure you want to cancel this ride?',
@@ -60,8 +61,7 @@ export class CreateRidePage {
         {
           text: 'Yes',
           handler: () => {
-            this.databaseInterface.cancelRide(this.ride.id, this.ride.direction);
-            this.router.navigateByUrl('/home');
+            this.cancelRide();
           }
         }
       ]
@@ -69,10 +69,16 @@ export class CreateRidePage {
     await alert.present();
   }
 
+  async cancelRide() {
+    this.databaseInterface.cancelRide(this.id, this.direction); //May need to alter arguements in this method call
+    this.router.navigateByUrl('/home');
+  }
+
+
   async confirmLeavePage() {
     const alert = await this.alertController.create({
       header: 'Leave Page?',
-      message: 'If you leave, the ride will be canceled. Continue?',
+      message: 'If you leave, any created rides will be canceled. Continue?',
       buttons: [
         {
           text: 'Stay',
@@ -89,7 +95,7 @@ export class CreateRidePage {
     await alert.present();
   }
 
-  createRide() {
+  async createRide() {
     //Need logic here to create the ride..
     this.databaseInterface.addRide(this.ride);
     this.showProgressBar();

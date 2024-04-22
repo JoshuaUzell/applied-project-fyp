@@ -2,9 +2,6 @@
   <ion-card class="createRide-card">
     <ion-card-content>
       <div class="createRide-container">
-        <ion-buttons slot="start">
-          <ion-back-button class="back-button" defaultHref="/profile"></ion-back-button>
-        </ion-buttons>
         <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
 
         <ion-item>
@@ -27,7 +24,8 @@
           </ion-select>
         </ion-item>
 
-        <ion-button expand="full" (click)="confirmRide()">Create Ride</ion-button>
+        <ion-button expand="full" (click)="confirmNewRide()">Create Ride</ion-button>
+        <ion-button expand="full" (click)="confirmLeavePage()">Leave</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
