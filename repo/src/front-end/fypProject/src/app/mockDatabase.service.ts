@@ -14,10 +14,10 @@ export const DATABASE_SERVICE_TOKEN = new InjectionToken<IDatabaseInterface>('DA
 export class MockDatabaseService implements IDatabaseInterface {
     private users: IUserInfo[] = [];
     private drivers: IDriverDetails[] = [];
-    private currentUserEmail: string | null = null;
     private ridesToCollege: IRide[] = [];
     private ridesFromCollege: IRide[] = [];
-
+    
+    private currentUserEmail: string | null = null;
 
     constructor() {
         this.loadFromStorage();
@@ -27,13 +27,19 @@ export class MockDatabaseService implements IDatabaseInterface {
     private loadFromStorage(): void {
         const storedUsers = localStorage.getItem('users');
         const storedDrivers = localStorage.getItem('drivers');
+        const storedRidesToCollege = localStorage.getItem('ridesToCollege');
+        const storedRidesFromCollege = localStorage.getItem('ridesFromCollege');
         this.users = storedUsers ? JSON.parse(storedUsers) : [];
         this.drivers = storedDrivers ? JSON.parse(storedDrivers) : [];
+        this.ridesToCollege = storedRidesToCollege ? JSON.parse(storedRidesToCollege) : [];
+        this.ridesFromCollege = storedRidesFromCollege ? JSON.parse(storedRidesFromCollege) : [];
     }
 
     private saveToStorage(): void {
         localStorage.setItem('users', JSON.stringify(this.users));
         localStorage.setItem('drivers', JSON.stringify(this.drivers));
+        localStorage.setItem('ridesToCollege', JSON.stringify(this.ridesToCollege));
+        localStorage.setItem('ridesFromCollege', JSON.stringify(this.ridesFromCollege));
     }
 
     private loadCurrentUserEmail(): void {
@@ -79,6 +85,8 @@ export class MockDatabaseService implements IDatabaseInterface {
         // Clear data from localStorage
         localStorage.removeItem('users');
         localStorage.removeItem('drivers');
+        localStorage.removeItem('ridesToCollege');
+        localStorage.removeItem('ridesFromCollege');
 
         // Confirm data has been cleared
         console.log('All data cleared from database');
@@ -251,6 +259,8 @@ export class MockDatabaseService implements IDatabaseInterface {
         } else if (ride.direction === 'From Campus') {
             this.ridesFromCollege.push(ride);
         }
+        //Persist the ride in local storage
+        this.saveToStorage();
     }
 
     cancelRide(rideEmail: string, direction: string): void {
@@ -258,6 +268,7 @@ export class MockDatabaseService implements IDatabaseInterface {
         const index = rides.findIndex(ride => ride.rideEmail === rideEmail);
         if (index > -1) {
             rides.splice(index, 1);
+            this.saveToStorage();
         }
     }
 
@@ -270,6 +281,7 @@ export class MockDatabaseService implements IDatabaseInterface {
         const ride = rides.find(ride => ride.rideEmail === rideEmail);
         if (ride) {
             ride.status = status;
+            this.saveToStorage();
         }
     }
 

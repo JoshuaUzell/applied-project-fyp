@@ -9,10 +9,11 @@ import { Router } from '@angular/router';
   templateUrl: './create-ride.page.html',
   styleUrls: ['./create-ride.page.scss'],
 })
-export class CreateRidePage {
+export class CreateRidePage implements OnInit{
   ride: IRide;
 
   //Ride fields
+  rideEmail: string;
   numberOfSeats: number;
   direction: string;
   locationAtCollege: string;
@@ -22,6 +23,10 @@ export class CreateRidePage {
   directions: string[] = ['To Campus', 'From Campus'];
   locationsAtCollege: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
   locationsOutsideOfCollege: string; 
+
+  ngOnInit(): void {
+    this.printListOfRidesToConsole();
+  }
 
   constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) { }
 
@@ -44,15 +49,19 @@ export class CreateRidePage {
             this.assignRideFields();
             this.databaseInterface.addRide(this.ride);
             this.showProgressBar();
-            console.log('List of Rides from college:')
-            console.log(this.databaseInterface.retrieveListOfRidesFromCollege());
-            console.log('List of Rides to college:')
-            console.log(this.databaseInterface.retrieveListOfRidesToCollege());
+            this.printListOfRidesToConsole();
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  printListOfRidesToConsole(){
+    console.log('List of Rides from college:')
+    console.log(this.databaseInterface.retrieveListOfRidesFromCollege());
+    console.log('List of Rides to college:')
+    console.log(this.databaseInterface.retrieveListOfRidesToCollege());
   }
 
   async confirmCancelRide() {
@@ -76,7 +85,7 @@ export class CreateRidePage {
   }
 
   async cancelRide() {
-    this.databaseInterface.cancelRide(this.ride.rideEmail, this.ride.direction); //May need to alter arguements in this method call
+    this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
 
