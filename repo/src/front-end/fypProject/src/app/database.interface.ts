@@ -21,6 +21,16 @@ export interface IUserInfo {
     vehicleModel: string;
     vehicleMake: string;
   }
+
+  //Interface for Ride
+  export interface IRide {
+    id: string;
+    status: string;
+    numberOfSeats: number;
+    direction: string;
+    meetUpLocation: string;
+    dropOffLocation: string;
+  }
   
   export interface IDatabaseInterface {
     refreshData(): void;
@@ -46,5 +56,9 @@ export interface IUserInfo {
     getCurrentDriver(): IDriverDetails | undefined;
     removeCurrentDriver(): void;
     updateCurrentDriverDetails(updatedDetails: Partial<IUserInfo>): void;
+    addRide(ride: IRide): void;
+    cancelRide(rideId: string, direction: string): void;
+    getRides(direction: string): IRide[]; 
+    updateRideStatus(rideId: string, direction: string, status: string): void;
   }
   

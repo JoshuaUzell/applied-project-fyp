@@ -1,4 +1,4 @@
-import { IDriverDetails, IUserInfo } from "./database.interface";
+import { IDriverDetails, IRide, IUserInfo } from "./database.interface";
 import { IDatabaseInterface } from "./database.interface";
 import { Injectable } from '@angular/core';
 import { InjectionToken } from '@angular/core';
@@ -15,6 +15,9 @@ export class MockDatabaseService implements IDatabaseInterface {
     private users: IUserInfo[] = [];
     private drivers: IDriverDetails[] = [];
     private currentUserEmail: string | null = null;
+    private ridesToCollege: IRide[] = [];
+    private ridesFromCollege: IRide[] = [];
+
 
     constructor() {
         this.loadFromStorage();
@@ -237,6 +240,36 @@ export class MockDatabaseService implements IDatabaseInterface {
 
         } else {
             console.error("Current driver not found. Unable to update driver details.");
+        }
+    }
+
+    //Ride methods///
+
+    addRide(ride: IRide): void {
+        if (ride.direction === 'To Campus') {
+            this.ridesToCollege.push(ride);
+        } else if (ride.direction === 'From Campus') {
+            this.ridesFromCollege.push(ride);
+        }
+    }
+
+    cancelRide(rideId: string, direction: string): void {
+        let rides = direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
+        const index = rides.findIndex(ride => ride.id === rideId);
+        if (index > -1) {
+            rides.splice(index, 1);
+        }
+    }
+
+    getRides(direction: string): IRide[] {
+        return direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
+    }
+
+    updateRideStatus(rideId: string, direction: string, status: string): void {
+        let rides = direction === 'To Campus' ? this.ridesToCollege : this.ridesFromCollege;
+        const ride = rides.find(ride => ride.id === rideId);
+        if (ride) {
+            ride.status = status;
         }
     }
 
