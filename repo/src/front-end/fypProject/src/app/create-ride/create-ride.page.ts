@@ -11,15 +11,12 @@ import { Router } from '@angular/router';
 })
 export class CreateRidePage implements OnInit{
   
-  
-  
   //Boolean
   makeCreateRideButtonVisible: boolean = true;
   makeCancelRideButtonVisible: boolean = false;
   makeRideStatusVisible: boolean = false;
   @Input() hasActiveStatus: boolean = false; // Input to determine if the ride is active or not
   makeLookingForRiderProgressVisible: boolean = false;
-
 
   //Ride object
   ride: IRide;
@@ -77,6 +74,13 @@ export class CreateRidePage implements OnInit{
     this.hasActiveStatus = hasActiveStatus;
     this.makeLookingForRiderProgressVisible = makeLookingForRiderProgressVisible;
     this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible);
+  }
+
+  assignFormFieldsToBeEmpty(){
+    this.numberOfSeats = 0;
+    this.direction = '';
+    this.locationAtCollege = '';
+    this.locationOutsideOfCollege = '';
   }
 
 
@@ -137,8 +141,8 @@ export class CreateRidePage implements OnInit{
   
   async cancelRide() {
     this.setBooleanValuesInDatabase(true, false, false, false, false);
-    this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
-    this.router.navigateByUrl('/home');
+    this.databaseInterface.cancelRide(this.rideEmail, this.direction);
+    this.assignFormFieldsToBeEmpty();
   }
 
   async confirmLeavePage() {
@@ -154,6 +158,7 @@ export class CreateRidePage implements OnInit{
           text: 'Leave',
           handler: () => {
             this.cancelRide();
+            this.router.navigateByUrl('/home');
           }
         }
       ]
