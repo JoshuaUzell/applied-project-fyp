@@ -1,3 +1,20 @@
+.status-box {
+  color: white;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: red;
+}
+
 .createRide-container {
     display: flex;
     flex-direction: column;

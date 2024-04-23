@@ -4,6 +4,10 @@
       <div class="createRide-container">
         <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
 
+        <div class="status-box" *ngIf="makeRideStatusVisible"  [ngClass]="{'active': hasActiveStatus, 'inactive': !hasActiveStatus}">
+          Ride Status: <span>{{ hasActiveStatus ? 'Active' : 'Inactive' }}</span>
+        </div>        
+
         <ion-item>
           <ion-label position="floating">Number of Seats</ion-label>
           <ion-input type="number" [(ngModel)]="numberOfSeats" min="2" max="7" required></ion-input>

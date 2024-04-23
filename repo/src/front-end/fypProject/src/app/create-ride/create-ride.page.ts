@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { IDatabaseInterface, IRide } from '../database.interface';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
@@ -11,9 +11,13 @@ import { Router } from '@angular/router';
 })
 export class CreateRidePage implements OnInit{
   
+  
+  
   //Boolean
   makeCreateRideButtonVisible: boolean = true;
   makeCancelRideButtonVisible: boolean = false;
+  makeRideStatusVisible: boolean = false;
+  @Input() hasActiveStatus: boolean = false; // Input to determine if the ride is active or not
 
   //Ride object
   ride: IRide;
@@ -36,11 +40,11 @@ export class CreateRidePage implements OnInit{
     //Clear rides data for testing purposes
     //this.databaseInterface.clearRidesData();
 
-    //Load boolean values
-    this.loadBooleanValuesFromDatabase();
-
     //Refresh data
     this.databaseInterface.refreshData();
+    
+    //Load boolean values
+    this.loadBooleanValuesFromDatabase();
 
     //Retrieve the currentRide
     this.currentRide = this.databaseInterface.getCurrentRide();
@@ -59,12 +63,16 @@ export class CreateRidePage implements OnInit{
     const booleanSettings = this.databaseInterface.getBooleanLogicForCreateRideButtons();
     this.makeCreateRideButtonVisible = booleanSettings.createRideBool;
     this.makeCancelRideButtonVisible = booleanSettings.cancelRideBool;
+    this.makeRideStatusVisible = booleanSettings.statusBool;
+    this.hasActiveStatus = booleanSettings.activeStatusBool;
   }
 
-  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean) {
+  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean) {
     this.makeCreateRideButtonVisible = makeCreateRideButtonVisible;
     this.makeCancelRideButtonVisible = makeCancelRideButtonVisible;
-    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible);
+    this.makeRideStatusVisible = makeRideStatusVisible;
+    this.hasActiveStatus = hasActiveStatus;
+    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus);
   }
 
 
@@ -87,7 +95,7 @@ export class CreateRidePage implements OnInit{
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
             this.showProgressBar();
-            this.setBooleanValuesInDatabase(false, true);
+            this.setBooleanValuesInDatabase(false, true, true, false);
             this.printListOfRidesToConsole();
           }
         }
@@ -125,7 +133,7 @@ export class CreateRidePage implements OnInit{
 
   
   async cancelRide() {
-    this.setBooleanValuesInDatabase(true, false);
+    this.setBooleanValuesInDatabase(true, false, false, false);
     this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
