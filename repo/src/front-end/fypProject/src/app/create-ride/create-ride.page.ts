@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 })
 export class CreateRidePage implements OnInit{
   
+  //Boolean
+  makeCancelRideButtonVisible: boolean = false;
+  makeCreateRideButtonVisible: boolean = true;
+
   //Ride object
   ride: IRide;
 
@@ -67,6 +71,8 @@ export class CreateRidePage implements OnInit{
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
             this.showProgressBar();
+            this.makeCancelRideButtonVisible = true;
+            this.makeCreateRideButtonVisible = false;
             this.printListOfRidesToConsole();
           }
         }
@@ -104,6 +110,8 @@ export class CreateRidePage implements OnInit{
 
   
   async cancelRide() {
+    this.makeCancelRideButtonVisible = false;
+    this.makeCreateRideButtonVisible = true;
     this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
