@@ -4,6 +4,9 @@
       <div class="createRide-container">
         <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
 
+        <ion-label *ngIf="makeLookingForRiderProgressVisible">Looking For Rider...</ion-label>
+        <ion-progress-bar *ngIf="makeLookingForRiderProgressVisible" value=".25" buffer=".5"></ion-progress-bar>
+        
         <div class="status-box" *ngIf="makeRideStatusVisible"  [ngClass]="{'active': hasActiveStatus, 'inactive': !hasActiveStatus}">
           Ride Status: <span>{{ hasActiveStatus ? 'Active' : 'Inactive' }}</span>
         </div>        
@@ -27,7 +30,7 @@
           </ion-select>
         </ion-item>
 
-        <ion-item>
+        <ion-item class="locationOutside">
           <ion-label position="floating">Location Outside College</ion-label>
           <ion-input [(ngModel)]="locationOutsideOfCollege" min="2" max="7" required></ion-input>
         </ion-item>

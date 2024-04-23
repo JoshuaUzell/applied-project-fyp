@@ -7,12 +7,24 @@
   font-weight: bold;
 }
 
+ion-progress-bar {
+  --background: #f3e895;
+  --progress-background: #09c567;
+  margin-bottom: 20px;  
+}
+
 .active {
   background-color: green;
+  margin-bottom: 20px;  
 }
 
 .inactive {
   background-color: red;
+  margin-bottom: 20px;  
+}
+
+.locationOutside{
+  margin-bottom: 20px;
 }
 
 .createRide-container {

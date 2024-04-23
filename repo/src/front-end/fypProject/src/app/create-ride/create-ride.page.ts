@@ -18,6 +18,8 @@ export class CreateRidePage implements OnInit{
   makeCancelRideButtonVisible: boolean = false;
   makeRideStatusVisible: boolean = false;
   @Input() hasActiveStatus: boolean = false; // Input to determine if the ride is active or not
+  makeLookingForRiderProgressVisible: boolean = false;
+
 
   //Ride object
   ride: IRide;
@@ -65,14 +67,16 @@ export class CreateRidePage implements OnInit{
     this.makeCancelRideButtonVisible = booleanSettings.cancelRideBool;
     this.makeRideStatusVisible = booleanSettings.statusBool;
     this.hasActiveStatus = booleanSettings.activeStatusBool;
+    this.makeLookingForRiderProgressVisible = booleanSettings.progressBool;
   }
 
-  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean) {
+  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean, makeLookingForRiderProgressVisible: boolean) {
     this.makeCreateRideButtonVisible = makeCreateRideButtonVisible;
     this.makeCancelRideButtonVisible = makeCancelRideButtonVisible;
     this.makeRideStatusVisible = makeRideStatusVisible;
     this.hasActiveStatus = hasActiveStatus;
-    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus);
+    this.makeLookingForRiderProgressVisible = makeLookingForRiderProgressVisible;
+    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible);
   }
 
 
@@ -94,8 +98,7 @@ export class CreateRidePage implements OnInit{
           handler: () => {
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
-            this.showProgressBar();
-            this.setBooleanValuesInDatabase(false, true, true, false);
+            this.setBooleanValuesInDatabase(false, true, true, false, true);
             this.printListOfRidesToConsole();
           }
         }
@@ -133,7 +136,7 @@ export class CreateRidePage implements OnInit{
 
   
   async cancelRide() {
-    this.setBooleanValuesInDatabase(true, false, false, false);
+    this.setBooleanValuesInDatabase(true, false, false, false, false);
     this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
@@ -194,8 +197,6 @@ export class CreateRidePage implements OnInit{
     }
   }
 
-  showProgressBar() {
-    // Logic to display a progress bar indicating the search for riders
-  }
+
 
 }
