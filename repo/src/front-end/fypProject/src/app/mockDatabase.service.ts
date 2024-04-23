@@ -19,6 +19,7 @@ export class MockDatabaseService implements IDatabaseInterface {
 
     private currentUserEmail: string | null = null;
 
+    
     constructor() {
         this.loadFromStorage();
         this.loadCurrentUserEmail();
@@ -333,5 +334,17 @@ export class MockDatabaseService implements IDatabaseInterface {
         return this.currentUserEmail;
     }
 
+    setBooleanLogicForCreateRideButtons(createRideBool: boolean, cancelRideBool: boolean): void {
+        // Convert boolean values to strings using JSON.stringify and save them to localStorage
+        localStorage.setItem('createRideBool', JSON.stringify(createRideBool));
+        localStorage.setItem('cancelRideBool', JSON.stringify(cancelRideBool));
+    }
+
+    getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean} {
+        // Retrieve the string values from localStorage and convert them back to boolean using JSON.parse
+        const createRideBool = JSON.parse(localStorage.getItem('createRideBool') || 'true'); // Default to true if null
+        const cancelRideBool = JSON.parse(localStorage.getItem('cancelRideBool') || 'false'); // Default to false if null
+        return { createRideBool, cancelRideBool };
+    }    
 
 }//End of class

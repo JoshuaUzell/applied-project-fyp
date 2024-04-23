@@ -66,5 +66,7 @@ export interface IUserInfo {
     retrieveListOfRidesToCollege(): IRide[];
     getCurrentRide(): IRide | undefined;
     getCurrentUserEmail(): string | null;
+    setBooleanLogicForCreateRideButtons(createRideBool: boolean, cancelRideBool: boolean): void;
+    getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean};
   }
   

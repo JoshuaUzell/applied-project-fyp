@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export class CreateRidePage implements OnInit{
   
   //Boolean
-  makeCancelRideButtonVisible: boolean = false;
   makeCreateRideButtonVisible: boolean = true;
+  makeCancelRideButtonVisible: boolean = false;
 
   //Ride object
   ride: IRide;
@@ -36,6 +36,9 @@ export class CreateRidePage implements OnInit{
     //Clear rides data for testing purposes
     //this.databaseInterface.clearRidesData();
 
+    //Load boolean values
+    this.loadBooleanValuesFromDatabase();
+
     //Refresh data
     this.databaseInterface.refreshData();
 
@@ -51,6 +54,19 @@ export class CreateRidePage implements OnInit{
   }
 
   constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) { }
+
+  loadBooleanValuesFromDatabase() {
+    const booleanSettings = this.databaseInterface.getBooleanLogicForCreateRideButtons();
+    this.makeCreateRideButtonVisible = booleanSettings.createRideBool;
+    this.makeCancelRideButtonVisible = booleanSettings.cancelRideBool;
+  }
+
+  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean) {
+    this.makeCreateRideButtonVisible = makeCreateRideButtonVisible;
+    this.makeCancelRideButtonVisible = makeCancelRideButtonVisible;
+    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible);
+  }
+
 
   async confirmNewRide() {
     const alert = await this.alertController.create({
@@ -71,8 +87,7 @@ export class CreateRidePage implements OnInit{
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
             this.showProgressBar();
-            this.makeCancelRideButtonVisible = true;
-            this.makeCreateRideButtonVisible = false;
+            this.setBooleanValuesInDatabase(false, true);
             this.printListOfRidesToConsole();
           }
         }
@@ -110,8 +125,7 @@ export class CreateRidePage implements OnInit{
 
   
   async cancelRide() {
-    this.makeCancelRideButtonVisible = false;
-    this.makeCreateRideButtonVisible = true;
+    this.setBooleanValuesInDatabase(true, false);
     this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');
   }
