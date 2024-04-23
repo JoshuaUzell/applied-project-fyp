@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-ride.page.scss'],
 })
 export class CreateRidePage implements OnInit{
+  
+  //Ride object
   ride: IRide;
 
   //Ride fields
@@ -27,6 +29,9 @@ export class CreateRidePage implements OnInit{
   currentRide: any;
 
   ngOnInit(): void {
+    //Clear rides data for testing purposes
+    //this.databaseInterface.clearRidesData();
+
     //Refresh data
     this.databaseInterface.refreshData();
 
@@ -97,11 +102,7 @@ export class CreateRidePage implements OnInit{
     await alert.present();
   }
 
-  //Update current ride details
-  updateCurrentRide(){
-    this.databaseInterface.updateRideDetails(this.rideEmail, this.direction, this.ride);
-  }
-
+  
   async cancelRide() {
     this.databaseInterface.cancelRide(this.rideEmail, this.direction); //May need to alter arguements in this method call
     this.router.navigateByUrl('/home');

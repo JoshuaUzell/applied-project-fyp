@@ -92,6 +92,13 @@ export class MockDatabaseService implements IDatabaseInterface {
         console.log('All data cleared from database');
     }
 
+    clearRidesData(): void {
+        localStorage.removeItem('ridesToCollege');
+        localStorage.removeItem('ridesFromCollege');
+
+        console.log('All rides data cleared from database');
+    }
+
     emailExists(email: string): boolean {
         return this.users.some(user => user.email === email);
     }

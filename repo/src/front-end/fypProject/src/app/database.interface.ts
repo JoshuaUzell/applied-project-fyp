@@ -41,6 +41,7 @@ export interface IUserInfo {
     retrieveListOfDrivers(): IDriverDetails[]; // Returns an array of driver JSON objects
     retrieveAllUsers(): IUserInfo[];
     clearData(): void;
+    clearRidesData(): void;
     emailExists(email: string): boolean;
     getGenderOptions(): string[];
     getPersonalTraitsOptions(): Array<{value: string, display: string}>;
