@@ -11,6 +11,9 @@ import { IDatabaseInterface } from '../database.interface';
 export class HomePage implements OnInit{
   
   makeHomepageContentsVisible = true;
+  makeInwardRideTitlesVisible = false;
+
+  inwardRides: any[] = [];
 
   constructor(private router: Router, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) {}
 
@@ -33,9 +36,10 @@ export class HomePage implements OnInit{
   }
 
   displayInwardRides(){  
+      this.makeInwardRideTitlesVisible = true;
       this.makeHomepageContentsVisible = false;
-      const inwardsRides = this.databaseInterface.getRides('To Campus');
-      console.log('Inwards Rides:', inwardsRides);
+      this.inwardRides = this.databaseInterface.getRides('To Campus');
+      console.log('Inwards Rides:', this.inwardRides);
   }
 
 }

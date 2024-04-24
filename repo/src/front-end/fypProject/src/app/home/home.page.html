@@ -29,6 +29,43 @@
       Use one of the buttons below to find rides to your desired destination.
     </div>
 
+    <ion-item *ngIf="makeInwardRideTitlesVisible" lines="full">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <ion-label>Drop Off</ion-label>
+          </ion-col>
+          <ion-col size="4" class="ion-text-center">
+            <ion-label>Pick Up</ion-label>
+          </ion-col>
+          <ion-col size="4" class="ion-text-right">
+            <ion-label>Available Space</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-list>
+      <ion-item *ngFor="let ride of inwardRides" lines="full">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+              <ion-label>{{ride.locationAtCollege}}</ion-label>
+            </ion-col>
+            <ion-col size="4" class="ion-text-center">
+              <ion-label>{{ ride.locationOutsideOfCollege }}</ion-label>
+            </ion-col>
+            <ion-col size="4">
+              <div class="seat-info">
+                <ion-icon name="person"></ion-icon>
+                <span>{{ ride.numberOfSeats }}</span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+    
     <ion-row>
       <ion-col size="6">
         <ion-button expand="block" (click)="displayInwardRides()" color="primary">Inwards</ion-button>

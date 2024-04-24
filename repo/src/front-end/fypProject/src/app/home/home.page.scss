@@ -17,6 +17,72 @@ ion-header {
   }
 }
 
+ion-list {
+  ion-item {
+    --border-color: var(--ion-color-medium);
+    --border-style: solid;
+    --border-width: 0 0 1px 0;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-border-width: 0;
+    display: flex;
+    align-items: center;
+    ion-avatar {
+      margin-right: 15px;
+    }
+    ion-label {
+      h2 {
+        font-weight: bold;
+      }
+      p {
+        font-size: smaller;
+        color: var(--ion-color-medium);
+      }
+    }
+    ion-note {
+      font-weight: bold;
+      font-size: larger;
+      color: var(--ion-color-dark);
+    }
+  }
+}
+
+.custom-start{
+  flex: 1; /* Take up available space */
+  text-align: start; /* Align text to the start */
+  align-self: start; /* Align to the center vertically if ion-item has display:flex */
+}
+
+/* Custom class for the label we want to center */
+.custom-middle {
+  flex: 1; /* Take up available space */
+  text-align: center; /* Center text */
+  align-self: center; /* Align to the center vertically if ion-item has display:flex */
+  margin-right: 20em;
+}
+
+/* Ensure the content within ion-note is flexed */
+ion-note {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.seat-info {
+  display: flex;
+  justify-content: flex-end; /* Aligns content to the end of the container */
+  align-items: center; /* Vertically centers the content */
+  padding-right: 16px; /* Adds some padding to the right */
+}
+
+ion-icon {
+  padding: 0 8px; /* Provides space around the icon */
+}
+
+
+
+
+
 .shareway-title{
   white-space: normal; // Allow text to wrap onto the next line
   overflow: visible; // Let the text overflow the container
