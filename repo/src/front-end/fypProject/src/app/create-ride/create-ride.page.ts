@@ -17,6 +17,7 @@ export class CreateRidePage implements OnInit{
   makeRideStatusVisible: boolean = false;
   @Input() hasActiveStatus: boolean = false; // Input to determine if the ride is active or not
   makeLookingForRiderProgressVisible: boolean = false;
+  disableInputButton: boolean = false;
 
   //Ride object
   ride: IRide;
@@ -65,15 +66,18 @@ export class CreateRidePage implements OnInit{
     this.makeRideStatusVisible = booleanSettings.statusBool;
     this.hasActiveStatus = booleanSettings.activeStatusBool;
     this.makeLookingForRiderProgressVisible = booleanSettings.progressBool;
+    this.disableInputButton = booleanSettings.disableInputButtonBool;
   }
 
-  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean, makeLookingForRiderProgressVisible: boolean) {
+  setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean,
+     makeLookingForRiderProgressVisible: boolean, disableInputButton: boolean) {
     this.makeCreateRideButtonVisible = makeCreateRideButtonVisible;
     this.makeCancelRideButtonVisible = makeCancelRideButtonVisible;
     this.makeRideStatusVisible = makeRideStatusVisible;
     this.hasActiveStatus = hasActiveStatus;
     this.makeLookingForRiderProgressVisible = makeLookingForRiderProgressVisible;
-    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible);
+    this.disableInputButton = disableInputButton;
+    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible, this.disableInputButton);
   }
 
   assignFormFieldsToBeEmpty(){
@@ -102,7 +106,7 @@ export class CreateRidePage implements OnInit{
           handler: () => {
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
-            this.setBooleanValuesInDatabase(false, true, true, false, true);
+            this.setBooleanValuesInDatabase(false, true, true, false, true, true);
             this.printListOfRidesToConsole();
           }
         }
@@ -140,7 +144,7 @@ export class CreateRidePage implements OnInit{
 
   
   async cancelRide() {
-    this.setBooleanValuesInDatabase(true, false, false, false, false);
+    this.setBooleanValuesInDatabase(true, false, false, false, false, false);
     this.databaseInterface.cancelRide(this.rideEmail, this.direction);
     this.assignFormFieldsToBeEmpty();
   }

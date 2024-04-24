@@ -334,23 +334,26 @@ export class MockDatabaseService implements IDatabaseInterface {
         return this.currentUserEmail;
     }
 
-    setBooleanLogicForCreateRideButtons(createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean): void {
+    setBooleanLogicForCreateRideButtons(createRideBool: boolean, cancelRideBool: boolean, 
+        statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean): void {
         // Convert boolean values to strings using JSON.stringify and save them to localStorage
         localStorage.setItem('createRideBool', JSON.stringify(createRideBool));
         localStorage.setItem('cancelRideBool', JSON.stringify(cancelRideBool));
         localStorage.setItem('statusBool', JSON.stringify(statusBool));
         localStorage.setItem('activeStatusBool', JSON.stringify(activeStatusBool));
         localStorage.setItem('progressBool', JSON.stringify(progressBool));
+        localStorage.setItem('disableInputButtonBool', JSON.stringify(disableInputButtonBool));
     }
 
-    getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean} {
+    getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean} {
         // Retrieve the string values from localStorage and convert them back to boolean using JSON.parse
         const createRideBool = JSON.parse(localStorage.getItem('createRideBool') || 'true'); // Default to true if null
         const cancelRideBool = JSON.parse(localStorage.getItem('cancelRideBool') || 'false'); // Default to false if null
         const statusBool = JSON.parse(localStorage.getItem('statusBool') || 'false'); // Default to false if null
         const activeStatusBool = JSON.parse(localStorage.getItem('activeStatusBool') || 'false'); // Default to false if null
         const progressBool = JSON.parse(localStorage.getItem('progressBool') || 'false'); // Default to false if null
-        return { createRideBool, cancelRideBool, statusBool, activeStatusBool, progressBool};
+        const disableInputButtonBool = JSON.parse(localStorage.getItem('disableInputButtonBool') || 'false'); // Default to false if null
+        return { createRideBool, cancelRideBool, statusBool, activeStatusBool, progressBool, disableInputButtonBool};
     }    
 
 }//End of class

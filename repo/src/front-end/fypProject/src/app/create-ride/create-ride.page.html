@@ -13,26 +13,26 @@
 
         <ion-item>
           <ion-label position="floating">Number of Seats</ion-label>
-          <ion-input type="number" [(ngModel)]="numberOfSeats" min="2" max="7" required></ion-input>
+          <ion-input type="number" [disabled]="disableInputButton" [(ngModel)]="numberOfSeats" min="2" max="7" required></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Direction</ion-label>
-          <ion-select [(ngModel)]="direction">
+          <ion-select [disabled]="disableInputButton" [(ngModel)]="direction">
             <ion-select-option *ngFor="let direction of directions">{{ direction }}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
           <ion-label position="floating">Location At College</ion-label>
-          <ion-select [(ngModel)]="locationAtCollege">
+          <ion-select [disabled]="disableInputButton" [(ngModel)]="locationAtCollege">
             <ion-select-option *ngFor="let locationAtCollege of locationsAtCollege">{{ locationAtCollege }}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item class="locationOutside">
           <ion-label position="floating">Location Outside College</ion-label>
-          <ion-input [(ngModel)]="locationOutsideOfCollege" min="2" max="7" required></ion-input>
+          <ion-input [disabled]="disableInputButton" [(ngModel)]="locationOutsideOfCollege" min="2" max="7" required></ion-input>
         </ion-item>
 
         <ion-button expand="full" *ngIf="makeCreateRideButtonVisible" (click)="createRide()">Create Ride</ion-button>
