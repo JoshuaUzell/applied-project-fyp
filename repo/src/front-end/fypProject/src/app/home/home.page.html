@@ -11,27 +11,27 @@
       </ion-button>
     <ion-toolbar>
       <ion-label class="shareway-title">
-        Welcome to ShareWay
+        Welcome to ShareWay 
       </ion-label>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <div class="welcome-text">
+    <div *ngIf="makeHomepageContentsVisible" class="welcome-text">
       Take a ride with another student from or to college. Save money and meet new people!
     </div>
 
-    <div class="image-container">
+    <div *ngIf="makeHomepageContentsVisible" class="image-container">
       <img src="assets/images/Home_Icon.png" />
     </div>
 
-    <div class="instructions-text">
+    <div *ngIf="makeHomepageContentsVisible" class="instructions-text">
       Use one of the buttons below to find rides to your desired destination.
     </div>
 
     <ion-row>
       <ion-col size="6">
-        <ion-button expand="block" color="primary">Inwards</ion-button>
+        <ion-button expand="block" (click)="displayInwardRides()" color="primary">Inwards</ion-button>
       </ion-col>
       <ion-col size="6">
         <ion-button expand="block" color="secondary">Outwards</ion-button>
