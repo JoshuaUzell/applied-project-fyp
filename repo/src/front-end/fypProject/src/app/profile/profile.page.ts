@@ -59,7 +59,7 @@ export class ProfilePage implements OnInit {
     this.retrieveOptionsToChooseFrom();
 
     console.log('Current User: ', this.currentUser);
-  }
+  } 
 
   onImageSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];

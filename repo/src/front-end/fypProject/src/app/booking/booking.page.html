@@ -1,76 +1,81 @@
-<ion-content  class="ion-padding">
-  <!-- Profile image and name in one row -->
-  <ion-grid>
-    <ion-row>
-      <ion-col size="auto">
-        <ion-avatar>
-          <img src="assets/images/man-glasses.jpg" />
-        </ion-avatar>
-      </ion-col>
-    </ion-row>
+<ion-content padding>
+  <ion-card class="booking-card">
+    <ion-card-content>
+      <div class="booking-container">
+        <ion-buttons slot="start">
+          <ion-back-button class="back-button" defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
+          
+        <!-- Profile Image -->
+        <img *ngIf="currentUserImage" [src]="currentUserImage" alt="Profile Image" class="profile-image">
 
-    <!-- Available space in another row -->
-    <ion-row>
-      <ion-col size="12">
-        <ion-note>
-          Available Space <ion-icon name="people"></ion-icon> 2/3
-        </ion-note>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <!-- Name -->
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input [disabled]="disableInputButton" type="text" [(ngModel)]="name"></ion-input>
+        </ion-item>
 
-  <!-- Booking button -->
-  <ion-button id="apply-booking-button"  (click)="presentAlert()" expand="block" color="primary">
-    Apply for Booking
-  </ion-button>
+        <!-- DOB -->
+        <ion-item>
+          <ion-input [disabled]="disableInputButton"  [clearInput]="true" label="Date" placeholder="Enter Date Of Birth" type="Date"  [(ngModel)]="dob"></ion-input>
+        </ion-item>
+        
+        <!--Gender-->
+        <ion-list>
+          <ion-item [disabled]="disableInputButton" >
+            <ion-label position="floating">Gender</ion-label>
+            <ion-select [(ngModel)]="gender" interface="popover" placeholder="Select an option">
+              <ion-select-option *ngFor="let genderOption of genderOptions" [value]="genderOption">
+                {{ genderOption }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list> 
+        
+        <!--Course Department-->
+        <ion-item>
+          <ion-label position="floating">Course Department</ion-label>
+          <ion-input [disabled]="disableInputButton"  type="text" [(ngModel)]="courseDepartment"></ion-input>
+        </ion-item>
 
-  <ion-list  class="ion-margin">
-    <!-- Name Field -->
-    <ion-item lines="none">
-      <ion-label position="stacked">Name</ion-label>
-      <ion-input value="Johnny Ramsy" readonly></ion-input>
-    </ion-item>
+        <!--Dropdown for Personal Traits-->
+        <ion-item>
+          <ion-label position="floating">Personal Traits</ion-label>
+        </ion-item>
+        <ion-list>
+          <!-- Personal Traits -->
+          <ion-item [disabled]="disableInputButton" >
+            <ion-label position="floating">Personal Traits</ion-label>
+            <ion-select (ionChange)="limitSelectionOfTraits($event)" [(ngModel)]="personalTraits" [multiple]="true" interface="popover" placeholder="Select Traits">
+              <ion-select-option *ngFor="let trait of personalTraitsOptions" [value]="trait.value">
+                {{ trait.display }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
 
-    <!-- DOB Field -->
-    <ion-item lines="none">
-      <ion-label position="stacked">DOB</ion-label>
-      <ion-input value="October 13th 2000" readonly></ion-input>
-    </ion-item>
+        <!--Dropdown for Hobbies-->
+        <ion-item>
+          <ion-label position="floating">Hobbies</ion-label>
+        </ion-item>
+        <ion-list>
+         <!-- Hobbies -->
+          <ion-item [disabled]="disableInputButton" >
+            <ion-label position="floating">Hobbies</ion-label>
+            <ion-select (ionChange)="limitSelectionOfHobbies($event)" [(ngModel)]="personalHobbies" [multiple]="true" interface="popover" placeholder="Select Hobbies">
+              <ion-select-option *ngFor="let hobby of hobbiesOptions" [value]="hobby.value">
+                {{ hobby.display }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
 
-    <!-- Email Field -->
-    <ion-item lines="none">
-      <ion-label position="stacked">Email</ion-label>
-      <ion-input value="johnnyramsy@gmail.com" readonly></ion-input>
-    </ion-item>
-
-    <!-- Gender Field -->
-    <ion-item lines="none">
-      <ion-label position="stacked">Gender</ion-label>
-      <ion-input value="Male" readonly></ion-input>
-    </ion-item>
-
-    <!-- Course Department Field -->
-    <ion-item lines="none">
-      <ion-label position="stacked">Course Department</ion-label>
-      <ion-input value="Biology" readonly></ion-input>
-    </ion-item>
-
-    <!-- Personal Traits Field -->
-    <ion-item lines="none" class="custom-item-divider">
-      <ion-label position="stacked">Personal Traits</ion-label>
-      <ion-input value="Empathetic, Sociable, Witty" readonly></ion-input>
-    </ion-item>
-
-    <!-- Hobbies Field -->
-    <ion-item lines="none" class="custom-item-divider">
-      <ion-label position="stacked">Hobbies</ion-label>
-      <ion-input value="Cooking, Meditation, Playing Games" readonly></ion-input>
-    </ion-item>
-
-    <!-- Driver Details Placeholder -->
-    <ion-item lines="none" class="custom-item-divider">
-      <ion-label position="stacked">Driver Details</ion-label>
-    </ion-item>
-  </ion-list>
-
+        <!--Container for bottom buttons -->
+        <div class="button-container">
+          <ion-button expand="full" (click)="applyForRide()">Apply for Ride</ion-button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
