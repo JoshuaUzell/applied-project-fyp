@@ -14,6 +14,7 @@ export class UserDetailsPage implements OnInit {
   applyForDriverText: string = 'Apply for Driver';
 
   //User Details from html form
+  imagePreview: string | ArrayBuffer | null = null;
   id: string = '';
   name: string = '';
   email: string = '';
@@ -28,7 +29,8 @@ export class UserDetailsPage implements OnInit {
   personalTraitsOptions: Array<{ value: string, display: string }> = [];
   hobbiesOptions: Array<{ value: string, display: string }> = [];
   genderOptions: string[] = [];
-  
+
+
   constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) {
   }
 
@@ -43,6 +45,19 @@ export class UserDetailsPage implements OnInit {
     this.genderOptions = this.databaseInterface.getGenderOptions();
     this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
     this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
+  }
+
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        if (e.target) {
+          this.imagePreview = e.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   retrieveRegistrationDetailsFromSessionStorage() {
@@ -98,6 +113,7 @@ export class UserDetailsPage implements OnInit {
 
   saveUserDetails() {
     const updatedUserDetails = {
+      image: this.imagePreview,
       id: this.id,
       email: this.email,
       password: this.password,

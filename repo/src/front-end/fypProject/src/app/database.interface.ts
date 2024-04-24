@@ -1,5 +1,6 @@
 //Interface for UserInfo data which will be formatted as JSON
 export interface IUserInfo {
+    image: any;
     id: string;
     email: string;
     password: string; 

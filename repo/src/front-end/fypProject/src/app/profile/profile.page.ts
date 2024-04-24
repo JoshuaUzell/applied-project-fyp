@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
+  
   //User Details from html form
+  currentUserImage: string | ArrayBuffer | null = null;
   id: string = '';
   email:string = '';
   name: string = '';  
@@ -39,6 +40,7 @@ export class ProfilePage implements OnInit {
   driver_vehicleMake: string = '';
   driver_vehicleModel: string = '';
 
+
   constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
   ngOnInit() {
@@ -59,9 +61,22 @@ export class ProfilePage implements OnInit {
     console.log('Current User: ', this.currentUser);
   }
 
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        if (e.target) {
+          this.currentUserImage = e.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   
   assignCurrentUserValuesToFormFields(){
     //Assign the current user values to the form fields
+    this.currentUserImage = this.currentUser.image;
     this.email = this.currentUser.email;
     this.name = this.currentUser.name;
     this.gender = this.currentUser.gender;
@@ -184,6 +199,7 @@ export class ProfilePage implements OnInit {
   }
 
   applyFormValueChangesToCurrentUserValues() {
+    this.currentUser.image = this.currentUserImage;
     this.currentUser.name = this.name;
     this.currentUser.gender = this.gender
     this.currentUser.dob = this.dob;

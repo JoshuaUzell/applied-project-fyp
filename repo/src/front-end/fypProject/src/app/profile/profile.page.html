@@ -8,6 +8,15 @@
         <img src="assets/images/ShareWay_Logo.png" alt="App Logo" class="app-logo">
         <ion-label class="detailsText">Please enter details</ion-label>
          
+        <!-- Profile Picture -->
+        <ion-item>
+          <ion-label position="stacked">Profile Picture</ion-label>
+          <ion-input type="file" (change)="onImageSelected($event)"></ion-input>
+        </ion-item>
+
+        <!-- Profile Image -->
+        <img *ngIf="currentUserImage" [src]="currentUserImage" alt="Profile Image" class="profile-image">
+
         <!-- Name -->
         <ion-item>
           <ion-label position="floating">Name</ion-label>
