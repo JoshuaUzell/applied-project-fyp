@@ -30,6 +30,12 @@ export interface IUserInfo {
     direction: string;
     locationAtCollege: string;
     locationOutsideOfCollege: string;
+    createRideBool: boolean;
+    cancelRideBool: boolean;
+    statusBool: boolean;
+    activeStatusBool: boolean;
+    progressBool: boolean;
+    disableInputButtonBool: boolean;
   }
   
   export interface IDatabaseInterface {

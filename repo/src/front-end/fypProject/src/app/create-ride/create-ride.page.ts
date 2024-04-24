@@ -43,11 +43,12 @@ export class CreateRidePage implements OnInit{
     //Refresh data
     this.databaseInterface.refreshData();
     
-    //Load boolean values
-    this.loadBooleanValuesFromDatabase();
-
     //Retrieve the currentRide
     this.currentRide = this.databaseInterface.getCurrentRide();
+    
+    //Load boolean values
+    //this.loadBooleanValuesFromDatabase();
+
 
     //Assign the currentRide details to the fields
     if(this.currentRide){
@@ -59,15 +60,15 @@ export class CreateRidePage implements OnInit{
 
   constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) { }
 
-  loadBooleanValuesFromDatabase() {
-    const booleanSettings = this.databaseInterface.getBooleanLogicForCreateRideButtons();
-    this.makeCreateRideButtonVisible = booleanSettings.createRideBool;
-    this.makeCancelRideButtonVisible = booleanSettings.cancelRideBool;
-    this.makeRideStatusVisible = booleanSettings.statusBool;
-    this.hasActiveStatus = booleanSettings.activeStatusBool;
-    this.makeLookingForRiderProgressVisible = booleanSettings.progressBool;
-    this.disableInputButton = booleanSettings.disableInputButtonBool;
-  }
+  // loadBooleanValuesFromDatabase() {
+  //   const booleanSettings = this.databaseInterface.getBooleanLogicForCreateRideButtons();
+  //   this.makeCreateRideButtonVisible = booleanSettings.createRideBool;
+  //   this.makeCancelRideButtonVisible = booleanSettings.cancelRideBool;
+  //   this.makeRideStatusVisible = booleanSettings.statusBool;
+  //   this.hasActiveStatus = booleanSettings.activeStatusBool;
+  //   this.makeLookingForRiderProgressVisible = booleanSettings.progressBool;
+  //   this.disableInputButton = booleanSettings.disableInputButtonBool;
+  // }
 
   setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean,
      makeLookingForRiderProgressVisible: boolean, disableInputButton: boolean) {
@@ -77,7 +78,7 @@ export class CreateRidePage implements OnInit{
     this.hasActiveStatus = hasActiveStatus;
     this.makeLookingForRiderProgressVisible = makeLookingForRiderProgressVisible;
     this.disableInputButton = disableInputButton;
-    this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible, this.disableInputButton);
+    //this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible, this.disableInputButton);
   }
 
   assignFormFieldsToBeEmpty(){
@@ -86,7 +87,6 @@ export class CreateRidePage implements OnInit{
     this.locationAtCollege = '';
     this.locationOutsideOfCollege = '';
   }
-
 
   async confirmNewRide() {
     const alert = await this.alertController.create({
@@ -104,9 +104,9 @@ export class CreateRidePage implements OnInit{
         {
           text: 'Confirm',
           handler: () => {
+            this.setBooleanValuesInDatabase(false, true, true, false, true, true);
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
-            this.setBooleanValuesInDatabase(false, true, true, false, true, true);
             this.printListOfRidesToConsole();
           }
         }
@@ -176,6 +176,12 @@ export class CreateRidePage implements OnInit{
     this.direction = this.currentRide.direction;
     this.locationAtCollege = this.currentRide.locationAtCollege;
     this.locationOutsideOfCollege = this.currentRide.locationOutsideOfCollege;
+    this.makeCreateRideButtonVisible = this.currentRide.createRideBool;
+    this.makeCancelRideButtonVisible = this.currentRide.cancelRideBool;
+    this.makeRideStatusVisible = this.currentRide.statusBool;
+    this.hasActiveStatus = this.currentRide.activeStatusBool;
+    this.makeLookingForRiderProgressVisible = this.currentRide.progressBool;
+    this.disableInputButton = this.currentRide.disableInputButtonBool;
   }
 
   assignRideFieldsToCurrentRide() {
@@ -185,7 +191,13 @@ export class CreateRidePage implements OnInit{
       numberOfSeats: this.numberOfSeats,
       direction: this.direction,
       locationAtCollege: this.locationAtCollege,
-      locationOutsideOfCollege: this.locationOutsideOfCollege
+      locationOutsideOfCollege: this.locationOutsideOfCollege,
+      createRideBool: this.makeCreateRideButtonVisible,
+      cancelRideBool: this.makeCancelRideButtonVisible,
+      statusBool: this.makeRideStatusVisible,
+      activeStatusBool: this.hasActiveStatus,
+      progressBool: this.makeLookingForRiderProgressVisible,
+      disableInputButtonBool: this.disableInputButton
     }
     alert('Ride created successfully');
   }
@@ -205,7 +217,4 @@ export class CreateRidePage implements OnInit{
       alert('Please fill in all fields');
     }
   }
-
-
-
 }
