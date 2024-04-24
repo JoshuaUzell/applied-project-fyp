@@ -21,6 +21,7 @@ export class CreateRidePage implements OnInit{
 
   //Ride object
   ride: IRide;
+  currentDriver: any;
 
   //Ride fields
   rideEmail: string;
@@ -43,6 +44,8 @@ export class CreateRidePage implements OnInit{
     //Refresh data
     this.databaseInterface.refreshData();
     
+    this.currentDriver = this.databaseInterface.getCurrentDriver();
+
     //Retrieve the currentRide
     this.currentRide = this.databaseInterface.getCurrentRide();
     
@@ -186,6 +189,8 @@ export class CreateRidePage implements OnInit{
 
   assignRideFieldsToCurrentRide() {
     this.ride = {
+      image: this.currentDriver.image,
+      driverName:  this.currentDriver.name,
       rideEmail: this.databaseInterface.getCurrentUserEmail() as string ?? '',
       status: 'active',
       numberOfSeats: this.numberOfSeats,

@@ -14,6 +14,8 @@ export interface IUserInfo {
 
   //Interface for DriverDetails data which will be formatted as JSON
   export interface IDriverDetails {
+    image: any;
+    name: string;
     id: string;
     driverEmail: string; //Driver email will be the same as the user email
     licenseDateOfIssue: string;
@@ -25,6 +27,8 @@ export interface IUserInfo {
 
   //Interface for Ride
   export interface IRide {
+    image: any;
+    driverName: string;
     rideEmail: string;
     status: string;
     numberOfSeats: number;
