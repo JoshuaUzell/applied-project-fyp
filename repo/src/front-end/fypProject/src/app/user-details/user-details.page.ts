@@ -113,7 +113,6 @@ export class UserDetailsPage implements OnInit {
 
   saveUserDetails() {
     const updatedUserDetails = {
-      image: this.imagePreview,
       id: this.id,
       email: this.email,
       password: this.password,

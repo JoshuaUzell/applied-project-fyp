@@ -1,6 +1,5 @@
 //Interface for UserInfo data which will be formatted as JSON
 export interface IUserInfo {
-    image: any;
     id: string;
     email: string;
     password: string; 
@@ -14,7 +13,6 @@ export interface IUserInfo {
 
   //Interface for DriverDetails data which will be formatted as JSON
   export interface IDriverDetails {
-    image: any;
     name: string;
     id: string;
     driverEmail: string; //Driver email will be the same as the user email
@@ -27,7 +25,6 @@ export interface IUserInfo {
 
   //Interface for Ride
   export interface IRide {
-    image: any;
     driverName: string;
     rideEmail: string;
     status: string;

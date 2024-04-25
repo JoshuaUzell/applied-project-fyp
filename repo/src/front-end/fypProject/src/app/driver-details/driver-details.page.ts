@@ -119,7 +119,6 @@ export class DriverDetailsPage implements OnInit {
 
   saveDriverDetails() {
     const updatedDriverDetails = {
-      image: this.currentUser.image,
       name: this.currentUser.name,
       id: this.driverId,
       driverEmail: this.currentUser.email, //Make the user email the same as the driver email

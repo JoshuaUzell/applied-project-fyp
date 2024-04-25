@@ -189,7 +189,6 @@ export class CreateRidePage implements OnInit{
 
   assignRideFieldsToCurrentRide() {
     this.ride = {
-      image: this.currentDriver.image,
       driverName:  this.currentDriver.name,
       rideEmail: this.databaseInterface.getCurrentUserEmail() as string ?? '',
       status: 'active',
