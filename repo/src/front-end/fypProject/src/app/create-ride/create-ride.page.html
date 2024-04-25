@@ -37,7 +37,7 @@
 
         <ion-button expand="full" *ngIf="makeCreateRideButtonVisible" (click)="createRide()">Create Ride</ion-button>
         <ion-button expand="full" *ngIf="makeCancelRideButtonVisible" (click)="confirmCompletingRide()">Complete Ride</ion-button>
-        <ion-button expand="full" (click)="confirmLeavePage()">Leave</ion-button>
+        <ion-button expand="full" *ngIf="makeLeaveButtonVisible" (click)="confirmLeavePage()">Leave</ion-button>
       </div>
     </ion-card-content>
   </ion-card>
