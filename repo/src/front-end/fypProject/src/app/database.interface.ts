@@ -21,6 +21,12 @@ export interface IUserInfo {
     licenseNumber: string;
     vehicleModel: string;
     vehicleMake: string;
+
+    dob: string;
+    gender: string;
+    courseDepartment: string;
+    personalTraits: string[];
+    personalHobbies: string[]; 
   }
 
   //Interface for Ride
@@ -38,6 +44,12 @@ export interface IUserInfo {
     activeStatusBool: boolean;
     progressBool: boolean;
     disableInputButtonBool: boolean;
+
+    dob: string;
+    gender: string;
+    courseDepartment: string;
+    personalTraits: string[];
+    personalHobbies: string[]; 
   }
   
   export interface IDatabaseInterface {
@@ -76,5 +88,6 @@ export interface IUserInfo {
     getCurrentUserEmail(): string | null;
     setBooleanLogicForCreateRideButtons(createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean): void;
     getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean};
+    getBookedRide(rideEmail: string): IRide | undefined
   }
   

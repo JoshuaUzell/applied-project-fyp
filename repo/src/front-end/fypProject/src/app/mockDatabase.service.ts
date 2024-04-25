@@ -356,4 +356,14 @@ export class MockDatabaseService implements IDatabaseInterface {
         return { createRideBool, cancelRideBool, statusBool, activeStatusBool, progressBool, disableInputButtonBool};
     }    
 
+    getBookedRide(rideEmail: string): IRide | undefined {
+        // Check 'ridesToCollege' array for the ride
+        let bookedRide = this.ridesToCollege.find(ride => ride.rideEmail === rideEmail);
+        if (!bookedRide) {
+            // If not found, check 'ridesFromCollege' array
+            bookedRide = this.ridesFromCollege.find(ride => ride.rideEmail === rideEmail);
+        }
+        return bookedRide;
+    }
+
 }//End of class

@@ -127,6 +127,11 @@ export class DriverDetailsPage implements OnInit {
       licenseNumber: this.licenseNumber,
       vehicleMake: this.make,
       vehicleModel: this.model,
+      dob: this.currentUser.dob,
+      gender: this.currentUser.gender,
+      courseDepartment: this.currentUser.courseDepartment,
+      personalTraits: this.currentUser.personalTraits,
+      personalHobbies: this.currentUser.personalHobbies
     };
 
     // Check if any property in updatedDriverDetails is null

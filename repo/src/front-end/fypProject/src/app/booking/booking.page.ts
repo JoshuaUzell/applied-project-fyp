@@ -1,8 +1,9 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
-import { IDatabaseInterface } from '../database.interface';
+import { IDatabaseInterface, IRide } from '../database.interface';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { IDatabaseInterface } from '../database.interface';
 })
 export class BookingPage implements OnInit {
   //User Details from html form
-  currentUserImage: string | ArrayBuffer | null = null;
+  //currentUserImage: string | ArrayBuffer | null = null;
   id: string = '';
   email: string = '';
   name: string = '';
@@ -30,8 +31,10 @@ export class BookingPage implements OnInit {
   genderOptions: string[] = [];
 
   //Represents the current user
-  currentUser: any;
+  //currentUser: any;
   currentDriver: any;
+
+  bookedRide: IRide;
 
   //Driver details from html form
   driver_id: string = '';
@@ -43,74 +46,44 @@ export class BookingPage implements OnInit {
 
   disableInputButton: boolean = true;
 
-  constructor(private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
   ngOnInit() {
     //Refresh data
     this.databaseInterface.refreshData();
 
-    //Retrieve the current user from the database
-    this.currentUser = this.databaseInterface.getCurrentUser();
+    this.email = this.activatedRoute.snapshot.paramMap.get('rideEmail')!;
 
-    this.assignCurrentUserValuesToFormFields();
+    this.bookedRide = this.databaseInterface.getBookedRide(this.email)!;
 
-    //Get driver details from session storage so it can be applied fully
-   //this.getDriverDetailsFromSessionStorage();
-
-    //Retrieve the options that the user can choose from
     this.retrieveOptionsToChooseFrom();
 
+    //Assign the current booked ride values to the form fields
+    this.assignCurrentBookedRideValuesToFormFields();
   }
 
-  onImageSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        if (e.target) {
-          this.currentUserImage = e.target.result;
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+  // onImageSelected(event: Event): void {
+  //   const file = (event.target as HTMLInputElement).files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = e => {
+  //       if (e.target) {
+  //         this.currentUserImage = e.target.result;
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
 
-  assignCurrentUserValuesToFormFields() {
+  assignCurrentBookedRideValuesToFormFields() {
     //Assign the current user values to the form fields
-    this.currentUserImage = this.currentUser.image;
-    this.email = this.currentUser.email;
-    this.name = this.currentUser.name;
-    this.gender = this.currentUser.gender;
-    this.dob = this.currentUser.dob;
-    this.courseDepartment = this.currentUser.courseDepartment;
-    this.personalTraits = this.currentUser.personalTraits;
-    this.personalHobbies = this.currentUser.personalHobbies;
-  }
-
-  setUserDetailsFromSessionStorage() {
-    //Set user details in session storage
-    sessionStorage.setItem('id', this.currentUser.id);
-    sessionStorage.setItem('email', this.currentUser.email);
-    sessionStorage.setItem('password', this.currentUser.password);
-    sessionStorage.setItem('name', this.currentUser.name);
-    sessionStorage.setItem('gender', this.currentUser.gender);
-    sessionStorage.setItem('dob', this.currentUser.dob);
-    sessionStorage.setItem('courseDepartment', this.currentUser.courseDepartment);
-    sessionStorage.setItem('personalTraits', this.currentUser.personalTraits);
-    sessionStorage.setItem('personalHobbies', this.currentUser.personalHobbies);
-  }
-
-  getUserDetailsFromSessionStorage() {
-    //Get user details from session storage
-    this.id = sessionStorage.getItem('id') as string;
-    this.email = sessionStorage.getItem('email') as string;
-    this.password = sessionStorage.getItem('password') as string;
-    this.name = sessionStorage.getItem('name') as string;
-    this.gender = sessionStorage.getItem('gender') as string;
-    this.dob = sessionStorage.getItem('dob') as string;
-    this.courseDepartment = sessionStorage.getItem('courseDepartment') as string;
-    this.personalTraits = sessionStorage.getItem('personalTraits')?.split(',') as any[];
-    this.personalHobbies = sessionStorage.getItem('personalHobbies')?.split(',') as any[];
+    this.email = this.bookedRide.rideEmail;
+    this.name = this.bookedRide.driverName;
+    this.gender = this.bookedRide.gender;
+    this.dob = this.bookedRide.dob;
+    this.courseDepartment = this.bookedRide.courseDepartment;
+    this.personalTraits = this.bookedRide.personalTraits;
+    this.personalHobbies = this.bookedRide.personalHobbies;
   }
 
   retrieveOptionsToChooseFrom() {
@@ -174,98 +147,8 @@ export class BookingPage implements OnInit {
     }
   }
 
-  //Method to apply changes made to profile
-  async applyProfileChanges() {
-    if (this.name && this.gender && this.dob && this.courseDepartment) {
-      //Check if the user has selected at least one trait and one hobby
-      if (this.personalTraits.length <= 0 || this.personalHobbies.length <= 0) {
-        alert('Please make sure that you have at least one trait and one hobby selected.');
-      } else {
-        // Update the user details in the database
-        this.applyFormValueChangesToCurrentUserValues();
-        this.databaseInterface.updateCurrentUserDetails(this.currentUser);
-
-        //Set the current user's email in the database
-        this.databaseInterface.setCurrentUserEmail(this.currentUser.email);
-
-        //Refresh the data
-        this.databaseInterface.refreshData();
-
-        alert('Changes applied successfully.');
-        this.goToHomePage();
-      }
-    } else {
-      alert('Please enter all the fields to apply changes.');
-    }
-  }
-
-  applyFormValueChangesToCurrentUserValues() {
-    this.currentUser.image = this.currentUserImage;
-    this.currentUser.name = this.name;
-    this.currentUser.gender = this.gender
-    this.currentUser.dob = this.dob;
-    this.currentUser.courseDepartment = this.courseDepartment;
-    this.currentUser.personalTraits = this.personalTraits;
-    this.currentUser.personalHobbies = this.personalHobbies;
-  }
-
-  async presentLogoutAlert() {
-    const alert = await this.alertController.create({
-      header: 'Confirm Logout',
-      message: 'Are you sure you want to logout?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (event) => {
-            console.log('Logout cancelled');
-          }
-        }, {
-          text: 'Logout',
-          handler: () => {
-            console.log('Confirm Logout');
-            this.logOut();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-
-
-  logOut() {
-    //Clear the session storage
-    sessionStorage.clear();
-
-    //Remove current email from the local storage
-    localStorage.removeItem('currentEmail');
-
-    //Refresh the data
-    this.databaseInterface.refreshData();
-
-    alert('The user has been logged out.');
-
-    //Navigate to the login page
-    this.goToLoginPage();
-  }
-
   goToHomePage() {
     this.router.navigate(['/home']);
-  }
-
-  goToChangePasswordPage() {
-    this.router.navigate(['/change-password']);
-  }
-
-  goToDriverDetailsPage() {
-    this.router.navigate(['/driver-details']);
-  }
-
-  goToLoginPage() {
-    this.router.navigate(['/login']);
   }
 
   applyForRide(){

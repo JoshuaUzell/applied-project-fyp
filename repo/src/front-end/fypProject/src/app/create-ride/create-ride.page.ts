@@ -189,7 +189,7 @@ export class CreateRidePage implements OnInit{
 
   assignRideFieldsToCurrentRide() {
     this.ride = {
-      driverName:  this.currentDriver.name,
+      driverName:  this.currentDriver.name || '',
       rideEmail: this.databaseInterface.getCurrentUserEmail() as string ?? '',
       status: 'active',
       numberOfSeats: this.numberOfSeats,
@@ -201,7 +201,12 @@ export class CreateRidePage implements OnInit{
       statusBool: this.makeRideStatusVisible,
       activeStatusBool: this.hasActiveStatus,
       progressBool: this.makeLookingForRiderProgressVisible,
-      disableInputButtonBool: this.disableInputButton
+      disableInputButtonBool: this.disableInputButton,
+      dob: this.currentDriver.dob,
+      gender: this.currentDriver.gender,
+      courseDepartment: this.currentDriver.courseDepartment,
+      personalTraits: this.currentDriver.personalTraits,
+      personalHobbies: this.currentDriver.personalHobbies
     }
     alert('Ride created successfully');
   }

@@ -28,8 +28,8 @@ const routes: Routes = [
     loadChildren: () => import('./driver-details/driver-details.module').then( m => m.DriverDetailsPageModule)
   },
   {
-    path: 'booking',
-    loadChildren: () => import('./booking/booking.module').then( m => m.BookingPageModule)
+    path: 'booking/:rideEmail', 
+    loadChildren: () => import('./booking/booking.module').then(m => m.BookingPageModule)
   },
   {
     path: 'profile',
@@ -38,7 +38,8 @@ const routes: Routes = [
   {
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
-  },  {
+  },
+  {
     path: 'create-ride',
     loadChildren: () => import('./create-ride/create-ride.module').then( m => m.CreateRidePageModule)
   }

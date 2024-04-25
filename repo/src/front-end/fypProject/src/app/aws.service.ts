@@ -1,3 +1,6 @@
+//NOTE*: This file originally contained the code for the AWS service. 
+//This code has been removed due to time constraints. 
+
 import { Injectable } from '@angular/core';
 import * as AWS from 'aws-sdk';
 import { CognitoIdentityCredentials, S3 } from 'aws-sdk';

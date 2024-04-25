@@ -19,6 +19,7 @@ export class HomePage implements OnInit{
 
   ngOnInit(): void {
     //this.databaseInterface.clearData();
+    //this.databaseInterface.clearRidesData();
 
     //Refresh data
     this.databaseInterface.refreshData();
@@ -44,4 +45,7 @@ export class HomePage implements OnInit{
       console.log('Inwards Rides:', this.inwardRides);
   }
 
+  navigateToBooking(rideEmail: string) {
+    this.router.navigateByUrl(`/booking/${rideEmail}`);
+  }
 }
