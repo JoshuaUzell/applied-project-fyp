@@ -23,6 +23,7 @@ export class MockDatabaseService implements IDatabaseInterface {
     constructor() {
         this.loadFromStorage();
         this.loadCurrentUserEmail();
+        this.generateSampleRides();
     }
 
     private loadFromStorage(): void {
@@ -365,5 +366,202 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
         return bookedRide;
     }
+
+    private generateSampleRides() {
+        const sampleRidesToCollege: IRide[] = [
+            {
+                rideEmail: 'ride1@college.com',
+                numberOfSeats: 3,
+                direction: 'To Campus',
+                locationAtCollege: 'Front Entrance',
+                locationOutsideOfCollege: 'Downtown',
+                status: 'active',
+                driverName: 'Alice',
+                gender: 'Female',
+                dob: '1995-05-16',
+                courseDepartment: 'Computer Science',
+                personalTraits: ['Friendly', 'Curious'],
+                personalHobbies: ['Reading', 'Music'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride2@college.com',
+                numberOfSeats: 2,
+                direction: 'To Campus',
+                locationAtCollege: 'Northern Entrance',
+                locationOutsideOfCollege: 'Uptown',
+                status: 'pending',
+                driverName: 'Bob',
+                gender: 'Male',
+                dob: '1993-08-25',
+                courseDepartment: 'Biology',
+                personalTraits: ['Empathetic', 'Adventurous'],
+                personalHobbies: ['Painting', 'Drawing'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride4@college.com',
+                numberOfSeats: 4,
+                direction: 'To Campus',
+                locationAtCollege: 'West Entrance',
+                locationOutsideOfCollege: 'Suburb',
+                status: 'active',
+                driverName: 'Dave',
+                gender: 'Male',
+                dob: '1992-01-10',
+                courseDepartment: 'Engineering',
+                personalTraits: ['Adventurous', 'Friendly'],
+                personalHobbies: ['Hiking', 'Cycling'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride5@college.com',
+                numberOfSeats: 2,
+                direction: 'To Campus',
+                locationAtCollege: 'Front Entrance',
+                locationOutsideOfCollege: 'Lakeside',
+                status: 'pending',
+                driverName: 'Eve',
+                gender: 'Female',
+                dob: '1996-04-15',
+                courseDepartment: 'Law',
+                personalTraits: ['Curious', 'Empathetic'],
+                personalHobbies: ['Reading', 'Sketching'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride6@college.com',
+                numberOfSeats: 3,
+                direction: 'To Campus',
+                locationAtCollege: 'Northern Entrance',
+                locationOutsideOfCollege: 'Hillside',
+                status: 'active',
+                driverName: 'Frank',
+                gender: 'Male',
+                dob: '1990-08-22',
+                courseDepartment: 'History',
+                personalTraits: ['Friendly', 'Shy'],
+                personalHobbies: ['Music', 'Gaming'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+        ];
+    
+        const sampleRidesFromCollege: IRide[] = [
+            {
+                rideEmail: 'ride3@college.com',
+                numberOfSeats: 4,
+                direction: 'From Campus',
+                locationAtCollege: 'Southern Entrance',
+                locationOutsideOfCollege: 'City Center',
+                status: 'active',
+                driverName: 'Carol',
+                gender: 'Female',
+                dob: '1994-11-30',
+                courseDepartment: 'Mathematics',
+                personalTraits: ['Curious', 'Shy'],
+                personalHobbies: ['Music', 'Cooking'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride9@college.com',
+                numberOfSeats: 3,
+                direction: 'From Campus',
+                locationAtCollege: 'Front Entrance',
+                locationOutsideOfCollege: 'Marketplace',
+                status: 'active',
+                driverName: 'Ivy',
+                gender: 'Female',
+                dob: '1994-02-11',
+                courseDepartment: 'Business',
+                personalTraits: ['Friendly', 'Shy'],
+                personalHobbies: ['Cooking', 'Gardening'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride10@college.com',
+                numberOfSeats: 2,
+                direction: 'From Campus',
+                locationAtCollege: 'Northern Entrance',
+                locationOutsideOfCollege: 'Highland Park',
+                status: 'pending',
+                driverName: 'Jack',
+                gender: 'Male',
+                dob: '1989-03-30',
+                courseDepartment: 'Art',
+                personalTraits: ['Curious', 'Friendly'],
+                personalHobbies: ['Drawing', 'Sculpting'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+            {
+                rideEmail: 'ride11@college.com',
+                numberOfSeats: 4,
+                direction: 'From Campus',
+                locationAtCollege: 'Southern Entrance',
+                locationOutsideOfCollege: 'Riverbank',
+                status: 'active',
+                driverName: 'Kara',
+                gender: 'Female',
+                dob: '1992-10-14',
+                courseDepartment: 'Sociology',
+                personalTraits: ['Empathetic', 'Adventurous'],
+                personalHobbies: ['Socializing', 'Volunteering'],
+                createRideBool: false,
+                cancelRideBool: false,
+                statusBool: false,
+                activeStatusBool: false,
+                progressBool: false,
+                disableInputButtonBool: false
+            },
+        ];
+    
+        // Assign these sample rides to the respective arrays
+        this.ridesToCollege = sampleRidesToCollege;
+        this.ridesFromCollege = sampleRidesFromCollege;
+    
+        // Save the initial state to storage
+        this.saveToStorage();
+    }
+    
+    
 
 }//End of class
