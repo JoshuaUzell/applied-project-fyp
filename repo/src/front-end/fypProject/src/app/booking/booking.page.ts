@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { DATABASE_SERVICE_TOKEN } from '../mockDatabase.service';
@@ -30,11 +30,13 @@ export class BookingPage implements OnInit {
   hobbiesOptions: Array<{ value: string, display: string }> = [];
   genderOptions: string[] = [];
 
-  //Represents the current user
-  //currentUser: any;
   currentDriver: any;
-
   bookedRide: IRide;
+
+  //Boolean values
+  makeRideStatusVisible: boolean = true;
+  @Input() hasBeenAcceptedForRide: boolean = false; // Input to determine if the ride is active or not
+  makeLookingForRiderProgressVisible: boolean = false;
 
   //Driver details from html form
   driver_id: string = '';
@@ -51,6 +53,7 @@ export class BookingPage implements OnInit {
   locationOutsideOfCollege: string;
 
   disableInputButton: boolean = true;
+  disableApplyForRideButton: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
 
@@ -162,7 +165,52 @@ export class BookingPage implements OnInit {
   }
 
   applyForRide(){
-    alert('Please wait as your ride is being processed...');
+    alert('Your ride is being processed...');
+    this.disableApplyForRideButton = true;
+    this.makeLookingForRiderProgressVisible = true;
+    this.simulateDriverResponse();
   }
+
+  async simulateDriverResponse() {
+    setTimeout(async () => {
+        // Randomly decide whether the driver accepts or rejects the ride
+        const accept = Math.random() > 0.5; // 50% chance of acceptance
+
+        if (accept) {
+            const alert = await this.alertController.create({
+                header: 'Ride Accepted',
+                message: 'The driver has accepted your ride request!',
+                buttons: [{
+                    text: 'OK',
+                    handler: () => {
+                        this.disableApplyForRideButton = false;
+                        this.makeLookingForRiderProgressVisible = false;
+                        this.hasBeenAcceptedForRide = true;
+                        console.log('Ride accepted');
+                        // Handle additional logic if needed
+                    }
+                }]
+            });
+            await alert.present();
+        } else {
+            const alert = await this.alertController.create({
+                header: 'Ride Rejected',
+                message: 'Unfortunately, the driver has rejected your ride request.',
+                buttons: [{
+                    text: 'OK',
+                    handler: () => {
+                        this.disableApplyForRideButton = false;
+                        this.makeLookingForRiderProgressVisible = false;
+                        this.hasBeenAcceptedForRide = false;
+                        console.log('Ride rejected');
+                        // Optionally navigate back to the home page
+                        this.router.navigate(['/home']);
+                    }
+                }]
+            });
+            await alert.present();
+        }
+    }, 5000); // 5 seconds delay
+}
 
 }//End of class

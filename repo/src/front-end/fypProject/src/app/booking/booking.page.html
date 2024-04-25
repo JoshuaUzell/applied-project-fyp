@@ -9,6 +9,12 @@
           
         <!-- Profile Image -->
         <!-- <img *ngIf="currentUserImage" [src]="currentUserImage" alt="Profile Image" class="profile-image"> -->
+        <ion-label *ngIf="makeLookingForRiderProgressVisible">Waiting for Response from Driver...</ion-label>
+        <ion-progress-bar *ngIf="makeLookingForRiderProgressVisible" value=".25" buffer=".5"></ion-progress-bar>
+        
+        <div class="status-box" *ngIf="makeRideStatusVisible"  [ngClass]="{'active': hasBeenAcceptedForRide, 'inactive': !hasBeenAcceptedForRide}">
+          Ride Status: <span>{{ hasBeenAcceptedForRide ? 'AcceptedForRide' : 'Not Accepted Yet' }}</span>
+        </div>    
 
         <!-- Name -->
         <ion-item>
@@ -94,7 +100,7 @@
 
         <!--Container for bottom buttons -->
         <div class="button-container">
-          <ion-button expand="full" (click)="applyForRide()">Apply for Ride</ion-button>
+          <ion-button expand="full" [disabled]="disableApplyForRideButton" (click)="applyForRide()">Apply for Ride</ion-button>
         </div>
       </div>
     </ion-card-content>
