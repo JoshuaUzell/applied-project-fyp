@@ -69,7 +69,28 @@
               </ion-select-option>
             </ion-select>
           </ion-item>
-        </ion-list>
+        </ion-list> 
+
+        <!--List of Rides-->
+        <ion-item>
+          <ion-label position="floating">Number of Seats</ion-label>
+          <ion-input type="number" [disabled]="disableInputButton" [(ngModel)]="numberOfSeats" min="2" max="7" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Direction</ion-label>
+          <ion-input [disabled]="disableInputButton" [(ngModel)]="direction"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">LocationAtCollege</ion-label>
+          <ion-input [disabled]="disableInputButton" [(ngModel)]="locationAtCollege"></ion-input>
+        </ion-item>
+
+        <ion-item class="locationOutside">
+          <ion-label position="floating">Location Outside College</ion-label>
+          <ion-input [disabled]="disableInputButton" [(ngModel)]="locationOutsideOfCollege"></ion-input>
+        </ion-item>
 
         <!--Container for bottom buttons -->
         <div class="button-container">

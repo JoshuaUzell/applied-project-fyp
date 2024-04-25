@@ -44,6 +44,12 @@ export class BookingPage implements OnInit {
   driver_vehicleMake: string = '';
   driver_vehicleModel: string = '';
 
+  //Ride details from html form
+  numberOfSeats: number;
+  direction: string;
+  locationAtCollege: string;
+  locationOutsideOfCollege: string;
+
   disableInputButton: boolean = true;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface) { }
@@ -84,6 +90,10 @@ export class BookingPage implements OnInit {
     this.courseDepartment = this.bookedRide.courseDepartment;
     this.personalTraits = this.bookedRide.personalTraits;
     this.personalHobbies = this.bookedRide.personalHobbies;
+    this.numberOfSeats = this.bookedRide.numberOfSeats;
+    this.direction = this.bookedRide.direction;
+    this.locationAtCollege = this.bookedRide.locationAtCollege;
+    this.locationOutsideOfCollege = this.bookedRide.locationOutsideOfCollege;
   }
 
   retrieveOptionsToChooseFrom() {
