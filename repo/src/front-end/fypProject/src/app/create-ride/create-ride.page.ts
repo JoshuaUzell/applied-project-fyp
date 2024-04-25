@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   templateUrl: './create-ride.page.html',
   styleUrls: ['./create-ride.page.scss'],
 })
-export class CreateRidePage implements OnInit{
-  
+export class CreateRidePage implements OnInit {
+
   //Boolean
   makeCreateRideButtonVisible: boolean = true;
   makeCancelRideButtonVisible: boolean = false;
@@ -33,7 +33,7 @@ export class CreateRidePage implements OnInit{
   //Options for directions and meetup locations
   directions: string[] = ['To Campus', 'From Campus'];
   locationsAtCollege: string[] = ['Front Entrance', 'Nothern Entrance', 'Southern Entrance', 'West Entrance'];  // Example locations
-  locationsOutsideOfCollege: string; 
+  locationsOutsideOfCollege: string;
 
   currentRide: any;
 
@@ -43,18 +43,18 @@ export class CreateRidePage implements OnInit{
 
     //Refresh data
     this.databaseInterface.refreshData();
-    
+
     this.currentDriver = this.databaseInterface.getCurrentDriver();
 
     //Retrieve the currentRide
     this.currentRide = this.databaseInterface.getCurrentRide();
-    
+
     //Load boolean values
     //this.loadBooleanValuesFromDatabase();
 
 
     //Assign the currentRide details to the fields
-    if(this.currentRide){
+    if (this.currentRide) {
       this.assignCurrentRideValuesToFormFields();
     }
 
@@ -63,18 +63,38 @@ export class CreateRidePage implements OnInit{
 
   constructor(private alertController: AlertController, @Inject(DATABASE_SERVICE_TOKEN) private databaseInterface: IDatabaseInterface, private router: Router) { }
 
-  // loadBooleanValuesFromDatabase() {
-  //   const booleanSettings = this.databaseInterface.getBooleanLogicForCreateRideButtons();
-  //   this.makeCreateRideButtonVisible = booleanSettings.createRideBool;
-  //   this.makeCancelRideButtonVisible = booleanSettings.cancelRideBool;
-  //   this.makeRideStatusVisible = booleanSettings.statusBool;
-  //   this.hasActiveStatus = booleanSettings.activeStatusBool;
-  //   this.makeLookingForRiderProgressVisible = booleanSettings.progressBool;
-  //   this.disableInputButton = booleanSettings.disableInputButtonBool;
-  // }
+  async simulateRiderFound() {
+    // Simulate waiting for 5 seconds to find a rider
+    setTimeout(async () => {
+      const alert = await this.alertController.create({
+        header: 'Rider Found!',
+        message: 'A rider has applied for your ride. Do you want to accept the ride request?',
+        buttons: [
+          {
+            text: 'Reject',
+            role: 'cancel',
+            handler: () => {
+              console.log('Ride request rejected');
+              // Optionally reset any ride-related states
+            }
+          },
+          {
+            text: 'Accept',
+            handler: () => {
+              console.log('Ride request accepted');
+              this.hasActiveStatus = true; // Ride becomes active
+              this.makeLookingForRiderProgressVisible = false; // Stop showing the progress
+              // Update any relevant states or storage
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }, 5000);
+  }
 
   setBooleanValuesInDatabase(makeCreateRideButtonVisible: boolean, makeCancelRideButtonVisible: boolean, makeRideStatusVisible: boolean, hasActiveStatus: boolean,
-     makeLookingForRiderProgressVisible: boolean, disableInputButton: boolean) {
+    makeLookingForRiderProgressVisible: boolean, disableInputButton: boolean) {
     this.makeCreateRideButtonVisible = makeCreateRideButtonVisible;
     this.makeCancelRideButtonVisible = makeCancelRideButtonVisible;
     this.makeRideStatusVisible = makeRideStatusVisible;
@@ -84,7 +104,7 @@ export class CreateRidePage implements OnInit{
     //this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible, this.disableInputButton);
   }
 
-  assignFormFieldsToBeEmpty(){
+  assignFormFieldsToBeEmpty() {
     this.numberOfSeats = 0;
     this.direction = '';
     this.locationAtCollege = '';
@@ -110,6 +130,7 @@ export class CreateRidePage implements OnInit{
             this.setBooleanValuesInDatabase(false, true, true, false, true, true);
             this.assignRideFieldsToCurrentRide();
             this.databaseInterface.addRide(this.ride);
+            this.simulateRiderFound();
             this.printListOfRidesToConsole();
           }
         }
@@ -118,17 +139,17 @@ export class CreateRidePage implements OnInit{
     await alert.present();
   }
 
-  printListOfRidesToConsole(){
+  printListOfRidesToConsole() {
     console.log('List of Rides from college:')
     console.log(this.databaseInterface.retrieveListOfRidesFromCollege());
     console.log('List of Rides to college:')
     console.log(this.databaseInterface.retrieveListOfRidesToCollege());
   }
 
-  async confirmCancelRide() {
+  async confirmCompletingRide() {
     const alert = await this.alertController.create({
-      header: 'Confirm Cancellation',
-      message: 'Are you sure you want to cancel this ride?',
+      header: 'Confirm Completion of Ride',
+      message: 'Are you sure you want to complete this ride?',
       buttons: [
         {
           text: 'No',
@@ -145,7 +166,7 @@ export class CreateRidePage implements OnInit{
     await alert.present();
   }
 
-  
+
   async cancelRide() {
     this.setBooleanValuesInDatabase(true, false, false, false, false, false);
     this.databaseInterface.cancelRide(this.rideEmail, this.direction);
@@ -173,7 +194,7 @@ export class CreateRidePage implements OnInit{
     await alert.present();
   }
 
-  assignCurrentRideValuesToFormFields(){
+  assignCurrentRideValuesToFormFields() {
     this.rideEmail = this.currentRide.rideEmail;
     this.numberOfSeats = this.currentRide.numberOfSeats;
     this.direction = this.currentRide.direction;
@@ -189,7 +210,7 @@ export class CreateRidePage implements OnInit{
 
   assignRideFieldsToCurrentRide() {
     this.ride = {
-      driverName:  this.currentDriver.name || '',
+      driverName: this.currentDriver.name || '',
       rideEmail: this.databaseInterface.getCurrentUserEmail() as string ?? '',
       status: 'active',
       numberOfSeats: this.numberOfSeats,
@@ -211,8 +232,8 @@ export class CreateRidePage implements OnInit{
     alert('Ride created successfully');
   }
 
-  showRideDetailsIfPresent(){
-    if(this.rideEmail){
+  showRideDetailsIfPresent() {
+    if (this.rideEmail) {
       this.numberOfSeats = this.ride.numberOfSeats;
       this.locationAtCollege = this.ride.locationAtCollege;
       this.locationOutsideOfCollege = this.ride.locationOutsideOfCollege;
