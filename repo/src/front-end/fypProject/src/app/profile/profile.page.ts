@@ -61,18 +61,19 @@ export class ProfilePage implements OnInit {
     console.log('Current User: ', this.currentUser);
   } 
 
-  onImageSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        if (e.target) {
-          this.currentUserImage = e.target.result;
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+  //This code was originally used to display the image of the user, but it was not used in the final version of the app
+  // onImageSelected(event: Event): void {
+  //   const file = (event.target as HTMLInputElement).files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = e => {
+  //       if (e.target) {
+  //         this.currentUserImage = e.target.result;
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
   
   assignCurrentUserValuesToFormFields(){
     //Assign the current user values to the form fields

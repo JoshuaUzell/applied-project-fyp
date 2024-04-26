@@ -46,19 +46,20 @@ export class UserDetailsPage implements OnInit {
     this.personalTraitsOptions = this.databaseInterface.getPersonalTraitsOptions();
     this.hobbiesOptions = this.databaseInterface.getHobbiesOptions();
   }
-
-  onImageSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        if (e.target) {
-          this.imagePreview = e.target.result;
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+  
+  //This code was originally used to display the image of the user, but it was not used in the final version of the app
+  // onImageSelected(event: Event): void {
+  //   const file = (event.target as HTMLInputElement).files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = e => {
+  //       if (e.target) {
+  //         this.imagePreview = e.target.result;
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
 
   retrieveRegistrationDetailsFromSessionStorage() {
     //Retrieve the registration details from session storage

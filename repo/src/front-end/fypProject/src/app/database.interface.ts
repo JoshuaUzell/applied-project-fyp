@@ -1,4 +1,4 @@
-//Interface for UserInfo data which will be formatted as JSON
+//Interface for UserInfo data 
 export interface IUserInfo {
     id: string;
     email: string;
@@ -11,7 +11,7 @@ export interface IUserInfo {
     personalHobbies: string[]; 
   } 
 
-  //Interface for DriverDetails data which will be formatted as JSON
+  //Interface for DriverDetails data 
   export interface IDriverDetails {
     name: string;
     id: string;
@@ -69,6 +69,7 @@ export interface IUserInfo {
     setCurrentUserEmail(email: string): void;
     getCurrentUser(): IUserInfo | undefined;
     updateCurrentUserDetails(updatedDetails: Partial<IUserInfo>): void;
+    
     generateUniqueID(): string;
     isLicenseNumberValid(licenseNumber: string): boolean;
     validateDatesAreNotEqual(issueDate: string, expiryDate: string): boolean;
@@ -88,6 +89,6 @@ export interface IUserInfo {
     getCurrentUserEmail(): string | null;
     setBooleanLogicForCreateRideButtons(createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean): void;
     getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean};
-    getBookedRide(rideEmail: string): IRide | undefined
+    getBookedRide(rideEmail: string): IRide | undefined;
   }
   

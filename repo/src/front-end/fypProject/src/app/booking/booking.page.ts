@@ -71,6 +71,7 @@ export class BookingPage implements OnInit {
     this.assignCurrentBookedRideValuesToFormFields();
   }
 
+  //This code was originally used to display the image of the user, but it was not used in the final version of the app
   // onImageSelected(event: Event): void {
   //   const file = (event.target as HTMLInputElement).files?.[0];
   //   if (file) {
@@ -187,7 +188,6 @@ export class BookingPage implements OnInit {
                         this.makeLookingForRiderProgressVisible = false;
                         this.hasBeenAcceptedForRide = true;
                         console.log('Ride accepted');
-                        // Handle additional logic if needed
                     }
                 }]
             });
@@ -203,14 +203,13 @@ export class BookingPage implements OnInit {
                         this.makeLookingForRiderProgressVisible = false;
                         this.hasBeenAcceptedForRide = false;
                         console.log('Ride rejected');
-                        // Optionally navigate back to the home page
                         this.router.navigate(['/home']);
                     }
                 }]
             });
             await alert.present();
         }
-    }, 5000); // 5 seconds delay
+    }, 5000); //Adds a 5 seconds delay
 }
 
 }//End of class

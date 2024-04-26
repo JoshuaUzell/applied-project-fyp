@@ -73,7 +73,6 @@ export class CreateRidePage implements OnInit {
             role: 'cancel',
             handler: () => {
               console.log('Ride request rejected');
-              // Optionally reset any ride-related states
             }
           },
           {
@@ -82,7 +81,6 @@ export class CreateRidePage implements OnInit {
               console.log('Ride request accepted');
               this.hasActiveStatus = true; // Ride becomes active
               this.makeLookingForRiderProgressVisible = false; // Stop showing the progress
-              // Update any relevant states or storage
             }
           }
         ]
@@ -99,7 +97,6 @@ export class CreateRidePage implements OnInit {
     this.hasActiveStatus = hasActiveStatus;
     this.makeLookingForRiderProgressVisible = makeLookingForRiderProgressVisible;
     this.disableInputButton = disableInputButton;
-    //this.databaseInterface.setBooleanLogicForCreateRideButtons(this.makeCreateRideButtonVisible, this.makeCancelRideButtonVisible, this.makeRideStatusVisible, this.hasActiveStatus, this.makeLookingForRiderProgressVisible, this.disableInputButton);
   }
 
   assignFormFieldsToBeEmpty() {

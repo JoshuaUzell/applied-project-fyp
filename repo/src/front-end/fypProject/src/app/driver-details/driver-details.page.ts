@@ -34,8 +34,6 @@ export class DriverDetailsPage implements OnInit {
     this.currentUser = this.databaseInterface.getCurrentUser();
     this.currentDriver = this.databaseInterface.getCurrentDriver();
 
-    //console.log("Here is the current driver: " + this.currentDriver);
-
     this.unapplyVisible = false;
 
     if(this.currentDriver){
@@ -90,7 +88,7 @@ export class DriverDetailsPage implements OnInit {
       //Apply for Driver here
       this.saveDriverDetails();
 
-      alert("Applied for Driver!"); // Display an alert with driver details
+      alert("Applied for Driver!"); 
 
       this.router.navigate(['/profile']);
     } else {
@@ -144,7 +142,6 @@ export class DriverDetailsPage implements OnInit {
         this.databaseInterface.updateCurrentDriverDetails(updatedDriverDetails);
       }else{
         console.log('No attributes are null. Driver will get added to the database.');
-        //Register driver to the database
         this.databaseInterface.addDriverDetails(updatedDriverDetails);
       }
 

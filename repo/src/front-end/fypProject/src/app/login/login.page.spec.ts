@@ -49,7 +49,7 @@ describe('LoginPage Failure Scenario', () => {
       password: 'hashedCorrectPassword', // Placeholder hashed password
       name: 'John Doe', // Example name
       dob: '1990-01-01', // Example date of birth in string format
-      gender: ['male'], // Example gender array, adjust as needed
+      gender: 'Male', // Example gender array, adjust as needed
       courseDepartment: 'Computer Science', // Example department
       personalTraits: ['organized', 'punctual'], // Example traits
       personalHobbies: ['reading', 'coding'], // Example hobbies

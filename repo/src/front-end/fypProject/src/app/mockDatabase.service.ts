@@ -8,7 +8,7 @@ export const DATABASE_SERVICE_TOKEN = new InjectionToken<IDatabaseInterface>('DA
 
 
 @Injectable({
-    providedIn: 'root' // A singleton instance of this class is created and injected
+    providedIn: 'root' 
 })
 
 export class MockDatabaseService implements IDatabaseInterface {
@@ -26,6 +26,7 @@ export class MockDatabaseService implements IDatabaseInterface {
         this.generateSampleRides();
     }
 
+    //Load any neccessary data from local storage
     private loadFromStorage(): void {
         const storedUsers = localStorage.getItem('users');
         const storedDrivers = localStorage.getItem('drivers');
@@ -37,6 +38,7 @@ export class MockDatabaseService implements IDatabaseInterface {
         this.ridesFromCollege = storedRidesFromCollege ? JSON.parse(storedRidesFromCollege) : [];
     }
 
+    //Save any important data to local storage
     private saveToStorage(): void {
         localStorage.setItem('users', JSON.stringify(this.users));
         localStorage.setItem('drivers', JSON.stringify(this.drivers));
@@ -152,13 +154,10 @@ export class MockDatabaseService implements IDatabaseInterface {
         }
         const userIndex = this.users.findIndex(user => user.email === this.currentUserEmail);
         if (userIndex !== -1) {
-            // Assuming you want to fully replace personalTraits and personalHobbies arrays
-            // and update other fields directly
             const currentUser = this.users[userIndex];
             this.users[userIndex] = {
                 ...currentUser,
                 ...updatedDetails,
-                // Directly replace arrays. If you wanted to merge them instead, additional logic would be needed
                 personalTraits: updatedDetails.personalTraits ? [...updatedDetails.personalTraits] : currentUser.personalTraits,
                 personalHobbies: updatedDetails.personalHobbies ? [...updatedDetails.personalHobbies] : currentUser.personalHobbies
             };
@@ -208,9 +207,9 @@ export class MockDatabaseService implements IDatabaseInterface {
 
         if (expiry <= issue) {
             console.error('The expiry date cannot be before the issue date.');
-            return false; // Validation failed
+            return false; 
         }
-        return true; // Validation passed
+        return true; 
     }
 
     getCurrentDriver(): IDriverDetails | undefined {
@@ -222,7 +221,7 @@ export class MockDatabaseService implements IDatabaseInterface {
     }
 
     removeCurrentDriver(): void {
-        //Check that's done as an edge case
+        //An check that's done in case there is no current user email set
         if (!this.currentUserEmail) {
             console.error("No current driver email is set. Unable to remove driver.");
             return;
@@ -259,8 +258,6 @@ export class MockDatabaseService implements IDatabaseInterface {
             console.error("Current driver not found. Unable to update driver details.");
         }
     }
-
-    //Ride methods///
 
     addRide(ride: IRide): void {
         if (ride.direction === 'To Campus') {
@@ -348,12 +345,12 @@ export class MockDatabaseService implements IDatabaseInterface {
 
     getBooleanLogicForCreateRideButtons(): {createRideBool: boolean, cancelRideBool: boolean, statusBool: boolean, activeStatusBool: boolean, progressBool: boolean, disableInputButtonBool: boolean} {
         // Retrieve the string values from localStorage and convert them back to boolean using JSON.parse
-        const createRideBool = JSON.parse(localStorage.getItem('createRideBool') || 'true'); // Default to true if null
-        const cancelRideBool = JSON.parse(localStorage.getItem('cancelRideBool') || 'false'); // Default to false if null
-        const statusBool = JSON.parse(localStorage.getItem('statusBool') || 'false'); // Default to false if null
-        const activeStatusBool = JSON.parse(localStorage.getItem('activeStatusBool') || 'false'); // Default to false if null
-        const progressBool = JSON.parse(localStorage.getItem('progressBool') || 'false'); // Default to false if null
-        const disableInputButtonBool = JSON.parse(localStorage.getItem('disableInputButtonBool') || 'false'); // Default to false if null
+        const createRideBool = JSON.parse(localStorage.getItem('createRideBool') || 'true'); 
+        const cancelRideBool = JSON.parse(localStorage.getItem('cancelRideBool') || 'false'); 
+        const statusBool = JSON.parse(localStorage.getItem('statusBool') || 'false'); 
+        const activeStatusBool = JSON.parse(localStorage.getItem('activeStatusBool') || 'false'); 
+        const progressBool = JSON.parse(localStorage.getItem('progressBool') || 'false'); 
+        const disableInputButtonBool = JSON.parse(localStorage.getItem('disableInputButtonBool') || 'false'); 
         return { createRideBool, cancelRideBool, statusBool, activeStatusBool, progressBool, disableInputButtonBool};
     }    
 
@@ -562,6 +559,4 @@ export class MockDatabaseService implements IDatabaseInterface {
         this.saveToStorage();
     }
     
-    
-
 }//End of class
