@@ -18,6 +18,8 @@ A carpooling app designed for students that facilitates rides to and from colleg
 5. User can check out details on the driver such as their name, personality traits and etc.
 6. Users can "request" to take this ride.
 
+In the repo, all the neccessary source code for the project is contained in the directory 'repo/src/front-end/fypProject'.
+
 ## Install Software
 ### Vs Code
 Go to the Visual Studio Code Site. Then click 'Download for Windows' or click on the drop down to select another Operating System. Once the file is downloaded, go through the installation steps and the Visual Studio Code will be ready to go.
