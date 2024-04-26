@@ -10,6 +10,13 @@ Final year project for our software development course.
 **Brief Description:**
 A carpooling app designed for students that facilitates rides to and from college. Users can either offer rides to other students or take a ride that's being offered. The goal for this project is to create an app that offers a convenient alternative to transportation, whilst also allowing people to meet other students on campus that they wouldn't have met before elsewhere.
 
+## Key Features
+1. Login + Registration to application.
+2. User can register as driver with valid driver credentials.
+3. Drivers can create a ride to a location.
+4. User get a list of rides either coming from or going to college.
+5. User can check out details on the driver such as their name, personality traits and etc.
+6. Users can "request" to take this ride.
 
 ## Install Software
 ### Vs Code
